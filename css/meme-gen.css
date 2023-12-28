@@ -84,7 +84,7 @@ body {
     display: flex;
     justify-content: center;
     text-align: center;
-    padding: 50px 0 25px 0;
+    padding: 50px 5px 25px 5px;
     margin: 25px 0 25px 0;
 }
 
@@ -104,10 +104,9 @@ body {
 }
 }
 
-@media screen and (min-width:977px and max-width: 2561px) {
+@media screen and (min-width:977px) and (max-width: 2561px) {
     .meme-generator img {
-        width: 45%;
-        height: fit-content;
+        width: 25%;
 }
 .meme-h1-title {
     display: flex;
@@ -118,4 +117,13 @@ body {
     align-items: center;
     text-align: center;
 }
+.meme-page-content h2 {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    font-size: 1.5rem;
+    padding: 50px 5px 25px 5px;
+    margin: 25px 0 25px 0;
+}
+
 }
