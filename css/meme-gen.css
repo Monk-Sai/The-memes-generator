@@ -196,3 +196,14 @@ body {
     justify-items: center;
     align-items: center;
 }
+
+@media screen and (min-width:321px) and (max-width:769px) {
+    .meme-category-bar {
+        display: none;   
+    } 
+    
+    .memes-page-holder {
+        display: flex;
+        width: -webkit-fill-available;
+    }
+}
