@@ -15,10 +15,11 @@ const generateMeme = ( ) => {
     fetch("https://meme-api.com/gimme/wholesomememes")
         .then((response) => response.json())
         .then((data) => {
+            /* for (let i = 0; i < data.length; i++) {
+                updateDetails(i, data[i].url, data[i].title, data[i].author);
+            } */
             updateDetails(data.url, data.title, data.author);
         });
 };
-
-generateMemeBtn.addEventListener("click", generateMeme);
 
 generateMeme();
