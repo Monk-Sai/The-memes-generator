@@ -1,25 +1,23 @@
-const generateMemeBtn = document.querySelector(".meme-generator .generate-meme-btn");
+const memeBlocks = document.querySelectorAll(".individual-meme-block");
 
-const memeImage = document.querySelector(".meme-generator img");
-const memeTitle = document.querySelector(".meme-generator .meme-title");
-const memeAuthor = document.querySelector("meme-generator .meme-author")
+const updateDetails = (memeBlock, url, title, author) => {
+    const memeImage = memeBlock.querySelector("img");
+    const memeTitle = memeBlock.querySelector(".meme-title");
+    const memeAuthor = memeBlock.querySelector(".meme-author");
 
-const updateDetails = (url, title, author ) => {
-        memeImage.setAttribute("src", url);
-        memeTitle.innerHTML = title;
-        memeAuthor.innerHTML = `Meme by: ${author}`  ;
+    memeImage.setAttribute("src", url);
+    memeTitle.innerHTML = title;
+    memeAuthor.innerHTML = `Meme by: ${author}`;
 };
 
-
-const generateMeme = ( ) => {
+const generateMeme = (memeBlock) => {
     fetch("https://meme-api.com/gimme/wholesomememes")
         .then((response) => response.json())
         .then((data) => {
-            /* for (let i = 0; i < data.length; i++) {
-                updateDetails(i, data[i].url, data[i].title, data[i].author);
-            } */
-            updateDetails(data.url, data.title, data.author);
+            updateDetails(memeBlock, data.url, data.title, data.author);
         });
 };
 
-generateMeme();
+memeBlocks.forEach((block) => {
+    generateMeme(block);
+});
