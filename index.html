@@ -4,14 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Meme Generator</title>
+    <link rel="favicon" href="imgs/TMG.png">
     <link rel="stylesheet" href="css\meme-gen.css">
-    <link rel="icon" href="imgs\Meme.er.png">
+    <link rel="icon" href="imgs\TMG.png">
+    <link rel="canonical" href="https://thememesgenerator.com">
 </head>
 <body>
     <header>
         <div class="main-header">
             <div class="header-logo">
-            <p><span>TheMemesGenerator</span></p>
+            <a href="https://thememesgenerator.com/">
+            <img src="imgs/TMG.png">
+            </a>
             </div>
         <div class="header-links">
             <p><a href="index.html">Generators</a></p>
@@ -19,23 +23,34 @@
     </div>
     </header>
 
-    <main>
+<main>
 
     <section class="meme-h1-title">
-        <h1>Memes Generator</h1>
+        <h1>The Memes Generator</h1>
         <div class="alternate-title-banner">
         <h2>Best Meme Generator on the Internet! Try And Download the Best Memes</h2>
         </div>
     </section>
 
+<div class="category-dropdown-mobile-main">
+    <select class="category-dropdown-mobile" id="category-dropdown-mobile">
+        <option value="random-memes">Random Memes</option>
+        <option value="cat-memes">Cat Memes</option>
+        <option value="office-memes">Office Memes</option>
+        <option value="movie-memes">Movie Memes</option>
+        <option value="sports-memes">Sports Memes</option>
+    </select>
+</div>
+
 <section class="meme-and-category-container">
     <aside class="meme-category-bar">
-        <p>Random memes</p>
-        <p>Cat memes</p>
-        <p>Office memes</p>
-        <p>Movie memes</p>
-        <p>Sports memes</p>
+        <p id="random-memes">Random memes</p>
+        <p id="cat-memes">Cat memes</p>
+        <p id="office-memes">Office memes</p>
+        <p id="movie-memes">Movie memes</p>
+        <p id="sports-memes">Sports memes</p>
     </aside>
+
     
     <section class="memes-page-holder">
         <section class="main-meme-block">
