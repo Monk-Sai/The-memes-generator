@@ -9,6 +9,10 @@ header {
     justify-content: center;
 }
 
+footer {
+    display: flex;
+}
+
 .main-header {
     display: flex;
     height: 75px;
@@ -107,15 +111,20 @@ header img {
     margin: 8px;
 }
 .meme-page-content {
-    height: 250px;
+    height: 100%;
+    margin: 45px 0;
 }
 
 .meme-page-content h2 {
     display: flex;
     justify-content: center;
     text-align: center;
-    padding: 50px 5px 25px 5px;
-    margin: 25px 0 25px 0;
+    padding: 20px 5px 20px 5px;
+}
+.meme-page-content p {
+    display: flex;
+    justify-content: center;
+    padding: 0 20%;
 }
 
 .alternate-title-banner {
@@ -182,6 +191,9 @@ header img {
     cursor: pointer;
 }
 
+.mobile-screen-header {
+    display: none;
+}
 
 .main-meme-block {
     display: flex;
@@ -236,6 +248,34 @@ header img {
     border-radius: 15px;
     align-items: center;
     cursor: pointer;
+}
+
+.footer-body {
+    height: 200px;
+    width: 100%;
+    display: flex;
+    background: #000000;
+}
+.footer-col-1 {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    padding: 10%;
+}
+.footer-col-1 img {
+    filter: drop-shadow(3px 3px 1px #024aff);
+}
+.footer-col-2 {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 10%;
+}
+.footer-col-2 a {
+    text-decoration: none;
+    color: #ffffff;
+    font-weight: 500;
+    font-size: 18px;
 }
 
 
@@ -303,6 +343,36 @@ header img {
         background-repeat: no-repeat;
         background-size: 12px 12px;
         box-shadow: 3px 3px 1px #000;
+        cursor: pointer;
+    }
+    .meme-page-content h2 {
+        display: flex;
+        justify-content: center;
+        text-align: center;
+        padding: 50px 5px 20px 5px;
+        margin: 25px 0 0 0;
+    }
+    .meme-page-content p {
+        display: flex;
+        justify-content: center;
+        padding: 0 10%;
+    }
+    .header-links {
+        display: none;
+    }
+    .mobile-screen-header {
+        display: flex;
+        flex-direction: row-reverse;
+    }
+    .header-dropdown-mobile {
+        width: 50%;
+        display: ;
+        text-align: center;
+        padding: 10px;
+        border-radius: 25px;
+        background-color: #ffa555;
+        font-size: 16px;
+        -webkit-appearance: none;
         cursor: pointer;
     }
 }
