@@ -35,7 +35,7 @@ header img {
 .meme-h1-title {
     display: flex;
     text-align: center;
-    background: #BBC2FF;
+    background: #68b3ec;
     height: 425px;
     padding: 0 5px 0 5px;
     font-size: 2rem;
@@ -43,7 +43,7 @@ header img {
     align-items: center;
 }
 .meme-h1-title h1 {
-    color: #FFF;
+    color: #ffe928;
     text-align: center;
     text-shadow: 4px 3px 1px rgba(0, 0, 0, 0.82);
     font-family: Inter;
@@ -138,7 +138,7 @@ header img {
     justify-content: center;
     align-items: center;
     border-radius: 10px;
-    background: #FFFEE8;
+    background: #fffaa0;
     box-shadow: 5px 6px 15px 5px rgba(0, 0, 0, 0.25);
 }
 .alternate-title-banner h2 {
@@ -365,7 +365,7 @@ header img {
         flex-direction: row-reverse;
     }
     .header-dropdown-mobile {
-        width: 45%;
+        width: 100%;
         display: flex;
         text-align: center;
         padding: 10px;
@@ -377,7 +377,7 @@ header img {
     }
 }
 
-@media screen and (min-width: 1000px) and (max-width:1200px){
+@media screen and (min-width: 1000px) and (max-width:1200px) {
     .main-header {
         width: 80%;
     }
