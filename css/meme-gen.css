@@ -365,12 +365,12 @@ header img {
         flex-direction: row-reverse;
     }
     .header-dropdown-mobile {
-        width: 50%;
-        display: ;
+        width: 45%;
+        display: flex;
         text-align: center;
         padding: 10px;
         border-radius: 25px;
-        background-color: #ffa555;
+        background-color: #ffaf3f;
         font-size: 16px;
         -webkit-appearance: none;
         cursor: pointer;
