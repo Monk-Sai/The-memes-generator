@@ -1,0 +1,80 @@
+<!Doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Your Own Memes | Memes Creator</title>
+    <meta name="description" content="Create Your Own Memes Easily and Swiftly. The Best Custom Memes Generator">
+    <link rel="favicon" href="imgs/TMG.png">
+    <link rel="stylesheet" href="css\meme-gen.css">
+    <link rel="stylesheet" href="css\meme-creator.css">
+    <meta name="author" content="Memes Creator">
+    <link rel="icon" href="imgs\TMG.png">
+    <link rel="canonical" href="https://thememesgenerator.com/memes-creator">
+</head>
+
+<body>
+    <header>
+        <div class="main-header">
+            <div class="header-logo">
+            <a href="https://thememesgenerator.com/">
+            <img src="imgs/TMG.png">
+            </a>
+            </div>
+        <div class="header-links">
+            <p><a href="index.html">Generators</a></p>
+        </div>
+        
+        <div class="mobile-screen-header">
+            <select class="header-dropdown-mobile">
+                <option value="Menu">Menu</option>
+                <option value="Generator">Generator</option>
+                <option value="Creator">Creator</option>
+            </select>
+        </div>
+    </div>
+    </header>
+
+<main>
+    <section class="meme-h1-title">
+        <h1>Create Customized Memes</h1>
+    </section>
+<section class="meme-editor-box">
+    <div class="meme-creator-container">
+        <p>
+            <input type="file" id="image-input" accept="image/*" style="font-size: 18px;">
+        </p>
+        <p>
+            <textarea id="top-text"></textarea>
+            Text size: <input type="range" id="top-text-size-input" min="0.05" max="0.25" value="0.15" step="0.01">
+        </p>
+        <p>
+            <textarea id="bottom-text"></textarea>
+            Text size: <input type="range" id="bottom-text-size-input" min="0.05" max="0.25" value="0.15" step="0.01">
+        </p>
+        <div class="all-gen-btn">
+        <p>
+            <button id="generate-btn">Generate!</button>
+        </p>
+        </div>
+        <p>
+            <canvas id="meme-canvas"></canvas>
+        </p>
+    </div>
+</section>
+</main>
+<script src="js/meme-creator.js"></script>
+
+<footer>
+    <div class="footer-body">
+        <div class="footer-col-1">
+            <img src="imgs/TMG.png" height="100px">
+        </div>
+        <div class="footer-col-2">
+            <a href="https://thememesgenerator.com"><p>Best Meme Generator and Search</p></a>
+        </div>
+    </div>
+</footer>
+</body>
+
+</html>
