@@ -17,6 +17,94 @@ header {
     position: absolute;
     width: 85%;
     margin: 30px 0 0 0;
+    padding: 0 20px 0 20px;
+    align-items: center;
+    flex-direction: row;
+    justify-content: space-between;
+    border-radius: 45px;
+    border: 1px solid #000;
+}
+header img {
+    width: 70px;
+    filter: drop-shadow(2px 1px 1px #000);
+}
+nav {
+    background-color: aliceblue;
+    box-shadow: 3px 3px 5px #000;
+}
+nav ul {
+    width: 100%;
+    list-style: none;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+nav li {
+    height: 50px;
+}
+nav a{
+    height: 100%;
+    text-decoration: none;
+    display: flex;
+    padding: 0 20px;
+    text-align: center;
+    align-items: center;
+    color: #000;
+}
+
+.sidebar {
+    position: fixed;
+    top: 0;
+    right: 0;
+    height: 100vh;
+    width: 250px;
+    z-index: 999;
+    background-color: rgba(206, 206, 206, 0.219);
+    backdrop-filter: blur(5px);
+    box-shadow: -1px 0 10px #000;
+    display: none;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    margin: 0;
+}
+.sidebar li {
+    width: 100%
+}
+.sidebar a{
+    width: 100%;
+    font-size: 1.25rem;
+    font-weight: 500;
+}
+.menu-button {
+    display: none;
+}
+
+@media(max-width:800px) {
+    .hideOnMobile{
+        display: none;
+    }
+    .menu-button{
+        display: block;
+    }
+}
+@media(max-width:400px) {
+    .sidebar{
+        width: 100%;
+    }
+}
+
+header {
+    display: flex;
+    justify-content: center;
+}
+.main-header {
+    display: flex;
+    height: 75px;
+    background: #FBFFCA;
+    position: absolute;
+    width: 85%;
+    margin: 30px 0 0 0;
     padding: 0 18px 0 18px;
     align-items: center;
     flex-direction: row;

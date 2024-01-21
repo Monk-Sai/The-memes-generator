@@ -1,3 +1,17 @@
+
+/* Header JS */
+function showSidebar(){
+    const sidebar = document.querySelector('.sidebar')
+    sidebar.style.display = 'flex'
+}
+function hideSidebar(){
+    const sidebar = document.querySelector('.sidebar')
+    sidebar.style.display = 'none'
+}
+
+
+/* Meme Creator */ 
+
 let topTextInput, bottomTextInput, topTextSizeInput, bottomTextSizeInput, imageInput, generateBtn, canvas, ctx;
 
 function generateMeme(img, topText, bottomText, topTextSize, bottomTextSize) {

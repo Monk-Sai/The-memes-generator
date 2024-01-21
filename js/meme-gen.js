@@ -1,3 +1,13 @@
+/* Header JS */
+function showSidebar(){
+    const sidebar = document.querySelector('.sidebar')
+    sidebar.style.display = 'flex'
+}
+function hideSidebar(){
+    const sidebar = document.querySelector('.sidebar')
+    sidebar.style.display = 'none'
+}
+
 const memeBlocks = document.querySelectorAll(".individual-meme-block");
 const loadMoreBtn = document.querySelector(".load-more-btn-frame #load-more-btn");
 

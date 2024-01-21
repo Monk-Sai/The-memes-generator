@@ -14,27 +14,29 @@
     <meta property="og:title" content="Generate Memes with AI and also Make your own Meme | The Memes Generator">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://thememesgenerator.com">
+    <script src="meme-gen.js"></script>
 </head>
 <body>
     <header>
-        <div class="main-header">
+        <nav class="main-header">
             <div class="header-logo">
             <a href="https://thememesgenerator.com/">
             <img src="imgs/TMG.png">
             </a>
             </div>
-        <div class="header-links">
-            <p><a href="index.html">Generators</a></p>
-        </div>
-        
-        <div class="mobile-screen-header">
-            <select class="header-dropdown-mobile">
-                <option value="select">Menu</option>
-                <option value="Memes-generator-wall">Generator</option>
-                <option value="Memes-generator-wall">Creator</option>
-            </select>
-        </div>
-    </div>
+            <ul class="sidebar">
+                <li class="menu-button" onclick=hideSidebar()><a href="#"><svg xmlns="http://www.w3.org/2000/svg" height="26px" viewBox="0 -960 960 960" width="26px"><path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/></svg></a>
+                <li><a href="https://thememesgenerator.com/">Home</a>
+                <li><a href="https://thememesgenerator.com/memes-creator">Creator</a>
+                <li><a href="https://thememesgenerator.com/">Generator</a>
+            </ul>
+            <ul>
+                <li class="hideOnMobile"><a href="https://thememesgenerator.com/">Home</a>
+                <li class="hideOnMobile"><a href="https://thememesgenerator.com/memes-creator">Creator</a>
+                <li class="hideOnMobile"><a href="https://thememesgenerator.com/">Generator</a>
+                <li class="menu-button" onclick=showSidebar()><a href="#"><svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24"><path d="M120-240v-80h720v80H120Zm0-200v-80h720v80H120Zm0-200v-80h720v80H120Z"/></svg></a>
+            </ul>
+        </nav>
     </header>
 
 <main>
