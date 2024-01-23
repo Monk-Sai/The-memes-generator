@@ -470,7 +470,7 @@ footer {
     }
 }
 
-@media screen and and (max-width:1200px) {
+@media screen and (max-width:1200px) {
     .main-header {
         width: 80%;
     }
