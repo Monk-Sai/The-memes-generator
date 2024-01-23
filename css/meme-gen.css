@@ -46,9 +46,11 @@ nav a{
     height: 100%;
     text-decoration: none;
     display: flex;
-    padding: 0 20px;
     text-align: center;
     align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    padding: 0 20px;
     color: #000;
 }
 
@@ -80,7 +82,7 @@ nav a{
     display: none;
 }
 
-@media(max-width:800px) {
+@media screen and (max-width:800px) {
     .hideOnMobile{
         display: none;
     }
@@ -88,7 +90,7 @@ nav a{
         display: block;
     }
 }
-@media(max-width:400px) {
+@media screen and (max-width:400px) {
     .sidebar{
         width: 100%;
     }
@@ -468,7 +470,7 @@ footer {
     }
 }
 
-@media screen and (min-width: 1000px) and (max-width:1200px) {
+@media screen and and (max-width:1200px) {
     .main-header {
         width: 80%;
     }
