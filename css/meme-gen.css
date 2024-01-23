@@ -507,9 +507,30 @@ footer {
     .meme-and-category-container {
         display: flex;
         flex-direction: column;
-        margin: 110px 5px 40px 5px;
+        margin: 90px 5px 40px 5px;
     }
     .memes-page-holder {
         padding: 0;
+    }
+    .category-dropdown-mobile-main {
+        display: flex;
+        margin: 130px 0 25px 0;
+        justify-content: center;
+        height: 45px;
+        width: 100%;
+    }
+    .category-dropdown-mobile {
+        width: 70%;
+        padding: 10px;
+        border-radius: 25px;
+        background-color: #ffa555;
+        font-size: 16px;
+        -webkit-appearance: none;
+        background-image: url(/imgs/arrow-down-sign-to-navigate.svg);
+        background-position: right 10px center;
+        background-repeat: no-repeat;
+        background-size: 12px 12px;
+        box-shadow: 3px 3px 1px #000;
+        cursor: pointer;
     }
 }
