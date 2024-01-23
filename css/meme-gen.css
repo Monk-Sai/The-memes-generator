@@ -61,7 +61,7 @@ nav a{
     height: 100vh;
     width: 250px;
     z-index: 999;
-    background-color: rgba(206, 206, 206, 0.219);
+    background-color: rgba(255, 247, 159, 0.75);
     backdrop-filter: blur(5px);
     box-shadow: -1px 0 10px #000;
     display: none;
@@ -76,7 +76,7 @@ nav a{
 }
 .sidebar a{
     font-size: 1.25rem;
-    font-weight: 500;
+    font-weight: 600;
 }
 .menu-button {
     display: none;
