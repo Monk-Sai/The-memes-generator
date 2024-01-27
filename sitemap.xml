@@ -4,4 +4,8 @@
   <loc>https://thememesgenerator.com</loc>
   <priority>1</priority>
 </url>
+<url>
+  <loc>https://thememesgenerator.com/memes-creator</loc>
+  <priority>1</priority>
+</url>
 </urlset>
