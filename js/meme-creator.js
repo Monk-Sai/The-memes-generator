@@ -49,7 +49,22 @@ function generateMeme(img, topText, bottomText, topTextSize, bottomTextSize) {
     bottomText.split('\n').reverse().forEach(function (t, i) {
         ctx.fillText(t, canvas.width / 2, canvas.height - i * fontSize, canvas.width);
         ctx.strokeText(t, canvas.width / 2, canvas.height - i * fontSize, canvas.width);
+    
+    // Show the download button
+    downloadBtn.style.display = 'flex';
+
+    // Add the download button event listener
+    downloadBtn.addEventListener('click', function () {
+        // Trigger the download
+        const dataURL = canvas.toDataURL('image/png');
+        const a = document.createElement('a');
+        a.href = dataURL;
+        a.download = 'meme.png';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
     });
+ });
 }
 
 function init() {
@@ -60,6 +75,7 @@ function init() {
     imageInput = document.getElementById('image-input');
     generateBtn = document.getElementById('generate-btn');
     canvas = document.getElementById('meme-canvas');
+    downloadBtn = document.getElementById('download-btn');
 
     ctx = canvas.getContext('2d');
 
@@ -74,6 +90,7 @@ function init() {
         };
         reader.readAsDataURL(imageInput.files[0]);
     });
+
 }
 
-init();
+init()

@@ -65,9 +65,10 @@ textarea {
 #download-btn {
     width: 50%;
     padding: 10px;
+    margin: 30px 30px 50px 30px;
     font-size: 16px;
     cursor: pointer;
-    display: flex;
+    display: none;
     justify-content: center;
     border-radius: 25px;
     box-shadow: 1px 4px 4px #000;
