@@ -144,8 +144,9 @@ footer {
     display: flex;
     flex-direction: column;
     text-align: center;
-    background: #68b3ec;
-    height: 425px;
+    background-image: url(../imgs/meme-gen-wall.jpg);
+    background-size: cover;
+    height: 100vh;
     padding: 0 5px 0 5px;
     font-size: 2rem;
     justify-content: center;
@@ -156,7 +157,7 @@ footer {
     text-align: center;
     text-shadow: 4px 3px 1px rgba(0, 0, 0, 0.82);
     font-family: Inter;
-    font-size: 2.5rem;
+    font-size: 3rem;
     font-style: normal;
     font-family: Arial, Helvetica, sans-serif;
     font-weight: 600;
@@ -228,25 +229,6 @@ footer {
 .meme-page-content a {
     display: inline;
     text-decoration: none;
-}
-
-.alternate-title-banner {
-    display: flex;
-    position: absolute;
-    width: 50%;
-    margin: 15px;
-    font-size: 1rem;
-    padding: 25px;
-    top: 350px;
-    justify-content: center;
-    align-items: center;
-    border-radius: 10px;
-    background: #fffaa0;
-    box-shadow: 5px 6px 15px 5px rgba(0, 0, 0, 0.25);
-}
-.alternate-title-banner h2 {
-    font-size: 1.125rem;
-    font-weight: 600;
 }
 
 /* meme block new */
@@ -430,7 +412,7 @@ footer {
     }
     .category-dropdown-mobile-main {
         display: flex;
-        margin: 130px 0 25px 0;
+        margin: 100px 0 25px 0;
         justify-content: center;
         height: 45px;
         width: 100%;
@@ -525,7 +507,7 @@ footer {
     }
     .category-dropdown-mobile-main {
         display: flex;
-        margin: 130px 0 25px 0;
+        margin: 100px 0 25px 0;
         justify-content: center;
         height: 45px;
         width: 100%;
