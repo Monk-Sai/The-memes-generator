@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <meta name="robots" content="noindex nofollow">
+    <style>
+        #meme-container {
+            position: relative;
+            width: 500px;
+            height: 300px;
+            border: 1px solid black;
+        }
+
+        #meme-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        #text-area {
+            position: absolute;
+            padding: 5px;
+            background-color: white;
+            border: 1px solid black;
+            cursor: move; /* Change cursor to indicate draggable */
+        }
+    </style>
+</head>
+<body>
+    <div id="meme-container">
+        <img id="meme-image" src="imgs/meme-gen-wall.jpg" alt="Meme Template">
+        <div id="text-area" contenteditable>Enter your text here</div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+<script>
+const textArea = document.getElementById('text-area');
+
+let isDragging = false;
+let initialX, initialY, initialWidth, initialHeight;
+
+// Event listener for text area mousedown (click and hold)
+textArea.addEventListener('mousedown', (event) => {
+  isDragging = true; // Set dragging flag to true
+  initialX = event.clientX;
+  initialY = event.clientY;
+  initialWidth = textArea.offsetWidth;
+  initialHeight = textArea.offsetHeight;
+  event.stopPropagation(); // Added line to stop event bubbling
+});
+
+// Event listener for document mousemove (while dragging)
+document.addEventListener('mousemove', (event) => {
+  if (isDragging) {
+    const deltaX = event.clientX - initialX;
+    const deltaY = event.clientY - initialY;
+
+    textArea.style.left = `${textArea.offsetLeft + deltaX}px`;
+    textArea.style.top = `${textArea.offsetTop + deltaY}px`;
+
+    initialX = event.clientX; // Update initial position for smooth dragging
+    initialY = event.clientY;
+  }
+});
+
+document.addEventListener('mousemove', (event) => {
+  if (isDragging) {
+    textArea.style.width = `${initialWidth + (event.clientX - initialX)}px`;
+    textArea.style.height = `${initialHeight + (event.clientY - initialY)}px`;
+  }
+});
+
+// Event listener for document mouseup (release click)
+document.addEventListener('mouseup', () => {
+  isDragging = false; // Reset dragging flag
+  initialX = null;
+  initialY = null;
+  initialWidth = null;
+  initialHeight = null;
+});
+
+textArea.addEventListener('dblclick', () => {
+  textArea.isContentEditable = true;
+});
+
+document.addEventListener('mouseup', () => {
+  initialX = null;
+  initialY = null;
+  initialWidth = null;
+  initialHeight = null;
+});
+</script>
+</html>

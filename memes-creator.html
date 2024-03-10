@@ -42,26 +42,36 @@
     </section>
 <section class="meme-editor-box">
     <div class="meme-creator-container">
-        <p>
-            <input type="file" id="image-input" accept="image/*" style="font-size: 18px;">
-        </p>
-        <p>
-            <textarea id="top-text"></textarea>
-            Text size: <input type="range" id="top-text-size-input" min="0.05" max="0.25" value="0.15" step="0.01">
-        </p>
-        <p>
-            <textarea id="bottom-text"></textarea>
-            Text size: <input type="range" id="bottom-text-size-input" min="0.05" max="0.25" value="0.15" step="0.01">
-        </p>
-        <div class="all-gen-btn">
-            <button id="generate-btn">Tap 2x to Generate!</button>
+        <div class="left-text-boxes">
+            <p>
+                <input type="file" id="image-input" accept="image/*" style="font-size: 18px;">
+            </p>
+            <p>
+                <textarea id="top-text"></textarea>
+                Text size: <input type="range" id="top-text-size-input" min="0.05" max="0.25" value="0.15" step="0.01">
+            </p>
+            <p>
+                <textarea id="bottom-text"></textarea>
+                Text size: <input type="range" id="bottom-text-size-input" min="0.05" max="0.25" value="0.15" step="0.01">
+            </p>
+            <div class="all-gen-btn">
+                <button id="generate-btn">Generate!</button>
+            </div>
         </div>
+
         <div class="canvas-img-load">
             <canvas id="meme-canvas"></canvas>
-        </div>
-        <div class="all-gen-btn">
             <button id="download-btn">Download</button>
         </div>
+
+        <div class="meme-template-box">
+            <img src="imgs/meme-imgs/drowning-hand-clap.jpeg">
+            <img src="imgs/meme-imgs/facts-book-by-edy.jpeg">
+            <img src="imgs/meme-imgs/look-at-my-work.jpeg">
+            <img src="imgs/meme-imgs/spiderman-saves-a-kid-bus.jpeg">
+            <img src="imgs/meme-imgs/uno-draw-25.jpeg">
+        </div>
+
     </div>
 </section>
 <article class="meme-page-content">
