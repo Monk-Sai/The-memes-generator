@@ -1,97 +1,131 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <meta name="robots" content="noindex nofollow">
-    <style>
-        #meme-container {
-            position: relative;
-            width: 500px;
-            height: 300px;
-            border: 1px solid black;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      margin: 0;
+      overflow: hidden;
+    }
 
-        #meme-image {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
+    canvas {
+      display: block;
+      border: 1px solid #ccc;
+    }
 
-        #text-area {
-            position: absolute;
-            padding: 5px;
-            background-color: white;
-            border: 1px solid black;
-            cursor: move; /* Change cursor to indicate draggable */
-        }
-    </style>
+    .textbox {
+      position: absolute;
+      border: 1px dashed #000;
+      resize: both;
+      overflow: hidden;
+      background: rgba(255, 255, 255, 0.8);
+      box-sizing: border-box; /* Include border and padding in width and height */
+      white-space: pre-wrap;
+    }
+
+    .resizer {
+      width: 10px;
+      height: 10px;
+      background-color: #fff;
+      border: 1px solid #000;
+      position: absolute;
+    }
+
+    .bottom-right {
+      right: 0;
+      bottom: 0;
+      cursor: se-resize;
+    }
+  </style>
 </head>
 <body>
-    <div id="meme-container">
-        <img id="meme-image" src="imgs/meme-gen-wall.jpg" alt="Meme Template">
-        <div id="text-area" contenteditable>Enter your text here</div>
-    </div>
+  <input type="file" id="imageInput" accept="image/*">
+  <canvas id="myCanvas"></canvas>
 
-    <script src="script.js"></script>
+  <div class="textbox" id="textbox" contenteditable="true">
+    <div class="resizer bottom-right" id="bottomRight"></div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const canvas = document.getElementById('myCanvas');
+      const ctx = canvas.getContext('2d');
+      const textbox = document.getElementById('textbox');
+      const resizer = document.getElementById('bottomRight');
+
+      let isResizing = false;
+      let startX, startY, startWidth, startHeight;
+
+      function drawImage(image) {
+        canvas.width = image.width;
+        canvas.height = image.height;
+        ctx.drawImage(image, 0, 0);
+      }
+
+      function drawTextbox(x, y, width, height) {
+        const canvasRect = canvas.getBoundingClientRect();
+
+        // Constrain textbox within canvas bounds
+        x = Math.max(Math.min(x, canvasRect.width - width), 0);
+        y = Math.max(Math.min(y, canvasRect.height - height), 0);
+
+        textbox.style.left = `${x}px`;
+        textbox.style.top = `${y}px`;
+        textbox.style.width = `${width}px`;
+        textbox.style.height = `${height}px`;
+      }
+
+      function handleMouseDown(e) {
+        isResizing = true;
+        startX = e.clientX;
+        startY = e.clientY;
+        startWidth = parseInt(document.defaultView.getComputedStyle(textbox).width, 10);
+        startHeight = parseInt(document.defaultView.getComputedStyle(textbox).height, 10);
+      }
+
+      function handleMouseUp() {
+        isResizing = false;
+      }
+
+      function handleMouseMove(e) {
+        if (!isResizing) return;
+
+        const newWidth = startWidth + (e.clientX - startX);
+        const newHeight = startHeight + (e.clientY - startY);
+
+        // Constrain resizing within canvas bounds
+        const maxWidth = canvas.getBoundingClientRect().width - textbox.offsetLeft;
+        const maxHeight = canvas.getBoundingClientRect().height - textbox.offsetTop;
+
+        const width = Math.min(Math.max(newWidth, 10), maxWidth);
+        const height = Math.min(Math.max(newHeight, 10), maxHeight);
+
+        drawTextbox(textbox.offsetLeft, textbox.offsetTop, width, height);
+      }
+
+      document.getElementById('imageInput').addEventListener('change', function (e) {
+        const file = e.target.files[0];
+
+        if (file) {
+          const reader = new FileReader();
+          reader.onload = function (readerEvent) {
+            const image = new Image();
+            image.onload = function () {
+              drawImage(image);
+              // Ensure the textbox is within the canvas bounds initially
+              drawTextbox(10, 10, 150, 100);
+            };
+            image.src = readerEvent.target.result;
+          };
+          reader.readAsDataURL(file);
+        }
+      });
+
+      resizer.addEventListener('mousedown', handleMouseDown);
+      document.addEventListener('mouseup', handleMouseUp);
+      document.addEventListener('mousemove', handleMouseMove);
+    });
+  </script>
 </body>
-
-<script>
-const textArea = document.getElementById('text-area');
-
-let isDragging = false;
-let initialX, initialY, initialWidth, initialHeight;
-
-// Event listener for text area mousedown (click and hold)
-textArea.addEventListener('mousedown', (event) => {
-  isDragging = true; // Set dragging flag to true
-  initialX = event.clientX;
-  initialY = event.clientY;
-  initialWidth = textArea.offsetWidth;
-  initialHeight = textArea.offsetHeight;
-  event.stopPropagation(); // Added line to stop event bubbling
-});
-
-// Event listener for document mousemove (while dragging)
-document.addEventListener('mousemove', (event) => {
-  if (isDragging) {
-    const deltaX = event.clientX - initialX;
-    const deltaY = event.clientY - initialY;
-
-    textArea.style.left = `${textArea.offsetLeft + deltaX}px`;
-    textArea.style.top = `${textArea.offsetTop + deltaY}px`;
-
-    initialX = event.clientX; // Update initial position for smooth dragging
-    initialY = event.clientY;
-  }
-});
-
-document.addEventListener('mousemove', (event) => {
-  if (isDragging) {
-    textArea.style.width = `${initialWidth + (event.clientX - initialX)}px`;
-    textArea.style.height = `${initialHeight + (event.clientY - initialY)}px`;
-  }
-});
-
-// Event listener for document mouseup (release click)
-document.addEventListener('mouseup', () => {
-  isDragging = false; // Reset dragging flag
-  initialX = null;
-  initialY = null;
-  initialWidth = null;
-  initialHeight = null;
-});
-
-textArea.addEventListener('dblclick', () => {
-  textArea.isContentEditable = true;
-});
-
-document.addEventListener('mouseup', () => {
-  initialX = null;
-  initialY = null;
-  initialWidth = null;
-  initialHeight = null;
-});
-</script>
 </html>

@@ -1,5 +1,5 @@
 .root {
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: 'Poppins';
     font-size: 16px;
 }
 
@@ -12,13 +12,15 @@
 .meme-creator-container {
     display: flex;
     justify-content: space-around;
-    border: 2px solid;
-    background: lemonchiffon;
+    background: #143960;
     flex-direction: row;
     align-items: center;
+    border-radius: 15px;
+    box-shadow: 0px 0px 30px 20px #0d0e3a;
     width: 95%;
     height: 100%;
     padding: 15px;
+    color: #fff;
 }
 .meme-creator-container p {
     display: flex;
@@ -33,30 +35,37 @@
     justify-content: center;
     height: 90vh;
     width: 100%;
-    margin: 135px 0 5px 0;
+    margin: 100px 0 100px 0;
 }
 
 .meme-template-box {
-    align-items: center;
     flex-direction: column;
     width: 20%;
-    display: flex; /* Arrange images in a column */
-    flex-wrap: nowrap; /* Allow images to wrap to multiple rows if needed */
-    overflow-y: scroll; /* Enable vertical scrolling */
+    border-radius: 10px;
+    display: flex;
+    flex-wrap: nowrap;
+    background: #465b75;
+    overflow-y: scroll;
     height: -webkit-fill-available;
 }
 .meme-template-box img {
     margin: 0 10px; /* Add spacing between images */
-    /* Adjust image width or height as desired */
     padding: 5px;
-    width: 200px; /* Example image width */
+    object-fit: contain;
     height: 150px; /* Example image height */
 }
 
 textarea {
     font-size: 16px;
+    background: #455b75;
     height: 80px;
     margin: 5px 0;
+    resize: none;
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    padding: 10px;
+    box-shadow: 2px 2px 2px 1px #7a1f8a
 }
 
 .left-text-boxes {
@@ -71,14 +80,14 @@ textarea {
     display: flex;
     justify-content: center;
     border-radius: 25px;
-    box-shadow: 1px 4px 4px #000;
+    box-shadow: 1px 4px 4px #7a1f80;
     font-weight: 500;
-    background: rgb(30, 0, 255);
+    background: rgb(0, 0, 1);
     color: antiquewhite;
     border: 0;
 }
 .all-gen-btn {
-    width: 100%;
+    width: 65%;
     display: flex;
     justify-content: center;
 }
@@ -116,13 +125,20 @@ textarea {
 .meme-creator-container {
     display: flex;
     justify-content: space-around;
-    border: 2px solid;
-    background: lemonchiffon;
+    box-shadow: 0px 0px 50px 45px #212f61;
+    border-radius: 10px;
     flex-direction: column;
     align-items: center;
     width: 95%;
     height: 100%;
     padding: 15px 0;
+    background: #143960;
+    color: #fff;
+}
+.all-gen-btn {
+    width: 100%;
+    display: flex;
+    justify-content: center;
 }
 .left-text-boxes {
     width: 70%;
@@ -135,23 +151,22 @@ textarea {
     margin: 100px 0 5px 0;
 }
 .meme-template-box {
-    align-items: center;
-    flex-direction: row;
-    width: 90%;
     display: flex; /* Arrange images in a column */
-    flex-wrap: nowrap; /* Allow images to wrap to multiple rows if needed */
-    overflow-y: scroll; /* Enable vertical scrolling */
+    flex-direction: row;
     height: -webkit-fill-available;
+    width: 100%;
+    overflow-y: scroll;
+    flex-wrap: nowrap; /* Allow images to wrap to multiple rows if needed */
 }
 .meme-template-box img {
+    display: flex;
     margin: 0 10px; /* Add spacing between images */
-    /* Adjust image width or height as desired */
     padding: 5px;
-    width: 200px; /* Example image width */
+    width: max-content;
     height: 150px; /* Example image height */
 }
 #meme-canvas {
-    height: 65vh;
+    height: 45vh;
     width: -webkit-fill-available;
     object-fit: contain;
     padding: 15px 0;

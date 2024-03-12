@@ -68,29 +68,30 @@ function generateMeme(img, topText, bottomText, topTextSize, bottomTextSize) {
 }
 
 function init() {
+    // Get references to elements
     topTextInput = document.getElementById('top-text');
-    bottomTextInput = document.getElementById('bottom-text');
-    topTextSizeInput = document.getElementById('top-text-size-input')
-    bottomTextSizeInput = document.getElementById('bottom-text-size-input')
-    imageInput = document.getElementById('image-input');
-    generateBtn = document.getElementById('generate-btn');
     canvas = document.getElementById('meme-canvas');
+    generateBtn = document.getElementById('generate-btn');
     downloadBtn = document.getElementById('download-btn');
-
+    bottomTextInput = document.getElementById('bottom-text');
+    topTextSizeInput = document.getElementById('top-text-size-input');
+    bottomTextSizeInput = document.getElementById('bottom-text-size-input');
+    imageInput = document.getElementById('image-input');
+  
+    // Get 2D context from canvas
     ctx = canvas.getContext('2d');
-
-    canvas.width = canvas.height = 0;
-
+  
+    // Add event listener to generate button
     generateBtn.addEventListener('click', function () {
-        let reader = new FileReader();
-        reader.onload = function () {
-            let img = new Image();
-            img.src = reader.result;
-            generateMeme(img, topTextInput.value, bottomTextInput.value, topTextSizeInput.value, bottomTextSizeInput.value);
-        };
-        reader.readAsDataURL(imageInput.files[0]);
+      const reader = new FileReader();
+      reader.onload = function () {
+        const img = new Image();
+        img.src = reader.result;
+        generateMeme(img, topTextInput.value, bottomTextInput.value, topTextSizeInput.value, bottomTextSizeInput.value);
+      };
+      reader.readAsDataURL(imageInput.files[0]);
     });
+  }
+  
+  init();
 
-}
-
-init()
