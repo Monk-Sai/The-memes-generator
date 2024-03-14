@@ -1,131 +1,151 @@
-<!DOCTYPE html>
-<html lang="en">
+<!Doctype html>
+<html>
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <style>
-    body {
-      margin: 0;
-      overflow: hidden;
-    }
-
-    canvas {
-      display: block;
-      border: 1px solid #ccc;
-    }
-
-    .textbox {
-      position: absolute;
-      border: 1px dashed #000;
-      resize: both;
-      overflow: hidden;
-      background: rgba(255, 255, 255, 0.8);
-      box-sizing: border-box; /* Include border and padding in width and height */
-      white-space: pre-wrap;
-    }
-
-    .resizer {
-      width: 10px;
-      height: 10px;
-      background-color: #fff;
-      border: 1px solid #000;
-      position: absolute;
-    }
-
-    .bottom-right {
-      right: 0;
-      bottom: 0;
-      cursor: se-resize;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Your Own Memes | Memes Creator</title>
+    <meta name="description" content="Create Your Own Memes Easily and Swiftly. The Best Custom Memes Generator">
+    <link rel="favicon" href="imgs/TMG.png">
+    <link rel="stylesheet" href="css\meme-gen.css">
+    <link rel="stylesheet" href="css\meme-creator.css">
+    <meta name="author" content="Memes Creator">
+    <link rel="icon" href="imgs\TMG.png">
+    <link rel="canonical" href="https://thememesgenerator.com/memes-creator">
 </head>
+
 <body>
-  <input type="file" id="imageInput" accept="image/*">
-  <canvas id="myCanvas"></canvas>
+    <header>
+        <nav class="main-header">
+            <div class="header-logo">
+            <a href="https://thememesgenerator.com/">
+            <img src="imgs/TMG.png">
+            </a>
+            </div>
+            <ul class="sidebar">
+                <li class="menu-button" onclick=hideSidebar()><a href="#"><svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24"><path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/></svg></a>
+                <li><a href="https://thememesgenerator.com/">Home</a>
+                <li><a href="https://thememesgenerator.com/memes-creator">Memes Creator</a>
+                <li><a href="https://thememesgenerator.com/">Latest Memes</a>
+            </ul>
+            <ul>
+                <li class="hideOnMobile"><a href="https://thememesgenerator.com/">Home</a>
+                <li class="hideOnMobile"><a href="https://thememesgenerator.com/memes-creator">Memes Creator</a>
+                <li class="hideOnMobile"><a href="https://thememesgenerator.com/">Latest Memes</a>
+                <li class="menu-button" onclick=showSidebar()><a href="#"><svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24"><path d="M120-240v-80h720v80H120Zm0-200v-80h720v80H120Zm0-200v-80h720v80H120Z"/></svg></a>
+            </ul>
+    </nav>
+    </header>
 
-  <div class="textbox" id="textbox" contenteditable="true">
-    <div class="resizer bottom-right" id="bottomRight"></div>
-  </div>
+<main>
+    <section class="meme-h1-title">
+        <h1>Create Customized Memes</h1>
+    </section>
 
-  <script>
-    document.addEventListener('DOMContentLoaded', function () {
-      const canvas = document.getElementById('myCanvas');
-      const ctx = canvas.getContext('2d');
-      const textbox = document.getElementById('textbox');
-      const resizer = document.getElementById('bottomRight');
+    <div>
+        <h2>Try The &nbsp<strong>Best Meme Generator</strong></h2>
+    </div>
 
-      let isResizing = false;
-      let startX, startY, startWidth, startHeight;
+<section class="meme-editor-box">
+    <div class="meme-creator-container">
+        <div class="left-text-boxes">
+            <p>
+                <input type="file" id="image-input" accept="image/*" style="font-size: 18px;">
+            </p>
+            <p>
+                <textarea placeholder="Your Text" id="top-text"></textarea>
+                Text size: <input type="range" id="top-text-size-input" min="0.05" max="0.25" value="0.15" step="0.01">
+            </p>
+            <p>
+                <textarea placeholder="Your Text" id="bottom-text"></textarea>
+                Text size: <input type="range" id="bottom-text-size-input" min="0.05" max="0.25" value="0.15" step="0.01">
+            </p>
+            <div class="all-gen-btn">
+                <button id="generate-btn">Generate!</button>
+            </div>
+        </div>
 
-      function drawImage(image) {
-        canvas.width = image.width;
-        canvas.height = image.height;
-        ctx.drawImage(image, 0, 0);
-      }
+        <div class="canvas-img-load">
+            <canvas id="meme-canvas"></canvas>
+            <button id="download-btn">Download</button>
+        </div>
+        
+        <div class="meme-template-box">
+            <img src="imgs/meme-imgs/drowning-hand-clap.jpeg" data-meme-id="1"> 
+            <img src="imgs/meme-imgs/facts-book-by-edy.jpeg" data-meme-id="2">
+            <img src="imgs/meme-imgs/look-at-my-work.jpeg" data-meme-id="3"> 
+            <img src="imgs/meme-imgs/spiderman-saves-a-kid-bus.jpeg" data-meme-id="4">
+            <img src="imgs/meme-imgs/uno-draw-25.jpeg" data-meme-id="5">
+            <img src="imgs/meme-imgs/surprised-dark-guy.jpeg" data-meme-id="6">
+            <img src="imgs/meme-imgs/loudest-noise.jpg" data-meme-id="7">
+            <img src="imgs/meme-imgs/too-many-mic-for-you.jpg" data-meme-id="8">
+            <img src="imgs/meme-imgs/talking-to-the-wall.jpeg" data-meme-id="9">
+        </div>
 
-      function drawTextbox(x, y, width, height) {
-        const canvasRect = canvas.getBoundingClientRect();
+    </div>
+</section>
 
-        // Constrain textbox within canvas bounds
-        x = Math.max(Math.min(x, canvasRect.width - width), 0);
-        y = Math.max(Math.min(y, canvasRect.height - height), 0);
+<article class="meme-page-content">
+    <h2>Unleash Your Inner Meme Lord: Create Hilarious Masterpieces with Our Meme Maker Tool</h2>
+    <p>Welcome to the future of humor with our state-of-the-art AI meme generator, your ultimate tool for crafting hilarious content effortlessly. <br> Tailor your memes to perfection with customizable options that go beyond the basics. From font styles to color schemes, our AI meme generator puts the reins of personalization firmly in your hands.</p>
+    <p>If you're someone who enjoys crafting the perfect meme to express your thoughts or simply tickle the funny bone of your friends, you're in for a treat! Our AI meme generator harnesses the power of cutting-edge artificial intelligence, enabling users to explore a vast array of creative possibilities.</p>
+    <p>Elevate your meme-making journey with the best AI meme creator on the market.</p>
+</article>
+</main>
+<script src="js/meme-creator.js"></script>
 
-        textbox.style.left = `${x}px`;
-        textbox.style.top = `${y}px`;
-        textbox.style.width = `${width}px`;
-        textbox.style.height = `${height}px`;
-      }
+<script>
+  // Get references to elements
+  const memeTemplateBox = document.querySelector('.meme-template-box');
+  const memeCanvas = document.getElementById('meme-canvas');
 
-      function handleMouseDown(e) {
-        isResizing = true;
-        startX = e.clientX;
-        startY = e.clientY;
-        startWidth = parseInt(document.defaultView.getComputedStyle(textbox).width, 10);
-        startHeight = parseInt(document.defaultView.getComputedStyle(textbox).height, 10);
-      }
+  // Add click event listener to each image in the template box
+  memeTemplateBox.querySelectorAll('img').forEach(image => {
+    image.addEventListener('click', function () {
+      const imageUrl = this.src; // Get the clicked image URL
 
-      function handleMouseUp() {
-        isResizing = false;
-      }
+      // Load the image and handle scaling on canvas
+      const img = new Image();
+      img.onload = function () {
+        const canvasCtx = memeCanvas.getContext('2d');
+        const canvasWidth = memeCanvas.width;
+        const canvasHeight = memeCanvas.height;
 
-      function handleMouseMove(e) {
-        if (!isResizing) return;
+        // Calculate scaling factors to fit the image within the canvas
+        const imageRatio = img.width / img.height;
+        const canvasRatio = memeCanvas.width / memeCanvas.height;
 
-        const newWidth = startWidth + (e.clientX - startX);
-        const newHeight = startHeight + (e.clientY - startY);
-
-        // Constrain resizing within canvas bounds
-        const maxWidth = canvas.getBoundingClientRect().width - textbox.offsetLeft;
-        const maxHeight = canvas.getBoundingClientRect().height - textbox.offsetTop;
-
-        const width = Math.min(Math.max(newWidth, 10), maxWidth);
-        const height = Math.min(Math.max(newHeight, 10), maxHeight);
-
-        drawTextbox(textbox.offsetLeft, textbox.offsetTop, width, height);
-      }
-
-      document.getElementById('imageInput').addEventListener('change', function (e) {
-        const file = e.target.files[0];
-
-        if (file) {
-          const reader = new FileReader();
-          reader.onload = function (readerEvent) {
-            const image = new Image();
-            image.onload = function () {
-              drawImage(image);
-              // Ensure the textbox is within the canvas bounds initially
-              drawTextbox(10, 10, 150, 100);
-            };
-            image.src = readerEvent.target.result;
-          };
-          reader.readAsDataURL(file);
+        let newWidth, newHeight;
+        if (canvasRatio > imageRatio) {
+          newHeight = canvasHeight;
+          newWidth = newHeight * imageRatio;
+        } else {
+          newWidth = canvasWidth;
+          newHeight = newWidth / imageRatio;
         }
-      });
 
-      resizer.addEventListener('mousedown', handleMouseDown);
-      document.addEventListener('mouseup', handleMouseUp);
-      document.addEventListener('mousemove', handleMouseMove);
+        // Clear the canvas before drawing (optional)
+        canvasCtx.clearRect(0, 0, canvasWidth, canvasHeight);
+
+        // Draw the image with calculated dimensions
+        canvasCtx.drawImage(img, 0, 0, newWidth, newHeight);
+      };
+      img.src = imageUrl;
     });
-  </script>
+  });
+</script>
+
+<footer>
+    <div class="footer-body">
+        <div class="footer-col-1">
+            <img src="imgs/TMG.png" height="100px">
+        </div>
+        <div class="footer-col-2">
+            <a href="https://thememesgenerator.com/meme-creator"><p>Latest Memes</p></a>
+            <a href="https://thememesgenerator.com"><p>Memes Creator</p></a>
+        </div>
+    </div>
+</footer>
+
 </body>
+
 </html>

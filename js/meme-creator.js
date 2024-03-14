@@ -17,6 +17,7 @@ let topTextInput, bottomTextInput, topTextSizeInput, bottomTextSizeInput, imageI
 function generateMeme(img, topText, bottomText, topTextSize, bottomTextSize) {
     let fontSize;
 
+    img.onload = function () {
     canvas.width = img.width;
     canvas.height = img.height;
 
@@ -63,9 +64,11 @@ function generateMeme(img, topText, bottomText, topTextSize, bottomTextSize) {
         document.body.appendChild(a);
         a.click();
         document.body.removeChild(a);
-    });
- });
+        });
+     });
+    }
 }
+
 
 function init() {
     // Get references to elements
