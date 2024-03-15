@@ -112,6 +112,49 @@ textarea {
     color: antiquewhite;
     border: 0;
 }
+
+.fold-0 {
+    height: 15vh;
+    margin: 75px 10px 75px 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.fold-1 {
+    height: 70vh;
+    margin: 0 25px;
+    width: auto;
+    display: flex;
+    justify-content: space-around;
+}
+.h2-container-fold {
+    width: 40%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.img-container-fold {
+    width: 50%;
+    display: flex;
+    flex-direction: row;
+    overflow: scroll;
+}
+.img-carousel {
+    display: flex; /* Arrange images horizontally */
+    transition: transform 0.5s ease-in-out; /* Smooth transition effect */
+    width: -webkit-fill-available;
+  }
+  .img-carousel img {
+    object-fit: contain;
+    margin: 0 5px; /* Add spacing between images */
+    height: -webkit-fill-available;
+    width: 100%;
+  }
+
+/* auto carousal */
+
+
 @media screen and (max-width: 600px) {
     .meme-creator-container p {
         display: flex;
@@ -120,6 +163,14 @@ textarea {
         padding: 5px;
         width: 85%;
         align-items: stretch;
+}
+.fold-1 {
+    height: 70vh;
+    margin: 0 25px;
+    width: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
 }
 
 .meme-creator-container {
@@ -177,4 +228,40 @@ textarea {
     flex-direction: column;
     align-items: center;
 }
+.fold-1 {
+    height: 85vh;
+    margin: 0 25px;
+    width: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
 }
+.h2-container-fold {
+    width: 90%;
+    height: 45%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 75px 0;
+}
+.img-container-fold {
+    width: 90%;
+    height: 60%;
+    display: flex;
+    flex-direction: row;
+    overflow: scroll;
+    object-fit: contain;
+}
+.img-carousel {
+    display: flex; /* Arrange images horizontally */
+    transition: transform 0.5s ease-in-out; /* Smooth transition effect */
+    width: -webkit-fill-available;
+  }
+  .img-carousel img {
+    object-fit: contain;
+    margin: 0 5px; /* Add spacing between images */
+    height: -webkit-fill-available;
+    width: 100%;
+  }
+}
+

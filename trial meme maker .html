@@ -11,6 +11,39 @@
     <meta name="author" content="Memes Creator">
     <link rel="icon" href="imgs\TMG.png">
     <link rel="canonical" href="https://thememesgenerator.com/memes-creator">
+    <style>
+    .meme-viewer {
+        display: flex;
+        flex-direction: column;
+        align-items: center; /* Center content vertically */
+      }
+      
+      .meme-image-container {
+        width: 300px; /* Adjust image width as needed */
+        height: 300px; /* Adjust image height as needed */
+        overflow: hidden; /* Hide overflow for larger images */
+      }
+      
+      .meme-image-container img {
+        width: 100%; /* Stretch image to container size */
+        height: 100%; /* Stretch image to container size */
+        object-fit: cover; /* Maintain aspect ratio and cover container */
+        transition: opacity 0.5s ease-in-out;
+      }
+      
+      .meme-nav {
+        margin-top: 20px; /* Adjust spacing between image and buttons */
+        display: flex;
+        justify-content: space-between;
+        width: 100%; /* Match container width */
+      }
+      
+      .meme-nav button {
+        padding: 10px 20px; /* Button padding */
+        border: 1px solid #ccc; /* Button border */
+        cursor: pointer; /* Indicate interaction on hover */
+      }
+      </style>
 </head>
 
 <body>
@@ -90,6 +123,22 @@
     <p>If you're someone who enjoys crafting the perfect meme to express your thoughts or simply tickle the funny bone of your friends, you're in for a treat! Our AI meme generator harnesses the power of cutting-edge artificial intelligence, enabling users to explore a vast array of creative possibilities.</p>
     <p>Elevate your meme-making journey with the best AI meme creator on the market.</p>
 </article>
+
+  <div class="meme-viewer">
+    <div class="meme-image-container">
+      <img id="current-meme" src="imgs/meme-imgs/drowning-hand-clap.jpeg" data-meme-id="1">
+      <img src="imgs/meme-imgs/surprised-dark-guy.jpeg" data-meme-id="6">
+            <img src="imgs/meme-imgs/loudest-noise.jpg" data-meme-id="7">
+            <img src="imgs/meme-imgs/too-many-mic-for-you.jpg" data-meme-id="8">
+            <img src="imgs/meme-imgs/talking-to-the-wall.jpeg" data-meme-id="9">
+    </div>
+    <div class="meme-nav">
+      <button id="prev-btn">Previous</button>
+      <button id="next-btn">Next</button>
+    </div>
+  </div>
+  
+
 </main>
 <script src="js/meme-creator.js"></script>
 
@@ -132,6 +181,30 @@
       img.src = imageUrl;
     });
   });
+
+  const currentMemeImage = document.getElementById('current-meme');
+const prevBtn = document.getElementById('prev-btn');
+const nextBtn = document.getElementById('next-btn');
+const allMemes = document.querySelectorAll('.meme-viewer img'); // Get all meme images
+
+let currentMemeIndex = 0; // Track the currently displayed meme index
+
+// Function to update displayed meme image
+function updateMemeImage(newIndex) {
+  currentMemeIndex = (newIndex + allMemes.length) % allMemes.length; // Handle circular navigation
+  currentMemeImage.src = allMemes[currentMemeIndex].src;
+}
+
+// Event listeners for navigation buttons
+prevBtn.addEventListener('click', () => updateMemeImage(currentMemeIndex - 1));
+nextBtn.addEventListener('click', () => updateMemeImage(currentMemeIndex + 1));
+
+// (Optional) Disable buttons if there's only one meme
+if (allMemes.length === 1) {
+  prevBtn.disabled = true;
+  nextBtn.disabled = true;
+}
+
 </script>
 
 <footer>
