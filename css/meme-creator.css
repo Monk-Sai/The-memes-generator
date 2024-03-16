@@ -16,7 +16,7 @@
     flex-direction: row;
     align-items: center;
     border-radius: 15px;
-    box-shadow: 0px 0px 30px 20px #0d0e3a;
+    box-shadow: 0px 0px 15px 5px #0d0e3a;
     width: 95%;
     height: 100%;
     padding: 15px;
@@ -57,7 +57,7 @@
 
 textarea {
     font-size: 16px;
-    background: #455b75;
+    background: #071b2f;
     height: 80px;
     margin: 5px 0;
     resize: none;
@@ -65,7 +65,7 @@ textarea {
     border: none;
     border-radius: 10px;
     padding: 10px;
-    box-shadow: 2px 2px 2px 1px #7a1f8a
+    box-shadow: 1px 1px 1px 1px #23354e;
 }
 
 .left-text-boxes {
@@ -73,16 +73,16 @@ textarea {
 }
 
 #generate-btn {
-    width: 50%;
+    width: 60%;
     padding: 10px;
-    font-size: 16px;
+    font-size: 18px;
     cursor: pointer;
     display: flex;
     justify-content: center;
     border-radius: 25px;
-    box-shadow: 1px 4px 4px #7a1f80;
+    box-shadow: 1px 1px 1px 1px #23354e;
     font-weight: 500;
-    background: rgb(0, 0, 1);
+    background: #071b2f;
     color: antiquewhite;
     border: 0;
 }
@@ -139,6 +139,7 @@ textarea {
     display: flex;
     flex-direction: row;
     overflow: scroll;
+    box-shadow: 5px 5px 12px;
 }
 .img-carousel {
     display: flex; /* Arrange images horizontally */
@@ -155,7 +156,7 @@ textarea {
 /* auto carousal */
 
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 910px) {
     .meme-creator-container p {
         display: flex;
         align-items: center;
@@ -176,7 +177,7 @@ textarea {
 .meme-creator-container {
     display: flex;
     justify-content: space-around;
-    box-shadow: 0px 0px 50px 45px #212f61;
+    box-shadow: 0px 0px 15px 5px #0d0e3a;
     border-radius: 10px;
     flex-direction: column;
     align-items: center;
@@ -185,6 +186,20 @@ textarea {
     padding: 15px 0;
     background: #143960;
     color: #fff;
+}
+#generate-btn {
+    width: 80%;
+    padding: 10px;
+    font-size: 18px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    border-radius: 25px;
+    box-shadow: 1px 1px 1px 1px #23354e;
+    font-weight: 500;
+    background: #071b2f;
+    color: antiquewhite;
+    border: 0;
 }
 .all-gen-btn {
     width: 100%;
@@ -205,7 +220,7 @@ textarea {
     display: flex; /* Arrange images in a column */
     flex-direction: row;
     height: -webkit-fill-available;
-    width: 100%;
+    width: 95%;
     overflow-y: scroll;
     flex-wrap: nowrap; /* Allow images to wrap to multiple rows if needed */
 }
@@ -245,10 +260,11 @@ textarea {
     margin: 75px 0;
 }
 .img-container-fold {
-    width: 90%;
+    width: 100%;
     height: 60%;
     display: flex;
     flex-direction: row;
+    box-shadow: 5px 5px 12px;
     overflow: scroll;
     object-fit: contain;
 }

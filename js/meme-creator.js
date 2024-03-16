@@ -94,6 +94,35 @@ function init() {
       };
       reader.readAsDataURL(imageInput.files[0]);
     });
+
+    const templateImages = document.querySelectorAll('.meme-template-box img');
+    templateImages.forEach(img => {
+        img.addEventListener('click', function() {
+            // Perform the same actions as the generate button click
+            const selectedTemplate = this; // Use the clicked image as the selected template
+            const imgSrc = selectedTemplate.src;
+            const img = new Image();
+            img.src = imgSrc;
+            generateMeme(img, topTextInput.value, bottomTextInput.value, topTextSizeInput.value, bottomTextSizeInput.value);
+
+      // Remove selected class from all templates
+      templateImages.forEach(templateImg => templateImg.classList.remove('selected'));
+
+      // Add selected class to clicked image
+      this.classList.add('selected');
+      generateBtn.addEventListener('click', function () {
+        const selectedTemplate = document.querySelector('.meme-template-box img.selected');
+        if (selectedTemplate) {
+          const imgSrc = selectedTemplate.src;
+          const img = new Image();
+          img.src = imgSrc;
+          generateMeme(img, topTextInput.value, bottomTextInput.value, topTextSizeInput.value, bottomTextSizeInput.value);
+        } else {
+          alert('Please select a template image first!');
+        }
+      });
+    });
+  });
   }
   
   init();
