@@ -1,0 +1,324 @@
+.root {
+    font-family: 'Poppins';
+    font-size: 16px;
+}
+
+#meme-canvas {
+    height: 65vh;
+    width: -webkit-fill-available;
+    object-fit: contain;
+}
+
+.meme-creator-container {
+    display: flex;
+    justify-content: space-around;
+    background: #143960;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+    height: 100vh;
+    color: #fff;
+}
+.meme-creator-container p {
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+    padding: 5px 0;
+    margin: 10px 0;
+}
+
+.meme-editor-box {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.meme-template-box {
+    flex-direction: column;
+    width: 20%;
+    border-radius: 10px;
+    display: flex;
+    flex-wrap: nowrap;
+    background: #071b2f;
+    overflow-y: scroll;
+    height: 60%;
+}
+.meme-template-box img {
+    margin: 0 10px; /* Add spacing between images */
+    padding: 5px;
+    object-fit: contain;
+    height: 150px; /* Example image height */
+}
+
+textarea {
+    font-size: 16px;
+    background: #071b2f;
+    height: 80px;
+    margin: 5px 0;
+    resize: none;
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    padding: 10px;
+    box-shadow: 1px 1px 1px 1px #23354e;
+}
+
+.left-text-boxes {
+    width: 25%;
+}
+
+#generate-btn {
+    width: 60%;
+    padding: 10px;
+    font-size: 18px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    border-radius: 25px;
+    box-shadow: 1px 1px 1px 1px #23354e;
+    font-weight: 500;
+    background: #071b2f;
+    color: antiquewhite;
+    border: 0;
+}
+.all-gen-btn {
+    width: 65%;
+    display: flex;
+    justify-content: center;
+}
+.canvas-img-load {
+    display: flex;
+    width: 45%;
+    flex-direction: column;
+    align-items: center;
+}
+#download-btn {
+    width: 40%;
+    padding: 10px;
+    margin: 20px 20px 20px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    display: none;
+    justify-content: center;
+    border-radius: 25px;
+    box-shadow: 1px 4px 4px #000;
+    font-weight: 500;
+    background: rgb(30, 0, 255);
+    color: antiquewhite;
+    border: 0;
+}
+
+.fold-0 {
+    height: 15vh;
+    margin: 75px 10px 75px 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.after-folds {
+    height: 70vh;
+    margin: 45px 0;
+    width: auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+.h2-container-fold {
+    width: 40%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.img-container-fold {
+    width: 50%;
+    height: 60%;
+    display: flex;
+    flex-direction: row;
+    overflow: scroll;
+    box-shadow: 5px 5px 12px;
+}
+.img-carousel {
+    display: flex; /* Arrange images horizontally */
+    transition: transform 0.5s ease-in-out; /* Smooth transition effect */
+    width: -webkit-fill-available;
+}
+.img-carousel img {
+    object-fit: contain;
+    margin: 0 5px; /* Add spacing between images */
+    height: -webkit-fill-available;
+    width: 100%;
+}
+
+/* auto carousal */
+.img-container-fold-2 {
+    width: 50%;
+    height: 55%;
+    display: flex;
+    flex-direction: row;
+    overflow: scroll;
+    box-shadow: 5px 5px 12px;
+}
+
+.img-carousel-2 {
+    display: flex; /* Arrange images horizontally */
+    transition: transform 0.5s ease-in-out; /* Smooth transition effect */
+    width: -webkit-fill-available;
+}
+
+.img-carousel-2 img {
+    object-fit: contain;
+    margin: 0 5px; /* Add spacing between images */
+    height: -webkit-fill-available;
+    width: 100%;
+}
+
+@media screen and (max-width: 910px) {
+    .meme-creator-container p {
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        padding: 5px;
+        width: 85%;
+        align-items: stretch;
+}
+.after-folds {
+    height: 75vh;
+    margin: 0 25px;
+    width: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.meme-creator-container {
+    display: flex;
+    justify-content: space-around;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    background: #143960;
+    color: #fff;
+}
+#generate-btn {
+    width: 80%;
+    padding: 10px;
+    font-size: 18px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    border-radius: 25px;
+    box-shadow: 1px 1px 1px 1px #23354e;
+    font-weight: 500;
+    background: #071b2f;
+    color: antiquewhite;
+    border: 0;
+}
+.all-gen-btn {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+.left-text-boxes {
+    width: 80%;
+    padding: 120px 0 0 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.meme-editor-box {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+.meme-template-box {
+    display: flex; /* Arrange images in a column */
+    flex-direction: row;
+    height: -webkit-fill-available;
+    width: 95%;
+    overflow-y: scroll;
+    flex-wrap: nowrap; /* Allow images to wrap to multiple rows if needed */
+}
+.meme-template-box img {
+    display: flex;
+    margin: 0 10px; /* Add spacing between images */
+    padding: 5px;
+    width: max-content;
+    height: 150px; /* Example image height */
+}
+#meme-canvas {
+    height: 45vh;
+    width: -webkit-fill-available;
+    object-fit: contain;
+    padding: 15px 0;
+}
+.canvas-img-load {
+    display: flex;
+    width: 90%;
+    flex-direction: column;
+    align-items: center;
+}
+.after-folds {
+    height: 85vh;
+    margin: 45px 0;
+    width: auto;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: space-around;
+}
+.h2-container-fold {
+    width: 90%;
+    height: 45%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 45px 0;
+}
+.img-container-fold {
+    width: 95%;
+    height: 60%;
+    display: flex;
+    flex-direction: row;
+    box-shadow: 5px 5px 12px;
+    overflow: scroll;
+    object-fit: contain;
+}
+.img-carousel {
+    display: flex; /* Arrange images horizontally */
+    transition: transform 0.5s ease-in-out; /* Smooth transition effect */
+    width: -webkit-fill-available;
+  }
+  .img-carousel img {
+    object-fit: contain;
+    margin: 0 5px; /* Add spacing between images */
+    height: -webkit-fill-available;
+    width: 100%;
+  }
+
+  /* auto carousal */
+.img-container-fold-2 {
+    width: 65%;
+    height: 45%;
+    display: flex;
+    flex-direction: row;
+    margin: 25px;
+    overflow: scroll;
+    box-shadow: 5px 5px 12px;
+}
+
+.img-carousel-2 {
+    display: flex; /* Arrange images horizontally */
+    transition: transform 0.5s ease-in-out; /* Smooth transition effect */
+    width: -webkit-fill-available;
+}
+
+.img-carousel-2 img {
+    object-fit: contain;
+    margin: 0 5px; /* Add spacing between images */
+    height: -webkit-fill-available;
+    width: 100%;
+}
+}
+
