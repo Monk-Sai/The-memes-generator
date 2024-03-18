@@ -210,18 +210,20 @@ textarea {
 }
 .sec-fol-div2{
     display: flex;
-    width: 40%;
+    width: auto;
 }
 
 .section-folds-2 {
     display: flex;
     flex-direction: row-reverse;
     height: 80vh;
-    margin: 20px;
+    margin: 20px 0;
     width: auto;
     align-items: center;
     border-top: 2px solid #dadce0;
     justify-content: space-around;
+    background: #edf6ff;
+
 }
 
 /* Accordian items */
@@ -412,7 +414,7 @@ textarea {
     flex-direction: column;
     border-top: 2px solid #dadce0;
     height: 80vh;
-    margin: 20px;
+    margin: 20px 0;
     width: auto;
     align-items: center;
     justify-content: space-around;
