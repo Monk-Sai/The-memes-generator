@@ -192,6 +192,42 @@ textarea {
     width: 100%;
 }
 
+/* section folds */
+.section-folds-1 {
+    display: flex;
+    height: 80vh;
+    margin: 20px;
+    width: auto;
+    align-items: center;
+    justify-content: space-around;
+}
+.sec-fol-div1{
+    padding: 20px 0;
+    display: flex;
+    width: 45%;
+    flex-direction: column;
+    justify-content: center;
+}
+.sec-fol-div2{
+    display: flex;
+    width: 40%;
+}
+
+.section-folds-2 {
+    display: flex;
+    flex-direction: row-reverse;
+    height: 80vh;
+    margin: 20px;
+    width: auto;
+    align-items: center;
+    justify-content: space-around;
+}
+
+/* Accordian items */
+.accordian-item{
+
+}
+
 @media screen and (max-width: 910px) {
     .meme-creator-container p {
         display: flex;
@@ -263,6 +299,7 @@ textarea {
     flex-direction: row;
     height: -webkit-fill-available;
     width: 95%;
+    margin: 20px 0;
     overflow-y: scroll;
     flex-wrap: nowrap; /* Allow images to wrap to multiple rows if needed */
 }
@@ -345,6 +382,38 @@ textarea {
     margin: 0 5px; /* Add spacing between images */
     height: -webkit-fill-available;
     width: 100%;
+}
+/* section folds */
+.section-folds-1 {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    margin: 20px;
+    width: auto;
+    align-items: center;
+    justify-content: space-around;
+}
+.sec-fol-div1{
+    width: 100%;
+    padding: 20px 0;
+    display: flex;
+    justify-content: center;
+}
+.sec-fol-div2{
+    display: flex;
+    width: 100%;
+}
+.sec-fol-div2 img{
+    width: 100%;
+}
+.section-folds-2 {
+    display: flex;
+    flex-direction: column;
+    height: 80vh;
+    margin: 20px;
+    width: auto;
+    align-items: center;
+    justify-content: space-around;
 }
 }
 
