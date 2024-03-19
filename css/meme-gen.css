@@ -11,6 +11,10 @@ h2 {
     text-align: center;
     justify-content: center;
 }
+h3 {
+    font-size: 18px;
+    font-weight: 500;
+}
 
 /* Main Header */
 
@@ -345,6 +349,46 @@ footer {
     font-size: 18px;
 }
 
+/* Accordian Item */
+.accordion {
+    width: 100%;
+    max-width: 500px; /* Adjust the width as needed */
+    margin: 0 auto;
+}
+
+.accordion-item {
+    border-top: 2px solid #a0d9ff;
+}
+
+.accordion-title {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 15px;
+    cursor: pointer; /* Indicate interactivity on hover */
+}
+
+.accordion-content {
+    padding: 0 0 10px 0;
+    display: none; /* Initially hide the content */
+}
+
+.accordion-item:first-child .accordion-title {
+    border-top: none; /* Remove top border for the first item */
+}
+
+.accordion-item.active .accordion-title {
+    background-color: none ; /* Change background color for active item */
+}
+
+.accordion-item.active .accordion-content {
+    display: block; /* Show the content for active item */
+}
+.accordian-open {
+    display: flex;
+}
+.accordian-close {
+    display: none;
+}
 
 /* MEDIA SCREENS */
 

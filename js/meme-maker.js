@@ -127,3 +127,31 @@ function init() {
   
   init();
 
+/* Accordian Item */
+const accordionTitles = document.querySelectorAll('.accordion-title');
+
+accordionTitles.forEach(title => {
+  title.addEventListener('click', function() {
+    const accordionItem = this.parentElement;
+    const openImage = accordionItem.querySelector('.accordian-open');
+    const closeImage = accordionItem.querySelector('.accordian-close');
+
+    // Close other open accordions
+    document.querySelectorAll('.accordion-item.active').forEach(item => {
+      if (item !== accordionItem) {
+        item.classList.remove('active');
+      }
+    });
+
+    accordionItem.classList.toggle('active');
+
+    // Toggle image visibility based on the active state
+    if (accordionItem.classList.contains('active')) {
+      openImage.style.display = 'none';
+      closeImage.style.display = 'inline-block'; // Or your preferred display type
+    } else {
+      openImage.style.display = 'none'; // Or your preferred display type
+      closeImage.style.display = 'inline-block';
+    }
+  });
+});
