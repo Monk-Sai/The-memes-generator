@@ -5,7 +5,7 @@
 }
 
 #meme-canvas {
-    height: 65vh;
+    height: 50vh;
     width: -webkit-fill-available;
     object-fit: contain;
 }
