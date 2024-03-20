@@ -144,14 +144,5 @@ accordionTitles.forEach(title => {
     });
 
     accordionItem.classList.toggle('active');
-
-    // Toggle image visibility based on the active state
-    if (accordionItem.classList.contains('active')) {
-      openImage.style.display = 'none';
-      closeImage.style.display = 'inline-block'; // Or your preferred display type
-    } else {
-      openImage.style.display = 'none'; // Or your preferred display type
-      closeImage.style.display = 'inline-block';
-    }
   });
 });

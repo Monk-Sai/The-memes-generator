@@ -270,7 +270,7 @@ textarea {
 }
 .after-folds {
     height: auto;
-    max-height: 90vh;
+    max-height: 150vh;
     margin: 45px 0;
     width: auto;
     display: flex;
@@ -299,6 +299,7 @@ textarea {
     display: flex; /* Arrange images horizontally */
     transition: transform 0.5s ease-in-out; /* Smooth transition effect */
     width: -webkit-fill-available;
+    height: 50vh;
   }
   .img-carousel img {
     object-fit: contain;
