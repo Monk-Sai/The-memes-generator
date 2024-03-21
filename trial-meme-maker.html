@@ -1,100 +1,58 @@
-<!Doctype html>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Create Your Own Memes | Memes Creator</title>
-    <meta name="description" content="Create Your Own Memes Easily and Swiftly. The Best Custom Memes Generator">
-    <link rel="favicon" href="imgs/TMG.png">
-    <link rel="stylesheet" href="css\meme-gen.css">
-    <link rel="stylesheet" href="css\meme-creator.css">
-    <meta name="author" content="Memes Creator">
-    <link rel="icon" href="imgs\TMG.png">
-    <link rel="canonical" href="https://thememesgenerator.com">
-    <meta name="robots" content="noindex,nofollow">
-</head>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dropdown Accordion</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Animated GIF with Canvas</title>
+    <script src="https://cdn.jsdelivr.net/npm/gifler@5/dist/gifler.min.js"></script>
     <style>
-    .accordion {
-    width: 100%;
-    max-width: 500px; /* Adjust the width as needed */
-    margin: 0 auto;
-    border: 1px solid #ddd;
-}
-
-.accordion-item {
-    border-bottom: 1px solid #ddd;
-}
-
-.accordion-title {
-    padding: 10px 15px;
-    cursor: pointer; /* Indicate interactivity on hover */
-    background-color: #eee;
-}
-
-.accordion-content {
-    padding: 10px 15px;
-    display: none; /* Initially hide the content */
-}
-
-.accordion-item:first-child .accordion-title {
-    border-top: none; /* Remove top border for the first item */
-}
-
-.accordion-item.active .accordion-title {
-    background-color: #ccc; /* Change background color for active item */
-}
-
-.accordion-item.active .accordion-content {
-    display: block; /* Show the content for active item */
-}
-
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        #canvas-container {
+            width: 400px;
+            height: 300px;
+            border: 1px solid #ddd;
+        }
     </style>
 </head>
-
 <body>
-    <div class="accordion">
-        <div class="accordion-item">
-            <h3 class="accordion-title">Section 1</h3>
-            <div class="accordion-content">
-                <p>Content for section 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur euismod est eu odio tincidunt, vitae convallis mauris consequat. Nulla porta elit tellus, a sodales est pulvinar sed.</p>
-            </div>
-        </div>
-        <div class="accordion-item">
-            <h3 class="accordion-title">Section 2</h3>
-            <div class="accordion-content">
-                <p>Content for section 2. Donec rutrum congue leo eget malesuada. Nulla justo libero, semper at tincidunt eu, pulvinar magna. Proin eget ipsum quam. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum.</p>
-            </div>
-        </div>
+    <div id="canvas-container">
+        <canvas id="gif-canvas"></canvas>
     </div>
     <script>
-        const accordionTitles = document.querySelectorAll('.accordion-title');
+        const canvas = document.getElementById('gif-canvas');
+const ctx = canvas.getContext('2d');
 
-accordionTitles.forEach(title => {
-  title.addEventListener('click', function() {
-    const accordionItem = this.parentElement; // Get the parent accordion item
-    accordionItem.classList.toggle('active'); // Toggle active class on the item
+// Replace 'path/to/your/gif.gif' with the actual URL of your GIF
+fetch('imgs/meme-imgs/funny-memes-collage.gif')
+    .then(response => response.arrayBuffer())
+    .then(buffer => {
+        const gifData = new Uint8Array(buffer);
+        return Gifler(gifData);
+    })
+    .then(gifler => {
+        const frameCount = gifler.frames.length;
+        let currentFrame = 0;
 
-    // Optional: Close other open accordions (can be commented out if not desired)
-    const allActiveItems = document.querySelectorAll('.accordion-item.active');
-    allActiveItems.forEach(item => {
-      if (item !== accordionItem) {
-        item.classList.remove('active');
-      }
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            gifler.frame(currentFrame).draw(ctx);
+
+            currentFrame = (currentFrame + 1) % frameCount;
+            requestAnimationFrame(animate);
+        }
+
+        animate();
+    })
+    .catch(error => {
+        console.error('Error fetching or decoding GIF:', error);
+        // Handle errors (e.g., display an error message to the user)
     });
-  });
-});
 
     </script>
 </body>
-
-
-
 </html>
