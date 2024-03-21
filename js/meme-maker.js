@@ -31,7 +31,7 @@ function generateMeme(img, topText, bottomText, topTextSize, bottomTextSize) {
     // Top text font size
     fontSize = canvas.width * topTextSize;
     ctx.font = fontSize + 'px Impact';
-    ctx.lineWidth = canvas.width * 0.0035;
+    ctx.lineWidth = canvas.width * 0.004;
 
     // Draw top text
     ctx.textBaseline = 'top';
@@ -43,7 +43,7 @@ function generateMeme(img, topText, bottomText, topTextSize, bottomTextSize) {
     // Bottom text font size
     fontSize = canvas.width * bottomTextSize;
     ctx.font = fontSize + 'px Impact';
-    ctx.lineWidth = canvas.width*0.0035;
+    ctx.lineWidth = canvas.width*0.004;
 
     // Draw bottom text
     ctx.textBaseline = 'bottom';
