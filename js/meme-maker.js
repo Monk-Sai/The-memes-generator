@@ -69,6 +69,32 @@ function generateMeme(img, topText, bottomText, topTextSize, bottomTextSize) {
     }
 }
 
+function drawWrappedText(text, maxWidth, x, y, textBaseline) {
+  ctx.fillStyle = "white";
+  ctx.strokeStyle = "#000";
+  ctx.textAlign = "center";
+  ctx.textBaseline = textBaseline; // Set text baseline for top or bottom
+
+  let line = "";
+  let lines = [];
+  const words = text.split(" ");
+
+  for (let i = 0; i < words.length; i++) {
+      const word = words[i];
+      const testLine = line + " " + word;
+      const metrics = ctx.measureText(testLine);
+      const testWidth = metrics.width;
+
+      if (testWidth > maxWidth) {
+          lines.push(line);
+          line = word;
+      } else {
+          line = testLine;
+      }
+  }
+
+  lines.push(line);
+}
 
 function init() {
     // Get references to elements
@@ -84,6 +110,9 @@ function init() {
     // Get 2D context from canvas
     ctx = canvas.getContext('2d');
   
+    fontSize = null; // Optional: Allow setting a custom font size
+
+
     // Add event listener to generate button
     generateBtn.addEventListener('click', function () {
       const reader = new FileReader();
@@ -146,3 +175,4 @@ accordionTitles.forEach(title => {
     accordionItem.classList.toggle('active');
   });
 });
+
