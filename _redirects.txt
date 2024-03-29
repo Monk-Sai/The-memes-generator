@@ -1,5 +1,0 @@
-
-/memes-creator.html
-- /
-
-/memes-creator.html  301 /  // Redirects `/memes-creator.html` to the homepage (`/`) with a 301 status
