@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Auto-changing Carousel</title>
+<style>
+  .carousel-container {
+    position: relative;
+    width: 100%;
+    max-width: 600px; /* Adjust as needed */
+    margin: 0 auto;
+    overflow: hidden;
+  }
+  .carousel-img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+</style>
+</head>
+<body>
+
+<div class="carousel-container">
+    <img src="imgs/meme-imgs/too-many-mic-for-you.jpg" data-meme-id="8">
+    <img src="imgs/meme-imgs/talking-to-the-wall.jpeg" data-meme-id="9">
+    <img src="imgs/meme-imgs/the-office-meme-guy.jpg" data-meme-id="10">
+</div>
+
+<script>
+  // Function to switch images
+  function changeImage() {
+    const images = document.querySelectorAll('.carousel-img');
+    const currentImage = document.querySelector('.carousel-img.active');
+    const currentIndex = Array.from(images).indexOf(currentImage);
+    const nextIndex = (currentIndex + 1) % images.length;
+
+    currentImage.classList.remove('active');
+    images[nextIndex].classList.add('active');
+  }
+
+  // Change image every 3 seconds (adjust as needed)
+  setInterval(changeImage, 3000);
+</script>
+
+</body>
+</html>
