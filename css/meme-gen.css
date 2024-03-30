@@ -557,3 +557,58 @@ footer {
         cursor: pointer;
     }
 }
+
+/* Auto Carousal  */
+
+.home-memes-carousal {
+    display: flex;
+    justify-content: center;
+  }
+
+  .slider {
+    overflow-x: hidden;
+    white-space: nowrap;
+    width: 85%;
+    position: relative; /* Ensure correct positioning of pseudo-elements */
+  }
+
+  .slide-track {
+    animation: scroll 30s linear infinite;
+    display: flex;
+    height: 100%;
+    align-items: center;
+    width: calc(250px * 14);
+    background-color: linen;
+    position: relative; /* Ensure correct positioning of slides */
+  }
+
+  .slide {
+    width: 375px;
+    margin: 0 15px;
+  }
+
+  .slide img {
+    height: 100%;
+    width: 100%;
+    box-shadow: #000 2px 2px 3px;
+  }
+
+  @keyframes scroll {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(calc(-250px * 7));
+    }
+  }
+
+  .slider::after {
+    right: 0;
+    top: 0;
+    transform: rotateZ(180deg);
+  }
+
+  .slider::before {
+    left: 0;
+    top: 0;
+  }

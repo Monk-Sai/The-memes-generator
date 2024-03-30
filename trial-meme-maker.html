@@ -4,44 +4,92 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Auto-changing Carousel</title>
+
 <style>
-  .carousel-container {
-    position: relative;
-    width: 100%;
-    max-width: 600px; /* Adjust as needed */
-    margin: 0 auto;
-    overflow: hidden;
+  .home-memes-carousal {
+    align-items: center;
+    background: #215af8;
+    display: flex;
+    height: 80vh;
+    justify-content: center;
   }
-  .carousel-img {
-    display: block;
+
+  .slider {
+    overflow-x: hidden;
+    white-space: nowrap;
+    width: 85%;
+    position: relative; /* Ensure correct positioning of pseudo-elements */
+  }
+
+  .slide-track {
+    animation: scroll 30s linear infinite;
+    display: flex;
+    align-items: center;
+    width: calc(250px * 14);
+    background-color: linen;
+    position: relative; /* Ensure correct positioning of slides */
+  }
+
+  .slide {
+    width: 250px;
+    margin: 0 15px;
+  }
+
+  .slide img {
+    height: 100%;
     width: 100%;
-    height: auto;
+    box-shadow: #000 2px 2px 3px;
+  }
+
+  @keyframes scroll {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(calc(-250px * 7));
+    }
+  }
+
+  .slider::after {
+    right: 0;
+    top: 0;
+    transform: rotateZ(180deg);
+  }
+
+  .slider::before {
+    left: 0;
+    top: 0;
   }
 </style>
 </head>
-<body>
+<body class="home-memes-carousal">
 
-<div class="carousel-container">
-    <img class="carousel-img" src="imgs/meme-imgs/too-many-mic-for-you.jpg" data-meme-id="8">
-    <img class="carousel-img" src="imgs/meme-imgs/talking-to-the-wall.jpeg" data-meme-id="9">
-    <img class="carousel-img" src="imgs/meme-imgs/the-office-meme-guy.jpg" data-meme-id="10">
-</div>
+  <div class="slider">
+    <div class="slide-track">
+      <div class="slide">
+        <img src="imgs/meme-imgs/Alın bişi yaparsınız.jpeg" alt=""/>
+      </div>
+      <div class="slide">
+        <img src="imgs/meme-imgs/anything-else-trash-bin.jpeg" alt=""/>
+      </div>
+      <div class="slide">
+        <img src="imgs/meme-imgs/squidward-cunning-face.jpeg" alt=""/>
+      </div>
+      <div class="slide">
+        <img src="imgs/meme-imgs/what-is-he-thinking-meme.jpeg" alt=""/>
+      </div>
+      <div class="slide">
+        <img src="imgs/meme-imgs/talking-to-the-wall.jpeg" alt=""/>
+      </div>
+      <div class="slide">
+        <img src="imgs/meme-imgs/surprised-dark-guy.jpeg" alt=""/>
+      </div>
+      <div class="slide">
+        <img src="imgs/meme-imgs/look-at-my-work.jpeg" alt=""/>
+      </div>
+    </div>
+  </div>
 
-<script>
-  // Function to switch images
-  function changeImage() {
-    const images = document.querySelectorAll('.carousel-img');
-    const currentImage = document.querySelector('.carousel-img.active');
-    const currentIndex = Array.from(images).indexOf(currentImage);
-    const nextIndex = (currentIndex + 1) % images.length;
-
-    currentImage.classList.remove('active');
-    images[nextIndex].classList.add('active');
-  }
-
-  // Change image every 3 seconds (adjust as needed)
-  setInterval(changeImage, 3000);
-</script>
 
 </body>
 </html>

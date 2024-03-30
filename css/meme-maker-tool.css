@@ -116,7 +116,7 @@ textarea {
 
 .fold-0 {
     height: 15vh;
-    margin: 75px 10px 75px 10px;
+    margin: 75px 10px 15px 10px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -137,7 +137,7 @@ textarea {
     justify-content: center;
 }
 .img-container-fold {
-    width: 50%;
+    width: 40%;
     height: 60%;
     display: flex;
     flex-direction: row;
@@ -146,13 +146,13 @@ textarea {
 }
 .img-carousel {
     display: flex; /* Arrange images horizontally */
-    transition: transform 0.5s ease-in-out; /* Smooth transition effect */
+    animation: scroll 25s linear infinite;
     width: -webkit-fill-available;
+    height: 100%;
 }
 .img-carousel img {
     object-fit: contain;
     margin: 0 5px; /* Add spacing between images */
-    height: -webkit-fill-available;
     width: 100%;
 }
 
