@@ -54,19 +54,19 @@ function generateMeme(img, topText, bottomText, topTextSize, bottomTextSize) {
     // Show the download button
     downloadBtn.style.display = 'flex';
 
-    // Add the download button event listener
-    downloadBtn.addEventListener('click', function () {
-        // Trigger the download
-        const dataURL = canvas.toDataURL('image/png');
-        const a = document.createElement('a');
-        a.href = dataURL;
-        a.download = 'meme.png';
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-        });
-     });
-    }
+  });
+}
+// Add the download button event listener
+downloadBtn.addEventListener('click', function () {
+    // Trigger the download
+    const dataURL = canvas.toDataURL('image/png');
+    const a = document.createElement('a');
+    a.href = dataURL;
+    a.download = 'meme.png';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    });
 }
 
 function drawWrappedText(text, maxWidth, x, y, textBaseline) {
