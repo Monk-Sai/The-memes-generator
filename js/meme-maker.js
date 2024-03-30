@@ -89,6 +89,7 @@ function drawWrappedText(text, maxWidth, x, y, textBaseline) {
   lines.push(line);
 }
 
+  // download function
 function downloadMeme() {
   // Trigger the download
   const dataURL = canvas.toDataURL('image/png');
