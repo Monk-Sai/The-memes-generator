@@ -1,95 +1,85 @@
-<!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Auto-changing Carousel</title>
-
-<style>
-  .home-memes-carousal {
-    align-items: center;
-    background: #215af8;
-    display: flex;
-    height: 80vh;
-    justify-content: center;
-  }
-
-  .slider {
-    overflow-x: hidden;
-    white-space: nowrap;
-    width: 85%;
-    position: relative; /* Ensure correct positioning of pseudo-elements */
-  }
-
-  .slide-track {
-    animation: scroll 30s linear infinite;
-    display: flex;
-    align-items: center;
-    width: calc(250px * 14);
-    background-color: linen;
-    position: relative; /* Ensure correct positioning of slides */
-  }
-
-  .slide {
-    width: 250px;
-    margin: 0 15px;
-  }
-
-  .slide img {
-    height: 100%;
+  <style>
+    /* Accordian Item */
+.accordion {
     width: 100%;
-    box-shadow: #000 2px 2px 3px;
-  }
+    max-width: 500px; /* Adjust the width as needed */
+    margin: 0 auto;
+}
 
-  @keyframes scroll {
-    0% {
-      transform: translateX(0);
-    }
-    100% {
-      transform: translateX(calc(-250px * 7));
-    }
-  }
+.accordion-item {
+    border-top: 2px solid #a0d9ff;
+    display: block;
+}
 
-  .slider::after {
-    right: 0;
-    top: 0;
-    transform: rotateZ(180deg);
-  }
+.accordion-title {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 15px;
+    cursor: pointer; /* Indicate interactivity on hover */
+}
 
-  .slider::before {
-    left: 0;
-    top: 0;
-  }
-</style>
+.accordion-content {
+    padding: 0 0 10px 0;
+    display: none; /* Initially hide the content */
+}
+
+.accordion-item:first-child .accordion-title {
+    border-top: none; /* Remove top border for the first item */
+}
+
+.accordion-item.active .accordion-title {
+    background-color: none ; /* Change background color for active item */
+}
+
+.accordion-item.active .accordion-content {
+    display: block; /* Show the content for active item */
+}
+.accordian-open {
+    display: flex;
+}
+.accordian-close {
+    display: none;
+}
+  </style>
+  <!-- <link rel="stylesheet" href="css/meme-gen.css"> -->
 </head>
-<body class="home-memes-carousal">
-
-  <div class="slider">
-    <div class="slide-track">
-      <div class="slide">
-        <img src="imgs/meme-imgs/Alın bişi yaparsınız.jpeg" alt=""/>
-      </div>
-      <div class="slide">
-        <img src="imgs/meme-imgs/anything-else-trash-bin.jpeg" alt=""/>
-      </div>
-      <div class="slide">
-        <img src="imgs/meme-imgs/squidward-cunning-face.jpeg" alt=""/>
-      </div>
-      <div class="slide">
-        <img src="imgs/meme-imgs/what-is-he-thinking-meme.jpeg" alt=""/>
-      </div>
-      <div class="slide">
-        <img src="imgs/meme-imgs/talking-to-the-wall.jpeg" alt=""/>
-      </div>
-      <div class="slide">
-        <img src="imgs/meme-imgs/surprised-dark-guy.jpeg" alt=""/>
-      </div>
-      <div class="slide">
-        <img src="imgs/meme-imgs/look-at-my-work.jpeg" alt=""/>
-      </div>
+<body>
+  <section class="after-folds" style="background-color: #e0f5ff;"> 
+    <div class="img-container-fold-2">
+               
     </div>
-  </div>
-
-
+    <div class="h2-container-fold">
+        <h2>Perfectly blend your marketing campaigns with meme marketing</h2>
+        <div class="accordion">
+            <div class="accordion-item">
+                <h3 class="accordion-title">Increase Brand Awareness with Memes<img class="accordian-open" src="imgs/accordian-down.svg"></h3>
+                <div class="accordion-content">
+                    <p>Flood the internet with laughter and your brand or your brands product. Memes are like social butterflies, spreading awareness faster than traditional ads.</p>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <h3 class="accordion-title">Impacts on Brand Recall & Recognition<img class="accordian-open" src="imgs/accordian-down.svg"></h3>
+                <div class="accordion-content">
+                    <p>Funny memes from your brand can leave a lasting impression. When customers see your brand again, they'll recall the laughs and connect it to you.</p>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <h3 class="accordion-title">Potential to Go Viral with Ease <img class="accordian-open" src="imgs/accordian-down.svg"></h3>
+                <div class="accordion-content">
+                    <p>Memes have the potential and power to explode online. One funny idea can launch your brand into the minds of prospective buyers for minimal investment.</p>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <h3 class="accordion-title">Turn Customers into Fans<img class="accordian-open" src="imgs/accordian-down.svg"></h3>
+                <div class="accordion-content">
+                    <p>Make it fan frenzy by making them laugh! Memes can turn customers into brand advocates, creating free advertising and also leading to a creation of an online community.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+  </section>
+  <script src=js/meme-maker.js></script>
 </body>
 </html>

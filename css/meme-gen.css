@@ -94,6 +94,48 @@ nav a{
     display: none;
 }
 
+/* Accordian Item */
+.accordion {
+    width: 100%;
+    max-width: 500px; /* Adjust the width as needed */
+    margin: 0 auto;
+}
+
+.accordion-item {
+    border-top: 2px solid #a0d9ff;
+    display: block;
+}
+
+.accordion-title {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 15px;
+    cursor: pointer; /* Indicate interactivity on hover */
+}
+
+.accordion-content {
+    padding: 0 0 10px 15px;
+    display: none; /* Initially hide the content */
+}
+
+.accordion-item:first-child .accordion-title {
+    border-top: none; /* Remove top border for the first item */
+}
+
+.accordion-item.active .accordion-title {
+    background-color: none ; /* Change background color for active item */
+}
+
+.accordion-item.active .accordion-content {
+    display: block; /* Show the content for active item */
+}
+.accordian-open {
+    display: flex;
+}
+.accordian-close {
+    display: none;
+}
+
 @media screen and (max-width:800px) {
     .hideOnMobile{
         display: none;
@@ -347,47 +389,6 @@ footer {
     color: #ffffff;
     font-weight: 500;
     font-size: 18px;
-}
-
-/* Accordian Item */
-.accordion {
-    width: 100%;
-    max-width: 500px; /* Adjust the width as needed */
-    margin: 0 auto;
-}
-
-.accordion-item {
-    border-top: 2px solid #a0d9ff;
-}
-
-.accordion-title {
-    display: flex;
-    justify-content: space-between;
-    padding: 10px 15px;
-    cursor: pointer; /* Indicate interactivity on hover */
-}
-
-.accordion-content {
-    padding: 0 0 10px 0;
-    display: none; /* Initially hide the content */
-}
-
-.accordion-item:first-child .accordion-title {
-    border-top: none; /* Remove top border for the first item */
-}
-
-.accordion-item.active .accordion-title {
-    background-color: none ; /* Change background color for active item */
-}
-
-.accordion-item.active .accordion-content {
-    display: block; /* Show the content for active item */
-}
-.accordian-open {
-    display: flex;
-}
-.accordian-close {
-    display: none;
 }
 
 /* MEDIA SCREENS */
