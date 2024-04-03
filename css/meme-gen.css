@@ -184,13 +184,13 @@ nav a{
     align-items: center;
 }
 .meme-h1-title h1 {
-    color: #ffe928;
+    color: #ffffff;
     text-align: center;
-    text-shadow: 4px 3px 1px rgba(0, 0, 0, 0.82);
+    text-shadow: 4px 4px 8px rgba(6, 89, 157, 0.82);
     font-family: 'Poppins', Arial;
     font-size: 3rem;
     font-style: normal;
-    font-weight: 600;
+    font-weight: 700;
     line-height: normal;
 }
 
@@ -240,6 +240,7 @@ nav a{
 }
 .meme-page-content {
     height: 100%;
+    padding: 50px 25px;
     margin: 45px 0 0 0;
 }
 
@@ -369,12 +370,16 @@ nav a{
     flex-direction: row;
     height: 30vh;
     justify-content: center;
+    padding: 50px 0;
 }
 
 .banner-text-side {
     display: flex;
     justify-content: center;
     width: 50%;
+}
+.banner-text-side h2 {
+    font-size: 24px;
 }
 
 .banner-cta-side {
@@ -385,8 +390,8 @@ nav a{
 
 .onpage-btns {
     display: flex;
-    height: 50px;
-    width: 10rem;
+    height: 100%;
+    width: 12rem;
     cursor: pointer;
     align-items: center;
     justify-content: center;
@@ -395,7 +400,7 @@ nav a{
     box-shadow: #000 3px 3px 9px;
     background-color: #b7f2ff;
     font-weight: 600;
-    font-size: 16px;
+    font-size: 24px;
 }
 
 /* Main Footer */
@@ -509,12 +514,17 @@ footer {
         box-shadow: 3px 3px 1px #000;
         cursor: pointer;
     }
+    .meme-page-content {
+        height: 100%;
+        padding: 30px 5px;
+        margin: 20px 0 0 0;
+    }
     .meme-page-content h2 {
         display: flex;
         justify-content: center;
         text-align: center;
         padding: 50px 10px 20px 10px;
-        margin: 25px 0 0 0;
+        margin: 0 0 0 0;
     }
     .meme-page-content p {
         display: inline-block;
@@ -538,6 +548,13 @@ footer {
         font-size: 16px;
         -webkit-appearance: none;
         cursor: pointer;
+    }
+    .cta-banner-col {
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        height: 40vh;
+        justify-content: space-around;
     }
 }
 
@@ -611,6 +628,8 @@ footer {
 .home-memes-carousal {
     display: flex;
     justify-content: center;
+    height: 65vh;
+    padding: 45px 10px;
   }
 
   .slider {
