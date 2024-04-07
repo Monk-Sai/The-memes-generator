@@ -175,7 +175,7 @@ nav a{
     display: flex;
     flex-direction: column;
     text-align: center;
-    background-image: url(../imgs/meme-gen-wall.jpg);
+    background-image: url(../imgs/meme-gen-wall.webp);
     background-size: cover;
     height: 100vh;
     padding: 0 5px 0 5px;
@@ -296,16 +296,17 @@ nav a{
     display: flex;
     flex-direction: column;
     height: max-content;
-    background: #FFE3AE;
+    background: #ffa555;
+    box-shadow: 3px 3px 1px #000;
     width: 20%;
     border: 2px #000;
     border-radius: 20px;
-    padding: 10px 5px;
+    padding: 5px 5px;
     align-items: center;
-    font-size: 18px;
+    font-size: 16px;
 }
 .meme-category-bar p:hover {
-    border-bottom: 3px solid rgb(248, 154, 100);
+    border-bottom: 3px solid rgb(255, 169, 112);
     cursor: pointer;
 }
 

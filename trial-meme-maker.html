@@ -3,18 +3,70 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Free Memes Generator: Make Unlimited Memes</title>
+    <title>Create Your Own Memes | Memes Creator</title>
     <meta name="description" content="Create Your Own Memes Easily and Swiftly. The Best Custom Memes Generator">
     <link rel="favicon" href="imgs/TMG.png">
     <link rel="stylesheet" href="css/meme-gen.css">
-    <link rel="stylesheet" href="css/meme-maker-tool.css">
+    <link rel="stylesheet" href="css/memes-creator.css">
     <meta name="author" content="Memes Creator">
-    <link rel="icon" href="imgs/TMG.png">
-    <link rel="canonical" href="https://thememesgenerator.com">
+    <link rel="icon" href="imgs\TMG.png">
+    <link rel="canonical" href="https://thememesgenerator.com/memes-creator">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins">
+
+    <style>
+    .img-text-box {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 0;
+    cursor: move;
+    border: 1px solid #444;
+    border: 1px solid rgba(0, 0, 0, .6);
+    background: transparent;
+    touch-action: none;
+    z-index: 2;
+    }
+
+    .img-text-box::before {
+    position: absolute;
+    left: -1px;
+    top: -1px;
+    width: 100%;
+    height: 100%;
+    content: '';
+    border: 1px dashed #bbb;
+    border: 1px dashed rgba(255, 255, 255, .6);
+    border-color: black;
+    }
+
+    .wrapN {
+        top: 0;
+        position: absolute;
+        left: 50%;
+    }
+
+    .N, .S {
+        cursor: ns-resize;
+    }
+
+    .resize {
+    position: absolute;
+    z-index: 3;
+    width: 17px;
+    height: 17px;
+    background: #ccc;
+    background: rgba(255, 255, 255, .6);
+    border: 1px solid #333;
+    border-radius: 2px;
+    }
+
+
+    </style>
 </head>
 
 <body>
+
     <header>
         <nav class="main-header">
             <div class="header-logo">
@@ -26,78 +78,231 @@
                 <li class="menu-button" onclick=hideSidebar()><a href="#"><svg xmlns="http://www.w3.org/2000/svg" height="26px" viewBox="0 -960 960 960" width="26px"><path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/></svg></a>
                 <li><a href="https://thememesgenerator.com/memes-creator">Memes Creator</a>
                 <li><a href="https://thememesgenerator.com/free-memes">Latest Memes</a>
+                <li><a href="https://thememesgenerator.com/blog/">Learn</a>
             </ul>
             <ul>
                 <li class="hideOnMobile"><a href="https://thememesgenerator.com/memes-creator">Memes Creator</a>
                 <li class="hideOnMobile"><a href="https://thememesgenerator.com/free-memes">Latest Memes</a>
+                <li class="hideOnMobile"><a href="https://thememesgenerator.com/blog/">Learn</a>
                 <li class="menu-button" onclick=showSidebar()><a href="#"><svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24"><path d="M120-240v-80h720v80H120Zm0-200v-80h720v80H120Zm0-200v-80h720v80H120Z"/></svg></a>
             </ul>
         </nav>
     </header>
 
-<main>
-    <section class="meme-h1-title">
-        <h1>Create Customized Memes</h1>
+    <section class="meme-editor-box">
+        <div class="h1-header">
+            <h1>Free Meme Maker: Create Hilarious Memes in Seconds</h1>
+            <p>Our free tool lets you create hilarious memes in seconds. Explore popular templates, unleash your humor, and share the laughs, it's faster than ever.</p>
+        </div>
+        <div class="meme-creator-container">
+            <div class="left-text-boxes">
+                <p>
+                    <input type="file" id="image-input" accept="image/*" style="font-size: 18px;">
+                </p>
+                <p>
+                    <textarea placeholder="Top Text" id="top-text"></textarea>
+                    Text size: <input type="range" id="top-text-size-input" min="0.05" max="0.25" value="0.15" step="0.01">
+                </p>
+                <p>
+                    <textarea placeholder="Bottom Text" id="bottom-text"></textarea>
+                    Text size: <input type="range" id="bottom-text-size-input" min="0.05" max="0.25" value="0.15" step="0.01">
+                </p>
+                <div class="all-gen-btn">
+                    <button id="generate-btn">Generate!</button>
+                </div>
+            </div>ß
+    
+            <div class="canvas-img-load">
+                <canvas id="meme-canvas">
+                    <div class="img-text-box">
+                    <div class="wrapN"><div class="resize N" data-dir="N"></div></div>
+                    <div class="wrapE"><div class="resize E" data-dir="E"></div></div>
+                    <div class="wrapS"><div class="resize S" data-dir="S"></div></div>
+                    <div class="wrapW"><div class="resize W" data-dir="W"></div></div>
+                </div>
+                </canvas>
+                <button id="download-btn">Download</button>
+            </div>
+            
+            <div class="meme-template-box">
+                <img src="imgs/meme-imgs/drowning-hand-clap.jpeg" data-meme-id="1"> 
+                <img src="imgs/meme-imgs/facts-book-by-edy.jpeg" data-meme-id="2">
+                <img src="imgs/meme-imgs/look-at-my-work.jpeg" data-meme-id="3"> 
+                <img src="imgs/meme-imgs/spiderman-saves-a-kid-bus.jpeg" data-meme-id="4">
+                <img src="imgs/meme-imgs/uno-draw-25.jpeg" data-meme-id="5">
+                <img src="imgs/meme-imgs/surprised-dark-guy.jpeg" data-meme-id="6">
+                <img src="imgs/meme-imgs/loudest-noise.jpg" data-meme-id="7">
+                <img src="imgs/meme-imgs/too-many-mic-for-you.jpg" data-meme-id="8">
+                <img src="imgs/meme-imgs/talking-to-the-wall.jpeg" data-meme-id="9">
+                <img src="imgs/meme-imgs/the-office-meme-guy.jpg" data-meme-id="10">
+                <img src="imgs/meme-imgs/Spongebob-book-meme.jpeg" data-meme-id="11">
+                <img src="imgs/meme-imgs/SpongeBob-secret-sauce.jpeg" data-meme-id="12">
+                <img src="imgs/meme-imgs/Pinned to Plantillas.jpeg" data-meme-id="13">
+            </div>
+    
+        </div>
     </section>
 
-    <div class="fold-0">
-        <h2>Try The Best Meme Generator! Create Memes Now!</h2>
-    </div>
 
-    <div>
-        <img src="imgs/hero-phone-frame.png">
-
-<div class="home-memes-carousal">
-    <div class="slider">
-        <div class="slide-track">
-          <div class="slide">
-            <img src="imgs/meme-imgs/brain-talk-before-sleep.jpeg" alt=""/>
-          </div>
-          <div class="slide">
-            <img src="imgs/meme-imgs/anything-else-trash-bin.jpeg" alt=""/>
-          </div>
-          <div class="slide">
-            <img src="imgs/meme-imgs/squidward-cunning-face.jpeg" alt=""/>
-          </div>
-          <div class="slide">
-            <img src="imgs/meme-imgs/what-is-he-thinking-meme.jpeg" alt=""/>
-          </div>
-          <div class="slide">
-            <img src="imgs/meme-imgs/talking-to-the-wall.jpeg" alt=""/>
-          </div>
-          <div class="slide">
-            <img src="imgs/meme-imgs/surprised-dark-guy.jpeg" alt=""/>
-          </div>
-          <div class="slide">
-            <img src="imgs/meme-imgs/look-at-my-work.jpeg" alt=""/>
-          </div>
-        </div>
-      </div>
-</div>
-</div>
-
-<section class="after-folds" style="background-color: #171C2D;">
-    <div class="h2-container-fold">
-        <h2>Memes created by our super users!</h2>
-        <p>Some of the funniest memes created by our users that will make you laugh. Create and send us your memes to get featured here. Show your meme skills, and get featured</p>
-    </div>
-
-    <div class="img-container-fold">
-        <div class="img-carousel">
-            <img src="imgs/meme-imgs/drowning-hand-clap.jpeg" data-meme-id="1"> 
-            <img src="imgs/meme-imgs/facts-book-by-edy.jpeg" data-meme-id="2">
-            <img src="imgs/meme-imgs/look-at-my-work.jpeg" data-meme-id="3"> 
-            <img src="imgs/meme-imgs/spiderman-saves-a-kid-bus.jpeg" data-meme-id="4">
-            <img src="imgs/meme-imgs/uno-draw-25.jpeg" data-meme-id="5">
-            <img src="imgs/meme-imgs/surprised-dark-guy.jpeg" data-meme-id="6">
-            <img src="imgs/meme-imgs/loudest-noise.jpg" data-meme-id="7">
-            <img src="imgs/meme-imgs/too-many-mic-for-you.jpg" data-meme-id="8">
-            <img src="imgs/meme-imgs/talking-to-the-wall.jpeg" data-meme-id="9">
-        </div>        
-    </div>
-</section>
-
-<script src="js/meme-maker.js"></script>
 </body>
+<script>
 
+/* Header JS */
+function showSidebar(){
+    const sidebar = document.querySelector('.sidebar')
+    sidebar.style.display = 'flex'
+}
+function hideSidebar(){
+    const sidebar = document.querySelector('.sidebar')
+    sidebar.style.display = 'none'
+}
+
+
+/* Meme Creator */ 
+
+let topTextInput, bottomTextInput, topTextSizeInput, bottomTextSizeInput, imageInput, generateBtn, canvas, ctx;
+
+function generateMeme(img, topText, bottomText, topTextSize, bottomTextSize) {
+  let fontSize;
+
+  img.onload = function () {
+  canvas.width = img.width;
+  canvas.height = img.height;
+
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.drawImage(img, 0, 0);
+
+  ctx.fillStyle = "white";
+  ctx.strokeStyle = "#000";
+  ctx.textAlign = "center";
+
+  // Top text font size
+  fontSize = canvas.width * topTextSize;
+  ctx.font = fontSize + 'px Impact';
+  ctx.lineWidth = canvas.width * 0.004;
+
+  // Draw top text
+  ctx.textBaseline = 'top';
+  topText.split('\n').forEach(function (t, i) {
+      ctx.fillText(t, canvas.width / 2, i * fontSize, canvas.width);
+      ctx.strokeText(t, canvas.width / 2, i * fontSize, canvas.width);
+  });
+
+  // Bottom text font size
+  fontSize = canvas.width * bottomTextSize;
+  ctx.font = fontSize + 'px Impact';
+  ctx.lineWidth = canvas.width*0.004;
+
+  // Draw bottom text
+  ctx.textBaseline = 'bottom';
+  bottomText.split('\n').reverse().forEach(function (t, i) {
+      ctx.fillText(t, canvas.width / 2, canvas.height - i * fontSize, canvas.width);
+      ctx.strokeText(t, canvas.width / 2, canvas.height - i * fontSize, canvas.width);
+   });
+
+  // Show the download button
+  downloadBtn.style.display = 'flex';
+
+  // Remove existing event listener before adding a new one
+  downloadBtn.removeEventListener('click', downloadMeme);
+  downloadBtn.addEventListener('click', downloadMeme);
+};
+}
+
+  // download function
+function downloadMeme() {
+  // Trigger the download
+  const dataURL = canvas.toDataURL('image/png');
+  const a = document.createElement('a');
+  a.href = dataURL;
+  a.download = 'meme.png';
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+};
+
+function init() {
+    // Get references to elements
+    topTextInput = document.getElementById('top-text');
+    canvas = document.getElementById('meme-canvas');
+    generateBtn = document.getElementById('generate-btn');
+    downloadBtn = document.getElementById('download-btn');
+    bottomTextInput = document.getElementById('bottom-text');
+    topTextSizeInput = document.getElementById('top-text-size-input');
+    bottomTextSizeInput = document.getElementById('bottom-text-size-input');
+    imageInput = document.getElementById('image-input');
+  
+    // Get 2D context from canvas
+    ctx = canvas.getContext('2d');
+  
+    fontSize = null; // Optional: Allow setting a custom font size
+
+
+    // Add event listener to generate button
+    generateBtn.addEventListener('click', function () {
+      const reader = new FileReader();
+      reader.onload = function () {
+        const img = new Image();
+        img.src = reader.result;
+        generateMeme(img, topTextInput.value, bottomTextInput.value, topTextSizeInput.value, bottomTextSizeInput.value);
+      };
+      reader.readAsDataURL(imageInput.files[0]);
+    });
+
+    const templateImages = document.querySelectorAll('.meme-template-box img');
+    templateImages.forEach(img => {
+        img.addEventListener('click', function() {
+            // Perform the same actions as the generate button click
+            const selectedTemplate = this; // Use the clicked image as the selected template
+            const imgSrc = selectedTemplate.src;
+            const img = new Image();
+            img.src = imgSrc;
+            generateMeme(img, topTextInput.value, bottomTextInput.value, topTextSizeInput.value, bottomTextSizeInput.value);
+
+      // Remove selected class from all templates
+      templateImages.forEach(templateImg => templateImg.classList.remove('selected'));
+
+      // Add selected class to clicked image
+      this.classList.add('selected');
+      generateBtn.addEventListener('click', function () {
+        const selectedTemplate = document.querySelector('.meme-template-box img.selected');
+        if (selectedTemplate) {
+          const imgSrc = selectedTemplate.src;
+          const img = new Image();
+          img.src = imgSrc;
+          generateMeme(img, topTextInput.value, bottomTextInput.value, topTextSizeInput.value, bottomTextSizeInput.value);
+        } else {
+          alert('Please select a template image first!');
+        }
+      });
+    });
+  });
+}
+
+// Initialize the script after the DOM content is loaded
+document.addEventListener('DOMContentLoaded', function() {
+  init();
+})
+
+/* Accordian Item */
+const accordionTitles = document.querySelectorAll('.accordion-title');    
+accordionTitles.forEach(title => {
+  title.addEventListener('click', function() {
+    const accordionItem = this.parentElement;
+    
+    // Close other open accordions
+    document.querySelectorAll('.accordion-item.active').forEach(item => {
+      if (item !== accordionItem) {
+        item.classList.remove('active');
+      }
+    });
+    
+    accordionItem.classList.toggle('active');
+  });
+})
+
+
+
+
+</script>
 </html>
