@@ -30,7 +30,7 @@
   margin: 0;
   height: 100%;
   padding: 10px;
-  cursor: crosshair;
+  cursor: move;
   background: transparent;
   box-shadow: none;
   font-size: 18px;
@@ -40,55 +40,63 @@
 
 .resize-handle {
   position: absolute;
-  width: 10px;
-  height: 10px;
+  width: 15px;
+  height: 15px;
   background-color: #ccc;
-  cursor: pointer;
 }
 
 .resize-top {
   top: -5px;
   left: 50%;
   transform: translateX(-50%);
+  cursor: ns-resize;
 }
 
 .resize-right {
   top: 50%;
   right: -5px;
   transform: translateY(-50%);
+  cursor: ew-resize;
 }
 
 .resize-bottom {
   bottom: -5px;
   left: 50%;
   transform: translateX(-50%);
+  cursor: ns-resize;
 }
 
 .resize-left {
   top: 50%;
   left: -5px;
   transform: translateY(-50%);
+  cursor: ew-resize;
 }
 
 .resize-top-left {
   top: -5px;
   left: -5px;
+  cursor: nwse-resize;
 }
 
 .resize-top-right {
   top: -5px;
   right: -5px;
+  cursor: nesw-resize;
 }
 
 .resize-bottom-left {
   bottom: -5px;
   left: -5px;
+  cursor: nesw-resize;
 }
 
 .resize-bottom-right {
   bottom: -5px;
   right: -5px;
+  cursor: nwse-resize;
 }
+
 
     </style>
 </head>
@@ -125,7 +133,7 @@
         <div class="meme-creator-container">
             <div class="left-text-boxes">
                 <p>
-                    <input type="file" id="image-input" accept="image/*" style="font-size: 18px;">
+                    <input type="file" id="image-input" accept="image/*" style="font-size: 16px;">
                 </p>
                 <p>
                     <textarea placeholder="Top Text" id="top-text"></textarea>
@@ -136,7 +144,7 @@
                     Text size: <input type="range" id="bottom-text-size-input" min="0.05" max="0.25" value="0.15" step="0.01">
                 </p>
                 <div class="all-gen-btn">
-                    <button id="generate-btn">Generate!</button>
+                    <button id="generate-btn">More Options</button>
                 </div>
             </div>
     
@@ -180,7 +188,7 @@
 
 /* Meme Creator */ 
 
-let topTextInput, bottomTextInput, topTextSizeInput, bottomTextSizeInput, imageInput, generateBtn, canvas, ctx;
+let topTextInput, bottomTextInput, topTextSizeInput, bottomTextSizeInput, imageInput, canvas, ctx;
 
 function generateMeme(img, topText, bottomText, topTextSize, bottomTextSize) {
     let fontSize;
@@ -250,29 +258,19 @@ function init() {
     // Get references to elements
     topTextInput = document.getElementById('top-text');
     canvas = document.getElementById('meme-canvas');
-    generateBtn = document.getElementById('generate-btn');
     downloadBtn = document.getElementById('download-btn');
     bottomTextInput = document.getElementById('bottom-text');
     topTextSizeInput = document.getElementById('top-text-size-input');
     bottomTextSizeInput = document.getElementById('bottom-text-size-input');
     imageInput = document.getElementById('image-input');
   
+    
+
     // Get 2D context from canvas
     ctx = canvas.getContext('2d');
   
     fontSize = null; // Optional: Allow setting a custom font size
 
-
-    // Add event listener to generate button
-    generateBtn.addEventListener('click', function () {
-      const reader = new FileReader();
-      reader.onload = function () {
-        const img = new Image();
-        img.src = reader.result;
-        generateMeme(img, topTextInput.value, bottomTextInput.value, topTextSizeInput.value, bottomTextSizeInput.value);
-      };
-      reader.readAsDataURL(imageInput.files[0]);
-    });
 
     const templateImages = document.querySelectorAll('.meme-template-box img');
     templateImages.forEach(img => {
@@ -287,20 +285,14 @@ function init() {
       // Remove selected class from all templates
       templateImages.forEach(templateImg => templateImg.classList.remove('selected'));
 
-      // Add selected class to clicked image
-      this.classList.add('selected');
-      generateBtn.addEventListener('click', function () {
-        const selectedTemplate = document.querySelector('.meme-template-box img.selected');
-        if (selectedTemplate) {
-          const imgSrc = selectedTemplate.src;
-          const img = new Image();
-          img.src = imgSrc;
-          generateMeme(img, topTextInput.value, bottomTextInput.value, topTextSizeInput.value, bottomTextSizeInput.value);
-        } else {
-          alert('Please select a template image first!');
-        }
-      });
     });
+        if (templateImages.length > 0) {
+         // Get a random template index
+        const randomIndex = Math.floor(Math.random() * templateImages.length);
+
+        // Simulate a click on the randomly selected template
+        templateImages[randomIndex].click();
+    }
   });
 }
 

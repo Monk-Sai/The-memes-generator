@@ -7,6 +7,7 @@
     height: 50vh;
     width: -webkit-fill-available;
     object-fit: contain;
+    padding: 15px 15px 0px;
 }
 
 .meme-creator-container {
@@ -59,7 +60,7 @@
 textarea {
     font-size: 16px;
     background: #071b2f;
-    height: 80px;
+    height: 50px;
     margin: 5px 0;
     resize: none;
     color: #fff;
@@ -245,6 +246,7 @@ textarea {
     display: flex;
     flex-direction: column;
     align-items: center;
+    padding: 0 0 15px 0;
 }
 .meme-editor-box {
     display: flex;

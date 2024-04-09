@@ -128,6 +128,13 @@ function init() {
         }
       });
     });
+    if (templateImages.length > 0) {
+      // Get a random template index
+     const randomIndex = Math.floor(Math.random() * templateImages.length);
+
+     // Simulate a click on the randomly selected template
+     templateImages[randomIndex].click();
+   }
   });
 }
 
