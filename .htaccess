@@ -3,5 +3,5 @@ RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteRule ^([^\.]+)$ $1.html [NC,L]
 RewriteRule ^(.*/)index\.html$ $1 [L]
-RewriteCond %{HTTP_HOST} !^www\. [NC]
-RewriteRule ^(.*)$ http://www.%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
+RewriteCond %{HTTP_HOST} ^thememesgenerator.com [NC]
+RewriteRule ^(.*)$ http://www.thememesgenerator.com/$1 [L,R=301]
