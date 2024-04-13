@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Create Your Own Memes | Memes Creator</title>
+    <title>trial</title>
     <meta name="description" content="Create Your Own Memes Easily and Swiftly. The Best Custom Memes Generator">
     <link rel="favicon" href="imgs/TMG.png">
     <link rel="stylesheet" href="css/meme-gen.css">
@@ -38,63 +38,67 @@
   box-sizing: border-box; /* Ensure padding doesn't affect width/height */
 }
 
-.resize-handle {
+.resize-handle-top, .resize-handle-bottom, .resize-handle-left, .resize-handle-right, .resize-bottom-left, .resize-bottom-right, .resize-top-left, .resize-top-right {
   position: absolute;
-  width: 15px;
-  height: 15px;
-  background-color: #ccc;
+  width: 20px;
+  height: 20px;
+  background-color: #ff0000;
 }
 
-.resize-top {
-  top: -5px;
+.resize-handle-top {
+  top: -10px;
   left: 50%;
   transform: translateX(-50%);
   cursor: ns-resize;
 }
 
-.resize-right {
+.resize-handle-right {
   top: 50%;
-  right: -5px;
+  right: -10px;
   transform: translateY(-50%);
   cursor: ew-resize;
 }
 
-.resize-bottom {
-  bottom: -5px;
+.resize-handle-bottom {
+  bottom: -10px;
   left: 50%;
   transform: translateX(-50%);
   cursor: ns-resize;
 }
 
-.resize-left {
+.resize-handle-left {
   top: 50%;
-  left: -5px;
+  left: -10px;
   transform: translateY(-50%);
   cursor: ew-resize;
 }
 
 .resize-top-left {
   top: -5px;
-  left: -5px;
+  left: -10px;
   cursor: nwse-resize;
 }
 
 .resize-top-right {
   top: -5px;
-  right: -5px;
+  right: -10px;
   cursor: nesw-resize;
 }
 
 .resize-bottom-left {
   bottom: -5px;
-  left: -5px;
+  left: -10px;
   cursor: nesw-resize;
 }
 
 .resize-bottom-right {
   bottom: -5px;
-  right: -5px;
+  right: -10px;
   cursor: nwse-resize;
+}
+
+.meme-img-canvas {
+    position: absolute;
 }
 
 
@@ -151,16 +155,34 @@
             <div class="canvas-img-load">
                 <canvas id="meme-canvas"></canvas>
                 <div class="resizable-box">
-                    <textarea id="text-area" placeholder="Enter your text here"></textarea>
-                    <div class="resize-handle resize-top"></div>
-                    <div class="resize-handle resize-right"></div>
-                    <div class="resize-handle resize-bottom"></div>
-                    <div class="resize-handle resize-left"></div>
-                    <div class="resize-handle resize-top-left"></div>
-                    <div class="resize-handle resize-top-right"></div>
-                    <div class="resize-handle resize-bottom-left"></div>
-                    <div class="resize-handle resize-bottom-right"></div>
+                    <textarea id="text-area" placeholder="Your text"></textarea>
+                    <div class="resize-handle-top"> 
+                        <div class="resize-top"></div>
+                    </div>
+                    <div class="resize-handle-right">
+                        <div class="resize-right"></div>
+                    </div>
+                    <div class="resize-handle-bottom">
+                        <div class="resize-bottom"></div>
+                    </div>
+                    <div class="resize-handle-left">
+                        <div class="resize-left"></div>
+                    </div>
+                    <div class="resize-handle-topleft">
+                        <div class="resize-top-left"></div>
+                    </div>
+                    <div class="resize-handle-topright">
+                        <div class="resize-top-right"></div>
+                    </div>
+                    <div class="resize-handle-bottomleft">
+                        <div class="resize-bottom-left"></div>
+                    </div>
+                    <div class="resize-handle-bottomright">
+                        <div class="resize-bottom-right"></div>
+                    </div>
                   </div>
+                
+                <img id="meme-img-src" class="meme-img-canvas" src=" ">
                 <button id="download-btn">Download</button>
             </div>
             
@@ -263,14 +285,11 @@ function init() {
     topTextSizeInput = document.getElementById('top-text-size-input');
     bottomTextSizeInput = document.getElementById('bottom-text-size-input');
     imageInput = document.getElementById('image-input');
-  
     
-
     // Get 2D context from canvas
     ctx = canvas.getContext('2d');
   
     fontSize = null; // Optional: Allow setting a custom font size
-
 
     const templateImages = document.querySelectorAll('.meme-template-box img');
     templateImages.forEach(img => {
@@ -303,57 +322,68 @@ document.addEventListener('DOMContentLoaded', function() {
 
 const resizableBox = document.querySelector('.resizable-box');
 const textArea = document.getElementById('text-area');
-const resizeHandles = document.querySelectorAll('.resize-handle');
-const canvasRect = document.getElementById('meme-canvas'); 
+const resizeHandles = document.querySelectorAll('.resize-handle-top, .resize-handle-left, .resize-handle-right, .resize-handle-bottom');
+const canvasRect = document.getElementById('meme-canvas');
 
 let isDragging = false; // Flag to track dragging state
 let startX, startY, initialX, initialY;
 
 let startResizeX, startResizeY, initialWidth, initialHeight;
 
-// Add event listeners for dragging
+// Add event listeners for mouse dragging
 resizableBox.addEventListener('mousedown', startDrag);
 document.addEventListener('mousemove', move);
 document.addEventListener('mouseup', endDrag);
 
+// Add event listeners for touch dragging
+resizableBox.addEventListener('touchstart', startDrag);
+document.addEventListener('touchmove', move);
+document.addEventListener('touchend', endDrag);
+
+
 // Add event listeners for resizing
 resizeHandles.forEach(handle => {
   handle.addEventListener('mousedown', startResize);
-  document.addEventListener('mousemove', resize);
-  document.addEventListener('mouseup', () => {
-    startResizeX = initialWidth = null;
-    startResizeY = initialHeight = null;
-  });
+  handle.addEventListener('touchstart', startResize);
 });
 
 function startDrag(evt) {
   isDragging = true;
-  startX = evt.clientX;
-  startY = evt.clientY;
+  const { clientX, clientY } = getCoordinates(evt);
+  startX = clientX;
+  startY = clientY;
   initialX = resizableBox.offsetLeft;
   initialY = resizableBox.offsetTop;
 }
 
 function move(evt) {
   if (!isDragging) return;
+  const { clientX, clientY } = getCoordinates(evt);
+  const deltaX = clientX - startX;
+  const deltaY = clientY - startY;
+  
 
-  const deltaX = evt.clientX - startX;
-  const deltaY = evt.clientY - startY;
-
+  // Calculate the new position of the text box while ensuring it stays within the canvas boundaries
   const newLeft = initialX + deltaX;
-  const newTop = initialY + deltaY;
+  const newTop = Math.max(initialY, initialY + deltaY); // Ensure newTop doesn't go above initialY
 
-  // Calculate the maximum allowed position for the text box
-  const maxLeft = canvasRect.offsetLeft + canvasRect.offsetWidth - resizableBox.offsetWidth;
-  const maxTop = canvasRect.offsetTop + canvasRect.offsetHeight - resizableBox.offsetHeight;
+  // Update the position of the text box
+  resizableBox.style.left = newLeft + 'px';
+  resizableBox.style.top = newTop + 'px';
 
-  // Calculate the minimum allowed position for the text box
-  const minLeft = canvasRect.offsetLeft;
-  const minTop = canvasRect.offsetTop;
+  // Schedule update using requestAnimationFrame
+  requestAnimationFrame(() => {
+    // Calculate max/min positions here
+    const maxLeft = canvasRect.offsetLeft + canvasRect.offsetWidth - resizableBox.offsetWidth;
+    const maxTop = canvasRect.offsetTop + canvasRect.offsetHeight - resizableBox.offsetHeight;
 
-  // Update the position of the text box while ensuring it stays within the canvas boundaries
-  resizableBox.style.left = Math.max(minLeft, Math.min(maxLeft, newLeft)) + 'px';
-  resizableBox.style.top = Math.max(minTop, Math.min(maxTop, newTop)) + 'px';
+    const minLeft = canvasRect.offsetLeft;
+    const minTop = canvasRect.offsetTop;
+
+    // Update the position of the text box
+    resizableBox.style.left = Math.max(minLeft, Math.min(maxLeft, newLeft)) + 'px';
+    resizableBox.style.top = Math.max(minTop, Math.min(maxTop, newTop)) + 'px';
+  });
 }
 
 function endDrag() {
@@ -361,92 +391,72 @@ function endDrag() {
 }
 
 function startResize(evt) {
-  startResizeX = evt.clientX;
-  startResizeY = evt.clientY;
+  startResizeX = evt.clientX || evt.touches[0].clientX;
+  startResizeY = evt.clientY || evt.touches[0].clientY;
   initialWidth = resizableBox.offsetWidth;
   initialHeight = resizableBox.offsetHeight;
+
+  // Prevent default touch behavior
+  evt.preventDefault();
+  evt.stopPropagation();
+  // Add event listeners for resizing
+  document.addEventListener('mousemove', resize);
+  document.addEventListener('touchmove', resize);
+  document.addEventListener('mouseup', () => {
+    document.removeEventListener('mousemove', resize);
+    document.removeEventListener('touchmove', resize);
+    startResizeX = initialWidth = null;
+    startResizeY = initialHeight = null;
+  });
 }
 
 function resize(evt) {
   if (startResizeX === null || startResizeY === null) return; // Prevent resizing when not dragging
-
-  const deltaX = evt.clientX - startResizeX;
-  const deltaY = evt.clientY - startResizeY;
+  const { clientX, clientY } = getCoordinates(evt);
+  const deltaX = clientX - startResizeX;
+  const deltaY = clientY - startResizeY;
 
   let newWidth, newHeight;
 
   // Adjust newWidth and newHeight based on the handle being dragged
   switch (evt.target.className.split(' ').pop()) {
-    case 'resize-top':
-      newHeight = initialHeight - deltaY;
-      break;
-    case 'resize-right':
-      newWidth = initialWidth + deltaX;
-      break;
-    case 'resize-bottom':
-      newHeight = initialHeight + deltaY;
-      break;
-    case 'resize-left':
-      newWidth = initialWidth - deltaX;
-      break;
-    case 'resize-top-left':
-      newWidth = initialWidth - deltaX;
-      newHeight = initialHeight - deltaY;
-      break;
-    case 'resize-top-right':
-      newWidth = initialWidth + deltaX;
-      newHeight = initialHeight - deltaY;
-      break;
-    case 'resize-bottom-right':
-      newWidth = initialWidth + deltaX;
-      newHeight = initialHeight + deltaY;
-      break;
-    case 'resize-bottom-left':
-      newWidth = initialWidth - deltaX;
-      newHeight = initialHeight + deltaY;
-      break;
+    case 'resize-handle-top':
+    newHeight = Math.max(0, initialHeight - deltaY);
+    resizableBox.style.transform = `translate(${initialX}px, ${initialY + deltaY}px) scaleY(${newHeight / initialHeight})`;
+    break;
+  case 'resize-handle-right':
+    newWidth = Math.max(0, initialWidth + deltaX);
+    resizableBox.style.transform = `translate(${initialX}px, ${initialY}px) scaleX(${newWidth / initialWidth})`;
+    break;
+  case 'resize-handle-bottom':
+    newHeight = Math.max(0, initialHeight + deltaY);
+    resizableBox.style.transform = `translate(${initialX}px, ${initialY}px) scaleY(${newHeight / initialHeight})`;
+    break;
+  case 'resize-handle-left':
+    newWidth = Math.max(0, initialWidth - deltaX);
+    resizableBox.style.transform = `translate(${initialX + deltaX}px, ${initialY}px) scaleX(${newWidth / initialWidth})`;
+    break;
   }
+  requestAnimationFrame(() => {
+    // Update width and height styles
+    resizableBox.style.width = newWidth + 'px';
+    resizableBox.style.height = newHeight + 'px';
+    // Optionally update top position for top handle
+  });
 
-  // Set minimum size limits (optional)
-  newWidth = Math.max(newWidth || initialWidth, 25);
-  newHeight = Math.max(newHeight || initialHeight, 25);
+}
 
-  // Adjust newWidth and newHeight to ensure that resizing is consistent with cursor movement
-  switch (evt.target.className.split(' ').pop()) {
-    case 'resize-top':
-      resizableBox.style.height = newHeight + 'px'; // Resize the height
-      resizableBox.style.top = initialY + deltaY + 'px'; // Move the top edge along with resizing
-      break;
-    case 'resize-right':
-      resizableBox.style.width = newWidth + 'px'; // Resize the width
-      resizableBox.style.left = initialX + deltaX + 'px'; // Move the top edge along with resizing
-      break;
-    case 'resize-bottom':
-      resizableBox.style.height = newHeight + 'px'; // Resize the height
-      resizableBox.style.bottom = initialY + deltaY + 'px'; // Move the top edge along with resizing
-      break;
-    case 'resize-left':
-      resizableBox.style.width = newWidth + 'px'; // Resize the width
-      resizableBox.style.left = initialX + deltaX + 'px'; // Move the left edge along with resizing
-      break;
-      case 'resize-top-left':
-      resizableBox.style.width = newWidth + 'px';
-      resizableBox.style.top = initialY + deltaY + 'px'; // Move top edge
-      resizableBox.style.left = initialX + deltaX + 'px'; // Move left edge
-      break;
-    case 'resize-top-right':
-      resizableBox.style.width = newWidth + 'px';
-      resizableBox.style.top = initialY + deltaY + 'px'; // Move top edge
-      break;
-    case 'resize-bottom-right':
-      resizableBox.style.width = newWidth + 'px';
-      resizableBox.style.height = newHeight + 'px'; // Resize height
-      break;
-    case 'resize-bottom-left':
-      resizableBox.style.width = newWidth + 'px';
-      resizableBox.style.height = newHeight + 'px'; // Resize height
-      resizableBox.style.left = initialX + deltaX + 'px'; // Move left edge
-      break;
+function getCoordinates(evt) {
+  if (evt.touches && evt.touches.length) {
+    return {
+      clientX: evt.touches[0].clientX,
+      clientY: evt.touches[0].clientY
+    };
+  } else {
+    return {
+      clientX: evt.clientX,
+      clientY: evt.clientY
+    };
   }
 }
 
