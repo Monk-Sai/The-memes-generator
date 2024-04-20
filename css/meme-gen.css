@@ -446,6 +446,25 @@ footer {
     display: flex;
 }
 
+.choose-file-btn {
+    background-color: #000000;
+    border: none;
+    border-radius: 25px;
+    padding: 10px 0;
+    color: white;
+    width: 60%;
+    display: inline-block;
+    text-align: center;
+    font-size: 16px;
+    text-decoration: none;
+    cursor: pointer;
+    box-shadow: 1px 1px 1px 1px #23354e;
+}
+
+#image-input {
+    display: none;
+}
+
 /* MEDIA SCREENS */
 
 @media screen and (max-width: 600px) {

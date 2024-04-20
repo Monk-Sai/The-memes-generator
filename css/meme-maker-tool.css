@@ -41,7 +41,7 @@
 
 .meme-template-box {
     flex-direction: column;
-    width: 20%;
+    width: 25%;
     border-radius: 10px;
     display: flex;
     flex-wrap: nowrap;
@@ -75,7 +75,7 @@ textarea {
 }
 
 #generate-btn {
-    width: 60%;
+    width: 75%;
     padding: 10px;
     font-size: 18px;
     cursor: pointer;

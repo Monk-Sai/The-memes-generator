@@ -8,7 +8,6 @@
     height: 50vh;
     width: -webkit-fill-available;
     object-fit: contain;
-    padding: 15px 15px 0px;
 }
 
 .meme-creator-container {
@@ -44,7 +43,7 @@
     border-radius: 10px;
     display: flex;
     flex-wrap: nowrap;
-    background: #071b2f;
+    background: #0a1a2cde;
     overflow-y: scroll;
     height: 60%;
 }
@@ -58,7 +57,7 @@
 
 textarea {
     font-size: 16px;
-    background: #071b2f;
+    background: #000000;
     height: 50px;
     margin: 5px 0;
     resize: none;
@@ -71,10 +70,16 @@ textarea {
 
 .left-text-boxes {
     width: 25%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: #0a1a2cde;
+    padding: 20px 0;
+    border-radius: 25px;
 }
 
 #generate-btn {
-    width: 60%;
+    width: 75%;
     padding: 10px;
     font-size: 18px;
     cursor: pointer;
@@ -83,7 +88,7 @@ textarea {
     border-radius: 25px;
     box-shadow: 1px 1px 1px 1px #23354e;
     font-weight: 500;
-    background: #071b2f;
+    background: #000000;
     color: antiquewhite;
     border: 0;
 }
@@ -97,8 +102,9 @@ textarea {
     width: 45%;
     flex-direction: column;
     align-items: center;
-    background-color: #0000008a;
+    background-color: #0a1a2cde;
     border-radius: 20px;
+    justify-content: center;
 }
 #download-btn {
     width: 40%;
@@ -276,7 +282,7 @@ textarea {
     border-radius: 25px;
     box-shadow: 1px 1px 1px 1px #23354e;
     font-weight: 500;
-    background: #071b2f;
+    background: #000000;
     color: antiquewhite;
     border: 0;
 }
@@ -287,10 +293,11 @@ textarea {
 }
 .left-text-boxes {
     width: 80%;
-    padding: 0 0 15px 0;
+    padding: 15px 0 15px 0;
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin: 0 0 20px 0;
 }
 .meme-editor-box {
     display: flex;
@@ -324,7 +331,6 @@ textarea {
     height: 45vh;
     width: -webkit-fill-available;
     object-fit: contain;
-    padding: 15px 10px;
 }
 .canvas-img-load {
     display: flex;
@@ -332,6 +338,7 @@ textarea {
     flex-direction: column;
     align-items: center;
     margin: 15px 0;
+    justify-content: center;
 }
 .after-folds {
     height: auto;

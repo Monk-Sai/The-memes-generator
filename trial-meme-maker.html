@@ -42,7 +42,7 @@
   position: absolute;
   width: 20px;
   height: 20px;
-  background-color: #ff0000;
+  background-color: #ff0000ad;
 }
 
 .resize-handle-top {
@@ -101,6 +101,23 @@
     position: absolute;
 }
 
+.choose-file-btn {
+    background-color: #000000;
+    box-shadow: 1px 1px 1px 1px #23354e;
+    border: none;
+    padding: 10px 0;
+    color: white;
+    width: 60%;
+    display: inline-block;
+    text-align: center;
+    font-size: 16px;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+#image-input {
+    display: none;
+}
 
     </style>
 </head>
@@ -136,9 +153,9 @@
         </div>
         <div class="meme-creator-container">
             <div class="left-text-boxes">
-                <p>
-                    <input type="file" id="image-input" accept="image/*" style="font-size: 16px;">
-                </p>
+                <label class="choose-file-btn">
+                    Upload Image<input type="file" id="image-input" accept="image/*">
+                </label>
                 <p>
                     <textarea placeholder="Top Text" id="top-text"></textarea>
                     Text size: <input type="range" id="top-text-size-input" min="0.05" max="0.25" value="0.15" step="0.01">
@@ -210,59 +227,54 @@
 
 /* Meme Creator */ 
 
-let topTextInput, bottomTextInput, topTextSizeInput, bottomTextSizeInput, imageInput, canvas, ctx;
+let topTextInput, bottomTextInput, topTextSizeInput, bottomTextSizeInput, imageInput, generateBtn, canvas, ctx;
 
 function generateMeme(img, topText, bottomText, topTextSize, bottomTextSize) {
-    let fontSize;
+  let fontSize;
 
-    const imgElement = new Image();
+  img.onload = function () {
+  canvas.width = img.width;
+  canvas.height = img.height;
 
-    imgElement.onload = function () {
-        canvas.width = imgElement.width;
-        canvas.height = imgElement.height;
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.drawImage(img, 0, 0);
 
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        ctx.drawImage(imgElement, 0, 0);
+  ctx.fillStyle = "white";
+  ctx.strokeStyle = "#000";
+  ctx.textAlign = "center";
 
-        ctx.fillStyle = "white";
-        ctx.strokeStyle = "#000";
-        ctx.textAlign = "center";
+  // Top text font size
+  fontSize = canvas.width * topTextSize;
+  ctx.font = fontSize + 'px Impact';
+  ctx.lineWidth = canvas.width * 0.004;
 
-        // Top text font size
-        fontSize = canvas.width * topTextSize;
-        ctx.font = fontSize + 'px Impact';
-        ctx.lineWidth = canvas.width * 0.004;
+  // Draw top text
+  ctx.textBaseline = 'top';
+  topText.split('\n').forEach(function (t, i) {
+      ctx.fillText(t, canvas.width / 2, i * fontSize, canvas.width);
+      ctx.strokeText(t, canvas.width / 2, i * fontSize, canvas.width);
+  });
 
-        // Draw top text
-        ctx.textBaseline = 'top';
-        topText.split('\n').forEach(function (t, i) {
-            ctx.fillText(t, canvas.width / 2, i * fontSize, canvas.width);
-            ctx.strokeText(t, canvas.width / 2, i * fontSize, canvas.width);
-        });
+  // Bottom text font size
+  fontSize = canvas.width * bottomTextSize;
+  ctx.font = fontSize + 'px Impact';
+  ctx.lineWidth = canvas.width*0.004;
 
-        // Bottom text font size
-        fontSize = canvas.width * bottomTextSize;
-        ctx.font = fontSize + 'px Impact';
-        ctx.lineWidth = canvas.width * 0.004;
+  // Draw bottom text
+  ctx.textBaseline = 'bottom';
+  bottomText.split('\n').reverse().forEach(function (t, i) {
+      ctx.fillText(t, canvas.width / 2, canvas.height - i * fontSize, canvas.width);
+      ctx.strokeText(t, canvas.width / 2, canvas.height - i * fontSize, canvas.width);
+   });
 
-        // Draw bottom text
-        ctx.textBaseline = 'bottom';
-        bottomText.split('\n').reverse().forEach(function (t, i) {
-            ctx.fillText(t, canvas.width / 2, canvas.height - i * fontSize, canvas.width);
-            ctx.strokeText(t, canvas.width / 2, canvas.height - i * fontSize, canvas.width);
-        });
+  // Show the download button
+  downloadBtn.style.display = 'flex';
 
-        // Show the download button
-        downloadBtn.style.display = 'flex';
-
-        // Remove existing event listener before adding a new one
-        downloadBtn.removeEventListener('click', downloadMeme);
-        downloadBtn.addEventListener('click', downloadMeme);
-    };
-
-    imgElement.src = img.src; // Set the source of the image element
+  // Remove existing event listener before adding a new one
+  downloadBtn.removeEventListener('click', downloadMeme);
+  downloadBtn.addEventListener('click', downloadMeme);
+};
 }
-
 
   // download function
 function downloadMeme() {
@@ -280,16 +292,29 @@ function init() {
     // Get references to elements
     topTextInput = document.getElementById('top-text');
     canvas = document.getElementById('meme-canvas');
+    generateBtn = document.getElementById('generate-btn');
     downloadBtn = document.getElementById('download-btn');
     bottomTextInput = document.getElementById('bottom-text');
     topTextSizeInput = document.getElementById('top-text-size-input');
     bottomTextSizeInput = document.getElementById('bottom-text-size-input');
     imageInput = document.getElementById('image-input');
-    
+  
     // Get 2D context from canvas
     ctx = canvas.getContext('2d');
   
     fontSize = null; // Optional: Allow setting a custom font size
+
+
+    // Add event listener to generate button
+    generateBtn.addEventListener('click', function () {
+      const reader = new FileReader();
+      reader.onload = function () {
+        const img = new Image();
+        img.src = reader.result;
+        generateMeme(img, topTextInput.value, bottomTextInput.value, topTextSizeInput.value, bottomTextSizeInput.value);
+      };
+      reader.readAsDataURL(imageInput.files[0]);
+    });
 
     const templateImages = document.querySelectorAll('.meme-template-box img');
     templateImages.forEach(img => {
@@ -304,14 +329,27 @@ function init() {
       // Remove selected class from all templates
       templateImages.forEach(templateImg => templateImg.classList.remove('selected'));
 
+      // Add selected class to clicked image
+      this.classList.add('selected');
+      generateBtn.addEventListener('click', function () {
+        const selectedTemplate = document.querySelector('.meme-template-box img.selected');
+        if (selectedTemplate) {
+          const imgSrc = selectedTemplate.src;
+          const img = new Image();
+          img.src = imgSrc;
+          generateMeme(img, topTextInput.value, bottomTextInput.value, topTextSizeInput.value, bottomTextSizeInput.value);
+        } else {
+          alert('Please select a template image first!');
+        }
+      });
     });
-        if (templateImages.length > 0) {
-         // Get a random template index
-        const randomIndex = Math.floor(Math.random() * templateImages.length);
+    if (templateImages.length > 0) {
+      // Get a random template index
+     const randomIndex = Math.floor(Math.random() * templateImages.length);
 
-        // Simulate a click on the randomly selected template
-        templateImages[randomIndex].click();
-    }
+     // Simulate a click on the randomly selected template
+     templateImages[randomIndex].click();
+   }
   });
 }
 
@@ -340,7 +378,6 @@ resizableBox.addEventListener('touchstart', startDrag);
 document.addEventListener('touchmove', move);
 document.addEventListener('touchend', endDrag);
 
-
 // Add event listeners for resizing
 resizeHandles.forEach(handle => {
   handle.addEventListener('mousedown', startResize);
@@ -361,29 +398,14 @@ function move(evt) {
   const { clientX, clientY } = getCoordinates(evt);
   const deltaX = clientX - startX;
   const deltaY = clientY - startY;
-  
 
   // Calculate the new position of the text box while ensuring it stays within the canvas boundaries
-  const newLeft = initialX + deltaX;
-  const newTop = Math.max(initialY, initialY + deltaY); // Ensure newTop doesn't go above initialY
+  const newLeft = Math.max(canvasRect.offsetLeft, Math.min(canvasRect.offsetLeft + canvasRect.offsetWidth - resizableBox.offsetWidth, initialX + deltaX));
+  const newTop = Math.max(canvasRect.offsetTop, Math.min(canvasRect.offsetTop + canvasRect.offsetHeight - resizableBox.offsetHeight, initialY + deltaY));
 
   // Update the position of the text box
   resizableBox.style.left = newLeft + 'px';
   resizableBox.style.top = newTop + 'px';
-
-  // Schedule update using requestAnimationFrame
-  requestAnimationFrame(() => {
-    // Calculate max/min positions here
-    const maxLeft = canvasRect.offsetLeft + canvasRect.offsetWidth - resizableBox.offsetWidth;
-    const maxTop = canvasRect.offsetTop + canvasRect.offsetHeight - resizableBox.offsetHeight;
-
-    const minLeft = canvasRect.offsetLeft;
-    const minTop = canvasRect.offsetTop;
-
-    // Update the position of the text box
-    resizableBox.style.left = Math.max(minLeft, Math.min(maxLeft, newLeft)) + 'px';
-    resizableBox.style.top = Math.max(minTop, Math.min(maxTop, newTop)) + 'px';
-  });
 }
 
 function endDrag() {
@@ -421,29 +443,24 @@ function resize(evt) {
   // Adjust newWidth and newHeight based on the handle being dragged
   switch (evt.target.className.split(' ').pop()) {
     case 'resize-handle-top':
-    newHeight = Math.max(0, initialHeight - deltaY);
-    resizableBox.style.transform = `translate(${initialX}px, ${initialY + deltaY}px) scaleY(${newHeight / initialHeight})`;
-    break;
-  case 'resize-handle-right':
-    newWidth = Math.max(0, initialWidth + deltaX);
-    resizableBox.style.transform = `translate(${initialX}px, ${initialY}px) scaleX(${newWidth / initialWidth})`;
-    break;
-  case 'resize-handle-bottom':
-    newHeight = Math.max(0, initialHeight + deltaY);
-    resizableBox.style.transform = `translate(${initialX}px, ${initialY}px) scaleY(${newHeight / initialHeight})`;
-    break;
-  case 'resize-handle-left':
-    newWidth = Math.max(0, initialWidth - deltaX);
-    resizableBox.style.transform = `translate(${initialX + deltaX}px, ${initialY}px) scaleX(${newWidth / initialWidth})`;
-    break;
+      newHeight = initialHeight - deltaY;
+      resizableBox.style.height = newHeight + 'px';
+      resizableBox.style.top = initialY + deltaY + 'px';
+      break;
+    case 'resize-handle-right':
+      newWidth = initialWidth + deltaX;
+      resizableBox.style.width = newWidth + 'px';
+      break;
+    case 'resize-handle-bottom':
+      newHeight = initialHeight + deltaY;
+      resizableBox.style.height = newHeight + 'px';
+      break;
+    case 'resize-handle-left':
+      newWidth = initialWidth - deltaX;
+      resizableBox.style.width = newWidth + 'px';
+      resizableBox.style.left = initialX + deltaX + 'px';
+      break;
   }
-  requestAnimationFrame(() => {
-    // Update width and height styles
-    resizableBox.style.width = newWidth + 'px';
-    resizableBox.style.height = newHeight + 'px';
-    // Optionally update top position for top handle
-  });
-
 }
 
 function getCoordinates(evt) {
