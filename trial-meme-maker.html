@@ -12,7 +12,8 @@
     <link rel="icon" href="imgs\TMG.png">
     <link rel="canonical" href="https://thememesgenerator.com/memes-creator">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins">
-
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/spectrum/1.8.0/spectrum.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/spectrum/1.8.0/spectrum.min.js"></script>
     <style>
 .resizable-box {
   position: absolute;
@@ -115,8 +116,94 @@
     cursor: pointer;
 }
 
+#custom-set-btn {
+  display: inline-block;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
 #image-input {
     display: none;
+}
+
+.Ltxt-B1 {
+  display: flex;
+  width: 100%;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Popup container */
+.text-custom-box {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.5); /* Black background with opacity */
+  }
+
+  /* Popup content */
+  .popup-content {
+    display: flex;
+    row-gap: 12px;
+    column-gap: 15px;
+    width: 30%;
+    height: 35%;
+    justify-content: center;
+    color: #fefefe;
+    background-color: #132137;
+    box-shadow: 9px 9px 3px 3px #2a2437;
+    align-items: center;
+    position: absolute;
+    padding: 18px;
+    top: 42%;
+    left: 0%;
+    flex-wrap: wrap;
+    flex-direction: column;
+  }
+
+  /* Close button */
+  .close {
+    color: #fff;
+    float: right;
+    font-size: 40px;
+    font-weight: bold;
+  }
+
+  .close:hover,
+  .close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+@media screen and (max-width: 910px) {
+
+  .popup-content {
+    display: flex;
+    row-gap: 12px;
+    /* column-gap: 15px; */
+    width: 100%;
+    height: 30vh;
+    justify-content: center;
+    color: #fff;
+    background-color: #132137;
+    /* box-shadow: 9px 9px 3px 3px #2a2437; */
+    align-items: center;
+    position: absolute;
+    padding: 20px 0;
+    top: 65%;
+    /* position: sticky; */
+    /* left: 0%; */
+    flex-wrap: wrap;
+    flex-direction: column;
+  }
 }
 
     </style>
@@ -157,13 +244,14 @@
                     Upload Image<input type="file" id="image-input" accept="image/*">
                 </label>
                 <p>
-                    <textarea placeholder="Top Text" id="top-text"></textarea>
-                    Text size: <input type="range" id="top-text-size-input" min="0.05" max="0.25" value="0.15" step="0.01">
+                    <div class="Ltxt-B1"><textarea placeholder="Top Text" id="top-text"></textarea> 
+                      <button id="custom-set-btn" onclick="openPopup()"><img src="imgs/settings.png" width="25px"></button>
+                    </div>
                 </p>
-                <p>
+                <!-- <p>
                     <textarea placeholder="Bottom Text" id="bottom-text"></textarea>
                     Text size: <input type="range" id="bottom-text-size-input" min="0.05" max="0.25" value="0.15" step="0.01">
-                </p>
+                </p> -->
                 <div class="all-gen-btn">
                     <button id="generate-btn">More Options</button>
                 </div>
@@ -172,7 +260,28 @@
             <div class="canvas-img-load">
                 <canvas id="meme-canvas"></canvas>
                 <div class="resizable-box">
-                    <textarea id="text-area" placeholder="Your text"></textarea>
+                    <textarea id="on-canvas-TB" placeholder="Your text"></textarea>
+                  <div class="text-custom-box" id="text-custom-box">
+                    <div class="popup-content">
+                      <span class="close" onclick="closePopup()">&times;</span>
+                      <label for="font-color">Font Color:</label>
+                      <input type="color" id="font-color">
+                      <label for="font-size">Font Size:</label>
+                      <input type="number" id="font-size" min="1" max="100">
+                      <label for="font-family">Font Family:</label>
+                      <select id="font-family">
+                        <option value="Arial, sans-serif">Arial</option>
+                        <option value="Times New Roman, serif">Times New Roman</option>
+                        <option value="Courier New, monospace">Courier New</option>
+                        <!-- Add more font options as needed -->
+                      </select>
+                      <label for="background-color">Background Color:</label>
+                      <input type="color" id="background-color" class="color-picker">
+                      <label for="font-bold">Bold:</label>
+                      <input type="checkbox" id="font-bold">
+                    </div>
+                  </div>
+
                     <div class="resize-handle-top"> 
                         <div class="resize-top"></div>
                     </div>
@@ -227,9 +336,9 @@
 
 /* Meme Creator */ 
 
-let topTextInput, bottomTextInput, topTextSizeInput, bottomTextSizeInput, imageInput, generateBtn, canvas, ctx;
+let topTextInput, topTextSizeInput, imageInput, generateBtn, canvas, ctx;
 
-function generateMeme(img, topText, bottomText, topTextSize, bottomTextSize) {
+function generateMeme(img, topText, topTextSize) {
   let fontSize;
 
   img.onload = function () {
@@ -255,7 +364,7 @@ function generateMeme(img, topText, bottomText, topTextSize, bottomTextSize) {
       ctx.strokeText(t, canvas.width / 2, i * fontSize, canvas.width);
   });
 
-  // Bottom text font size
+  /* // Bottom text font size
   fontSize = canvas.width * bottomTextSize;
   ctx.font = fontSize + 'px Impact';
   ctx.lineWidth = canvas.width*0.004;
@@ -265,7 +374,8 @@ function generateMeme(img, topText, bottomText, topTextSize, bottomTextSize) {
   bottomText.split('\n').reverse().forEach(function (t, i) {
       ctx.fillText(t, canvas.width / 2, canvas.height - i * fontSize, canvas.width);
       ctx.strokeText(t, canvas.width / 2, canvas.height - i * fontSize, canvas.width);
-   });
+   }); */
+
 
   // Show the download button
   downloadBtn.style.display = 'flex';
@@ -288,15 +398,65 @@ function downloadMeme() {
   document.body.removeChild(a);
 };
 
+// Custom Font for text on image
+const onCanvasTB = document.getElementById('on-canvas-TB');
+  const fontColorPicker = document.getElementById('font-color');
+  const fontSizeInput = document.getElementById('font-size');
+  const fontFamilySelect = document.getElementById('font-family');
+  const backgroundColorPicker = document.getElementById('background-color');
+  const fontBoldCheckbox = document.getElementById('font-bold');
+
+  fontColorPicker.addEventListener('input', updateStyle);
+  fontSizeInput.addEventListener('input', updateStyle);
+  fontFamilySelect.addEventListener('change', updateStyle);
+  backgroundColorPicker.addEventListener('input', updateStyle);
+  fontBoldCheckbox.addEventListener('change', updateStyle);
+
+  // Function to update the style of the textarea
+  function updateStyle() {
+    onCanvasTB.style.color = fontColorPicker.value;
+    onCanvasTB.style.fontSize = fontSizeInput.value + 'px';
+    onCanvasTB.style.fontFamily = fontFamilySelect.value;
+    onCanvasTB.style.backgroundColor = backgroundColorPicker.value;
+    onCanvasTB.style.fontWeight = fontBoldCheckbox.checked ? 'bold' : 'normal';
+  };
+
+  // Function to open the popup
+  function openPopup() {
+    document.getElementById('text-custom-box').style.display = 'flex';
+  }
+
+  // Function to close the popup
+  function closePopup() {
+    document.getElementById('text-custom-box').style.display = 'none';
+  }
+
+  // Add event listeners to input elements for live updates
+  document.getElementById('font-color').addEventListener('input', updateStyle);
+  document.getElementById('font-size').addEventListener('input', updateStyle);
+  document.getElementById('font-family').addEventListener('change', updateStyle);
+  document.getElementById('background-color').addEventListener('input', updateStyle);
+  document.getElementById('font-bold').addEventListener('change', updateStyle);
+
+  // Function to update the style of the textarea
+  function updateStyle() {
+    const onCanTb = document.getElementById('on-canvas-TB');
+    onCanTb.style.color = document.getElementById('font-color').value;
+    onCanTb.style.fontSize = document.getElementById('font-size').value + 'px';
+    onCanTb.style.fontFamily = document.getElementById('font-family').value;
+    onCanTb.style.backgroundColor = document.getElementById('background-color').value;
+    onCanTb.style.fontWeight = document.getElementById('font-bold').checked ? 'bold' : 'normal';
+  }
+
 function init() {
     // Get references to elements
     topTextInput = document.getElementById('top-text');
     canvas = document.getElementById('meme-canvas');
     generateBtn = document.getElementById('generate-btn');
     downloadBtn = document.getElementById('download-btn');
-    bottomTextInput = document.getElementById('bottom-text');
-    topTextSizeInput = document.getElementById('top-text-size-input');
-    bottomTextSizeInput = document.getElementById('bottom-text-size-input');
+    /* bottomTextInput = document.getElementById('bottom-text'); */
+    /* topTextSizeInput = document.getElementById('top-text-size-input'); */
+    /* bottomTextSizeInput = document.getElementById('bottom-text-size-input'); */
     imageInput = document.getElementById('image-input');
   
     // Get 2D context from canvas
@@ -311,7 +471,7 @@ function init() {
       reader.onload = function () {
         const img = new Image();
         img.src = reader.result;
-        generateMeme(img, topTextInput.value, bottomTextInput.value, topTextSizeInput.value, bottomTextSizeInput.value);
+        generateMeme(img, topTextInput.value, topTextSizeInput.value);
       };
       reader.readAsDataURL(imageInput.files[0]);
     });
@@ -324,7 +484,7 @@ function init() {
             const imgSrc = selectedTemplate.src;
             const img = new Image();
             img.src = imgSrc;
-            generateMeme(img, topTextInput.value, bottomTextInput.value, topTextSizeInput.value, bottomTextSizeInput.value);
+            generateMeme(img, topTextInput.value);
 
       // Remove selected class from all templates
       templateImages.forEach(templateImg => templateImg.classList.remove('selected'));
@@ -337,7 +497,7 @@ function init() {
           const imgSrc = selectedTemplate.src;
           const img = new Image();
           img.src = imgSrc;
-          generateMeme(img, topTextInput.value, bottomTextInput.value, topTextSizeInput.value, bottomTextSizeInput.value);
+          generateMeme(img);
         } else {
           alert('Please select a template image first!');
         }
@@ -476,6 +636,13 @@ function getCoordinates(evt) {
     };
   }
 }
+
+document.addEventListener('DOMContentLoaded', function() {
+  var colorPicker = document.querySelector('.color-picker');
+  Spectrum.load({
+    container: colorPicker
+  });
+});
 
 </script>
 </html>
