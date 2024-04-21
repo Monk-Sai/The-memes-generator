@@ -138,6 +138,46 @@ function init() {
   });
 }
 
+document.addEventListener('DOMContentLoaded', function() {
+  const templateImages = document.querySelectorAll('.meme-template-box img');
+  const imageInput = document.getElementById('image-input');
+
+  imageInput.addEventListener('change', function() {
+    const reader = new FileReader();
+    reader.onload = function () {
+      const img = new Image();
+      img.src = reader.result;
+      generateMeme(img, topTextInput.value);
+    };
+    reader.readAsDataURL(this.files[0]);
+  });
+
+  templateImages.forEach(img => {
+    img.addEventListener('click', function() {
+      const selectedTemplate = this; // Use the clicked image as the selected template
+      const imgSrc = selectedTemplate.src;
+      const img = new Image();
+      img.src = imgSrc;
+      generateMeme(img, topTextInput.value);
+
+      // Remove selected class from all templates
+      templateImages.forEach(templateImg => templateImg.classList.remove('selected'));
+
+      // Add selected class to clicked image
+      this.classList.add('selected');
+    });
+  });
+
+  if (templateImages.length > 0) {
+    // Get a random template index
+    const randomIndex = Math.floor(Math.random() * templateImages.length);
+
+    // Simulate a click on the randomly selected template
+    templateImages[randomIndex].click();
+  }
+});
+
+
 // Initialize the script after the DOM content is loaded
 document.addEventListener('DOMContentLoaded', function() {
   init();

@@ -92,6 +92,22 @@ textarea {
     color: antiquewhite;
     border: 0;
 }
+
+#add-textbox-btn {
+    width: 75%;
+    padding: 10px;
+    font-size: 18px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    border-radius: 25px;
+    box-shadow: 1px 1px 1px 1px #23354e;
+    font-weight: 500;
+    background: #071b2f;
+    color: antiquewhite;
+    border: 0;
+}
+
 .all-gen-btn {
     width: 65%;
     display: flex;
@@ -286,6 +302,22 @@ textarea {
     color: antiquewhite;
     border: 0;
 }
+
+#add-textbox-btn {
+    width: 80%;
+    padding: 10px;
+    font-size: 18px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    border-radius: 25px;
+    box-shadow: 1px 1px 1px 1px #23354e;
+    font-weight: 500;
+    background: #071b2f;
+    color: antiquewhite;
+    border: 0;
+}
+
 .all-gen-btn {
     width: 100%;
     display: flex;

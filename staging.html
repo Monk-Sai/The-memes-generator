@@ -19,7 +19,7 @@
   position: absolute;
   width: 200px;
   height: 100px;
-  border: 1px solid #ddd;
+  border: none;
   background-color: transparent;
 }
 .resizable-box ::before {
@@ -31,6 +31,7 @@
   margin: 0;
   height: 100%;
   padding: 10px;
+  border-style: dotted;
   cursor: move;
   background: transparent;
   box-shadow: none;
@@ -133,6 +134,7 @@
   flex-direction: row;
   justify-content: center;
   align-items: center;
+  margin: 10% 0 10px 0;
 }
 
 /* Popup container */
@@ -215,7 +217,7 @@
         <nav class="main-header">
             <div class="header-logo">
             <a href="https://thememesgenerator.com/" title="Meme generator home page">
-            <img src="imgs/TMG.png">
+            <img src="imgs/TMG logo.png">
             </a>
             </div>
             <ul class="sidebar">
@@ -243,17 +245,15 @@
                 <label class="choose-file-btn">
                     Upload Image<input type="file" id="image-input" accept="image/*">
                 </label>
-                <p>
-                    <div class="Ltxt-B1"><textarea placeholder="Top Text" id="top-text"></textarea> 
+                    <div class="Ltxt-B1"><textarea placeholder="Add Your Text" id="top-text"></textarea> 
                       <button id="custom-set-btn" onclick="openPopup()"><img src="imgs/settings.png" width="25px"></button>
                     </div>
-                </p>
                 <!-- <p>
                     <textarea placeholder="Bottom Text" id="bottom-text"></textarea>
                     Text size: <input type="range" id="bottom-text-size-input" min="0.05" max="0.25" value="0.15" step="0.01">
                 </p> -->
                 <div class="all-gen-btn">
-                    <button id="generate-btn">More Options</button>
+                    <button id="add-textbox-btn" style="background-color: #dbc8c833; width: 50%; font-size: 16px; padding: 5px;">Add Textbox</button>
                 </div>
             </div>
     
@@ -336,7 +336,7 @@
 
 /* Meme Creator */ 
 
-let topTextInput, topTextSizeInput, imageInput, generateBtn, canvas, ctx;
+let topTextInput, topTextSizeInput, imageInput, canvas, ctx;
 
 function generateMeme(img, topText, topTextSize) {
   let fontSize;
@@ -387,17 +387,31 @@ function generateMeme(img, topText, topTextSize) {
 }
 
   // download function
-function downloadMeme() {
+  function downloadMeme() {
+  // Create a new canvas to combine meme canvas and resizable box content
+  const combinedCanvas = document.createElement('canvas');
+  const combinedCtx = combinedCanvas.getContext('2d');
+
+  // Set canvas dimensions
+  combinedCanvas.width = canvas.width;
+  combinedCanvas.height = canvas.height + onCanvasTB.offsetHeight;
+
+  // Draw meme canvas onto combined canvas
+  combinedCtx.drawImage(canvas, 0, 0);
+
+  // Draw resizable box content onto combined canvas
+  combinedCtx.fillStyle = getComputedStyle(onCanvasTB).backgroundColor;
+  combinedCtx.fillRect(onCanvasTB.offsetLeft, canvas.height, onCanvasTB.offsetWidth, resizableBox.offsetHeight);
+
   // Trigger the download
-  const dataURL = canvas.toDataURL('image/png');
+  const dataURL = combinedCanvas.toDataURL('image/png');
   const a = document.createElement('a');
   a.href = dataURL;
   a.download = 'meme.png';
   document.body.appendChild(a);
   a.click();
   document.body.removeChild(a);
-};
-
+}
 // Custom Font for text on image
 const onCanvasTB = document.getElementById('on-canvas-TB');
   const fontColorPicker = document.getElementById('font-color');
@@ -452,7 +466,6 @@ function init() {
     // Get references to elements
     topTextInput = document.getElementById('top-text');
     canvas = document.getElementById('meme-canvas');
-    generateBtn = document.getElementById('generate-btn');
     downloadBtn = document.getElementById('download-btn');
     /* bottomTextInput = document.getElementById('bottom-text'); */
     /* topTextSizeInput = document.getElementById('top-text-size-input'); */
@@ -464,17 +477,6 @@ function init() {
   
     fontSize = null; // Optional: Allow setting a custom font size
 
-
-    // Add event listener to generate button
-    generateBtn.addEventListener('click', function () {
-      const reader = new FileReader();
-      reader.onload = function () {
-        const img = new Image();
-        img.src = reader.result;
-        generateMeme(img, topTextInput.value, topTextSizeInput.value);
-      };
-      reader.readAsDataURL(imageInput.files[0]);
-    });
 
     const templateImages = document.querySelectorAll('.meme-template-box img');
     templateImages.forEach(img => {
@@ -488,20 +490,6 @@ function init() {
 
       // Remove selected class from all templates
       templateImages.forEach(templateImg => templateImg.classList.remove('selected'));
-
-      // Add selected class to clicked image
-      this.classList.add('selected');
-      generateBtn.addEventListener('click', function () {
-        const selectedTemplate = document.querySelector('.meme-template-box img.selected');
-        if (selectedTemplate) {
-          const imgSrc = selectedTemplate.src;
-          const img = new Image();
-          img.src = imgSrc;
-          generateMeme(img);
-        } else {
-          alert('Please select a template image first!');
-        }
-      });
     });
     if (templateImages.length > 0) {
       // Get a random template index
@@ -512,6 +500,46 @@ function init() {
    }
   });
 }
+
+document.addEventListener('DOMContentLoaded', function() {
+  const templateImages = document.querySelectorAll('.meme-template-box img');
+  const imageInput = document.getElementById('image-input');
+
+  imageInput.addEventListener('change', function() {
+    const reader = new FileReader();
+    reader.onload = function () {
+      const img = new Image();
+      img.src = reader.result;
+      generateMeme(img, topTextInput.value);
+    };
+    reader.readAsDataURL(this.files[0]);
+  });
+
+  templateImages.forEach(img => {
+    img.addEventListener('click', function() {
+      const selectedTemplate = this; // Use the clicked image as the selected template
+      const imgSrc = selectedTemplate.src;
+      const img = new Image();
+      img.src = imgSrc;
+      generateMeme(img, topTextInput.value);
+
+      // Remove selected class from all templates
+      templateImages.forEach(templateImg => templateImg.classList.remove('selected'));
+
+      // Add selected class to clicked image
+      this.classList.add('selected');
+    });
+  });
+
+  if (templateImages.length > 0) {
+    // Get a random template index
+    const randomIndex = Math.floor(Math.random() * templateImages.length);
+
+    // Simulate a click on the randomly selected template
+    templateImages[randomIndex].click();
+  }
+});
+
 
 // Initialize the script after the DOM content is loaded
 document.addEventListener('DOMContentLoaded', function() {
@@ -643,6 +671,9 @@ document.addEventListener('DOMContentLoaded', function() {
     container: colorPicker
   });
 });
+
+
+
 
 </script>
 </html>

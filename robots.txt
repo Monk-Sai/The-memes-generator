@@ -1,5 +1,5 @@
 User-agent: *
 Disallow:
-Disallow: /trial-meme-maker.html
+Disallow: /staging.html
 
 sitemap: https://www.thememesgenerator.com/sitemap.xml
