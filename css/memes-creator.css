@@ -76,6 +76,8 @@ textarea {
     background: #0a1a2cde;
     padding: 20px 0;
     border-radius: 25px;
+    max-height: 65%;
+    overflow-y: overlay;
 }
 
 #generate-btn {
@@ -109,7 +111,7 @@ textarea {
 }
 
 .all-gen-btn {
-    width: 65%;
+    width: 75%;
     display: flex;
     justify-content: center;
 }
@@ -330,6 +332,8 @@ textarea {
     flex-direction: column;
     align-items: center;
     margin: 0 0 20px 0;
+    max-height: 375px;
+    overflow-y: scroll;
 }
 .meme-editor-box {
     display: flex;

@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="css/meme-gen.css">
     <link rel="stylesheet" href="css/memes-creator.css">
     <meta name="author" content="Memes Creator">
-    <link rel="icon" href="imgs\TMG.png">
+    <link rel="icon" href="imgs/favicon.svg">
     <link rel="canonical" href="https://thememesgenerator.com/memes-creator">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins">
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/spectrum/1.8.0/spectrum.min.css">
@@ -134,7 +134,6 @@
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  margin: 10% 0 10px 0;
 }
 
 /* Popup container */
@@ -157,7 +156,7 @@
     column-gap: 15px;
     width: 30%;
     height: 35%;
-    justify-content: center;
+    justify-content: flex-start;
     color: #fefefe;
     background-color: #132137;
     box-shadow: 9px 9px 3px 3px #2a2437;
@@ -185,15 +184,46 @@
     cursor: pointer;
   }
 
-@media screen and (max-width: 910px) {
+  .pop-box-col {
+    display: flex;
+    flex-direction: row;
+    margin: 0 15px;
+  }
 
+  .pop-con1-div {
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+    margin: 0 15px;
+  }
+  .pop-con2-div {
+    display: flex;
+    flex-direction: column;
+    row-gap: 15px;
+  }
+
+  .TA-Set-Boxes {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin: 15px 0 10px 0;
+  }
+
+  .add-textbox {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin: 10px 0 0 0;
+  }
+
+@media screen and (max-width: 910px) {
   .popup-content {
     display: flex;
     row-gap: 12px;
     /* column-gap: 15px; */
     width: 100%;
     height: 30vh;
-    justify-content: center;
+    justify-content: flex-start;
     color: #fff;
     background-color: #132137;
     /* box-shadow: 9px 9px 3px 3px #2a2437; */
@@ -208,6 +238,28 @@
   }
 }
 
+@media screen and (max-width: 376px) {
+  .popup-content {
+    display: flex;
+    row-gap: 12px;
+    /* column-gap: 15px; */
+    width: 100%;
+    height: 30vh;
+    justify-content: flex-start;
+    color: #fff;
+    background-color: #132137;
+    /* box-shadow: 9px 9px 3px 3px #2a2437; */
+    align-items: center;
+    position: absolute;
+    padding: 20px 0;
+    top: 65%;
+    /* position: sticky; */
+    /* left: 0%; */
+    flex-wrap: wrap;
+    flex-direction: row;
+  }
+}
+
     </style>
 </head>
 
@@ -217,7 +269,7 @@
         <nav class="main-header">
             <div class="header-logo">
             <a href="https://thememesgenerator.com/" title="Meme generator home page">
-            <img src="imgs/TMG logo.png">
+            <img src="imgs/favicon.svg">
             </a>
             </div>
             <ul class="sidebar">
@@ -245,13 +297,14 @@
                 <label class="choose-file-btn">
                     Upload Image<input type="file" id="image-input" accept="image/*">
                 </label>
+                  <div class="TA-Set-Boxes">
                     <div class="Ltxt-B1"><textarea placeholder="Add Your Text" id="top-text"></textarea> 
-                      <button id="custom-set-btn" onclick="openPopup()"><img src="imgs/settings.png" width="25px"></button>
+                      <button id="custom-set-btn" onclick="openPopup()"><img src="imgs/settings.svg" width="25px"></button>
                     </div>
-                <!-- <p>
-                    <textarea placeholder="Bottom Text" id="bottom-text"></textarea>
-                    Text size: <input type="range" id="bottom-text-size-input" min="0.05" max="0.25" value="0.15" step="0.01">
-                </p> -->
+                    <div class="Ltxt-B1"><textarea placeholder="Add Your Text" id="top-text"></textarea> 
+                      <button id="custom-set-btn" onclick="openPopup()"><img src="imgs/settings.svg" width="25px"></button>
+                    </div>
+                  </div>
                 <div class="all-gen-btn">
                     <button id="add-textbox-btn" style="background-color: #dbc8c833; width: 50%; font-size: 16px; padding: 5px;">Add Textbox</button>
                 </div>
@@ -261,26 +314,38 @@
                 <canvas id="meme-canvas"></canvas>
                 <div class="resizable-box">
                     <textarea id="on-canvas-TB" placeholder="Your text"></textarea>
-                  <div class="text-custom-box" id="text-custom-box">
-                    <div class="popup-content">
+                <div class="text-custom-box" id="text-custom-box">
+                  <div class="popup-content">
                       <span class="close" onclick="closePopup()">&times;</span>
-                      <label for="font-color">Font Color:</label>
-                      <input type="color" id="font-color">
-                      <label for="font-size">Font Size:</label>
-                      <input type="number" id="font-size" min="1" max="100">
-                      <label for="font-family">Font Family:</label>
-                      <select id="font-family">
-                        <option value="Arial, sans-serif">Arial</option>
-                        <option value="Times New Roman, serif">Times New Roman</option>
-                        <option value="Courier New, monospace">Courier New</option>
-                        <!-- Add more font options as needed -->
-                      </select>
-                      <label for="background-color">Background Color:</label>
-                      <input type="color" id="background-color" class="color-picker">
-                      <label for="font-bold">Bold:</label>
-                      <input type="checkbox" id="font-bold">
+                    <div class="pop-box-col">
+                      <div class="pop-con1-div">
+                        <div>
+                          <label for="font-color">Font Color:</label>
+                          <input type="color" id="font-color">
+                        </div>
+                        <div>
+                          <label for="font-size">Font Size:</label>
+                          <input type="number" id="font-size" min="1" max="100">
+                        </div>
+                        <div>
+                          <label for="font-bold">Bold:</label>
+                          <input type="checkbox" id="font-bold"></input>
+                        </div>
+                      </div>
+                      <div class="pop-con2-div">
+                        <label for="background-color">Background Color:</label>
+                        <input type="color" id="background-color" class="color-picker">
+                        <label for="font-family">Font Family:</label>
+                        <select id="font-family">
+                          <option value="Arial, sans-serif">Arial</option>
+                          <option value="Times New Roman, serif">Times New Roman</option>
+                          <option value="Courier New, monospace">Courier New</option>
+                          <!-- Add more font options as needed -->
+                        </select>
+                      </div>
                     </div>
                   </div>
+                </div>
 
                     <div class="resize-handle-top"> 
                         <div class="resize-top"></div>
@@ -672,8 +737,40 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 });
 
+document.addEventListener('DOMContentLoaded', function() {
+    const addTextBoxBtn = document.getElementById('add-textbox-btn');
+    const leftTextBoxes = document.querySelector('.left-text-boxes');
 
+    addTextBoxBtn.addEventListener('click', function() {
+        // Check if the limit of 4 text boxes has been reached
+        if (leftTextBoxes.querySelectorAll('.add-textbox').length >= 4) {
+            alert('You can only add up to 4 text boxes.');
+            return; // Exit the function if the limit is reached
+        }
 
+        // Create a new div element
+        const newDiv = document.createElement('div');
+        newDiv.className = 'add-textbox';
+
+        // Create a new textarea element
+        const textarea = document.createElement('textarea');
+        textarea.placeholder = 'Add Your Text';
+
+        // Create a new button element
+        const button = document.createElement('custom-set-btn');
+        button.innerHTML = '<img src="imgs/settings.svg" width="25px">';
+        button.onclick = openPopup;
+        // inline style for button
+        button.style.cursor = 'pointer';
+
+        // Append textarea and button to the new div
+        newDiv.appendChild(textarea);
+        newDiv.appendChild(button);
+
+        // Append the new div to the parent element
+        leftTextBoxes.appendChild(newDiv);
+    });
+});
 
 </script>
 </html>
