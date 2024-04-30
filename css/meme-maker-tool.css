@@ -72,6 +72,8 @@ textarea {
 
 .left-text-boxes {
     width: 25%;
+    max-height: 65%;
+    overflow-y: overlay;
 }
 
 #generate-btn {
@@ -279,6 +281,8 @@ textarea {
     flex-direction: column;
     align-items: center;
     padding: 0 0 15px 0;
+    max-height: 375px;
+    overflow-y: overlay;
 }
 .meme-editor-box {
     display: flex;
