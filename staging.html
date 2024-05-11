@@ -15,9 +15,9 @@
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/spectrum/1.8.0/spectrum.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/spectrum/1.8.0/spectrum.min.js"></script>
     <style>
-.resizable-box {
+.resizable-box, .resizable-box-2 {
   position: absolute;
-  width: 200px;
+  width: 150px;
   height: 100px;
   border: none;
   background-color: transparent;
@@ -26,7 +26,7 @@
     border: none;
 }
 
-.resizable-box textarea {
+.resizable-box textarea, .resizable-box-2 textarea {
   width: 100%;
   margin: 0;
   height: 100%;
@@ -159,7 +159,7 @@
     justify-content: flex-start;
     color: #fefefe;
     background-color: #132137;
-    box-shadow: 9px 9px 3px 3px #2a2437;
+    box-shadow: 9px 9px 3px 3px #0e002e;
     align-items: center;
     position: absolute;
     padding: 18px;
@@ -298,10 +298,10 @@
                     Upload Image<input type="file" id="image-input" accept="image/*">
                 </label>
                   <div class="TA-Set-Boxes">
-                    <div class="Ltxt-B1"><textarea placeholder="Add Your Text" id="top-text"></textarea> 
+                    <div class="Ltxt-B1"><textarea placeholder="Add Your Text" id="text-1"></textarea> 
                       <button id="custom-set-btn" onclick="openPopup()"><img src="imgs/settings.svg" width="25px"></button>
                     </div>
-                    <div class="Ltxt-B1"><textarea placeholder="Add Your Text" id="top-text"></textarea> 
+                    <div class="Ltxt-B1"><textarea placeholder="Add Your Text" id="text-2"></textarea> 
                       <button id="custom-set-btn" onclick="openPopup()"><img src="imgs/settings.svg" width="25px"></button>
                     </div>
                   </div>
@@ -331,6 +331,14 @@
                           <label for="font-bold">Bold:</label>
                           <input type="checkbox" id="font-bold"></input>
                         </div>
+                        <div>
+                            <label for="font-border-input">Border:</label>
+                            <input type="number" id="font-border-input" min="0" max="20">
+                        </div>
+                        <div>
+                            <label for="border-color-input">Border Color:</label>
+                            <input type="color" id="border-color-input">
+                        </div>
                       </div>
                       <div class="pop-con2-div">
                         <label for="background-color">Background Color:</label>
@@ -340,6 +348,76 @@
                           <option value="Arial, sans-serif">Arial</option>
                           <option value="Times New Roman, serif">Times New Roman</option>
                           <option value="Courier New, monospace">Courier New</option>
+                          <option value="Poppins">Poppins</option>
+                          <!-- Add more font options as needed -->
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                    <div class="resize-handle-top"> 
+                        <div class="resize-top"></div>
+                    </div>
+                    <div class="resize-handle-right">
+                        <div class="resize-right"></div>
+                    </div>
+                    <div class="resize-handle-bottom">
+                        <div class="resize-bottom"></div>
+                    </div>
+                    <div class="resize-handle-left">
+                        <div class="resize-left"></div>
+                    </div>
+                    <div class="resize-handle-topleft">
+                        <div class="resize-top-left"></div>
+                    </div>
+                    <div class="resize-handle-topright">
+                        <div class="resize-top-right"></div>
+                    </div>
+                    <div class="resize-handle-bottomleft">
+                        <div class="resize-bottom-left"></div>
+                    </div>
+                    <div class="resize-handle-bottomright">
+                        <div class="resize-bottom-right"></div>
+                    </div>
+                  </div>
+                <div class="resizable-box-2">
+                    <textarea id="on-canvas-TB" placeholder="Your text"></textarea>
+                <div class="text-custom-box" id="text-custom-box">
+                  <div class="popup-content">
+                      <span class="close" onclick="closePopup()">&times;</span>
+                    <div class="pop-box-col">
+                      <div class="pop-con1-div">
+                        <div>
+                          <label for="font-color">Font Color:</label>
+                          <input type="color" id="font-color">
+                        </div>
+                        <div>
+                          <label for="font-size">Font Size:</label>
+                          <input type="number" id="font-size" min="1" max="100">
+                        </div>
+                        <div>
+                          <label for="font-bold">Bold:</label>
+                          <input type="checkbox" id="font-bold"></input>
+                        </div>
+                        <div>
+                            <label for="font-border-input">Border:</label>
+                            <input type="number" id="font-border-input" min="0" max="20">
+                        </div>
+                        <div>
+                            <label for="border-color-input">Border Color:</label>
+                            <input type="color" id="border-color-input">
+                        </div>
+                      </div>
+                      <div class="pop-con2-div">
+                        <label for="background-color">Background Color:</label>
+                        <input type="color" id="background-color" class="color-picker">
+                        <label for="font-family">Font Family:</label>
+                        <select id="font-family">
+                          <option value="Arial, sans-serif">Arial</option>
+                          <option value="Times New Roman, serif">Times New Roman</option>
+                          <option value="Courier New, monospace">Courier New</option>
+                          <option value="Poppins">Poppins</option>
                           <!-- Add more font options as needed -->
                         </select>
                       </div>
@@ -399,378 +477,439 @@
 </body>
 <script>
 
-/* Meme Creator */ 
-
-let topTextInput, topTextSizeInput, imageInput, canvas, ctx;
-
-function generateMeme(img, topText, topTextSize) {
-  let fontSize;
-
-  img.onload = function () {
-  canvas.width = img.width;
-  canvas.height = img.height;
-
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-  ctx.drawImage(img, 0, 0);
-
-  ctx.fillStyle = "white";
-  ctx.strokeStyle = "#000";
-  ctx.textAlign = "center";
-
-  // Top text font size
-  fontSize = canvas.width * topTextSize;
-  ctx.font = fontSize + 'px Impact';
-  ctx.lineWidth = canvas.width * 0.004;
-
-  // Draw top text
-  ctx.textBaseline = 'top';
-  topText.split('\n').forEach(function (t, i) {
-      ctx.fillText(t, canvas.width / 2, i * fontSize, canvas.width);
-      ctx.strokeText(t, canvas.width / 2, i * fontSize, canvas.width);
-  });
-
-  /* // Bottom text font size
-  fontSize = canvas.width * bottomTextSize;
-  ctx.font = fontSize + 'px Impact';
-  ctx.lineWidth = canvas.width*0.004;
-
-  // Draw bottom text
-  ctx.textBaseline = 'bottom';
-  bottomText.split('\n').reverse().forEach(function (t, i) {
-      ctx.fillText(t, canvas.width / 2, canvas.height - i * fontSize, canvas.width);
-      ctx.strokeText(t, canvas.width / 2, canvas.height - i * fontSize, canvas.width);
-   }); */
-
-
-  // Show the download button
-  downloadBtn.style.display = 'flex';
-
-  // Remove existing event listener before adding a new one
-  downloadBtn.removeEventListener('click', downloadMeme);
-  downloadBtn.addEventListener('click', downloadMeme);
-};
-}
-
-  // download function
-  function downloadMeme() {
-  // Create a new canvas to combine meme canvas and resizable box content
-  const combinedCanvas = document.createElement('canvas');
-  const combinedCtx = combinedCanvas.getContext('2d');
-
-  // Set canvas dimensions
-  combinedCanvas.width = canvas.width;
-  combinedCanvas.height = canvas.height + onCanvasTB.offsetHeight;
-
-  // Draw meme canvas onto combined canvas
-  combinedCtx.drawImage(canvas, 0, 0);
-
-  // Draw resizable box content onto combined canvas
-  combinedCtx.fillStyle = getComputedStyle(onCanvasTB).backgroundColor;
-  combinedCtx.fillRect(onCanvasTB.offsetLeft, canvas.height, onCanvasTB.offsetWidth, resizableBox.offsetHeight);
-
-  // Trigger the download
-  const dataURL = combinedCanvas.toDataURL('image/png');
-  const a = document.createElement('a');
-  a.href = dataURL;
-  a.download = 'meme.png';
-  document.body.appendChild(a);
-  a.click();
-  document.body.removeChild(a);
-}
-// Custom Font for text on image
-const onCanvasTB = document.getElementById('on-canvas-TB');
-  const fontColorPicker = document.getElementById('font-color');
-  const fontSizeInput = document.getElementById('font-size');
-  const fontFamilySelect = document.getElementById('font-family');
-  const backgroundColorPicker = document.getElementById('background-color');
-  const fontBoldCheckbox = document.getElementById('font-bold');
-
-  fontColorPicker.addEventListener('input', updateStyle);
-  fontSizeInput.addEventListener('input', updateStyle);
-  fontFamilySelect.addEventListener('change', updateStyle);
-  backgroundColorPicker.addEventListener('input', updateStyle);
-  fontBoldCheckbox.addEventListener('change', updateStyle);
-
-  // Function to update the style of the textarea
-  function updateStyle() {
-    onCanvasTB.style.color = fontColorPicker.value;
-    onCanvasTB.style.fontSize = fontSizeInput.value + 'px';
-    onCanvasTB.style.fontFamily = fontFamilySelect.value;
-    onCanvasTB.style.backgroundColor = backgroundColorPicker.value;
-    onCanvasTB.style.fontWeight = fontBoldCheckbox.checked ? 'bold' : 'normal';
-  };
-
-  // Function to open the popup
-  function openPopup() {
-    document.getElementById('text-custom-box').style.display = 'flex';
-  }
-
-  // Function to close the popup
-  function closePopup() {
-    document.getElementById('text-custom-box').style.display = 'none';
-  }
-
-  // Add event listeners to input elements for live updates
-  document.getElementById('font-color').addEventListener('input', updateStyle);
-  document.getElementById('font-size').addEventListener('input', updateStyle);
-  document.getElementById('font-family').addEventListener('change', updateStyle);
-  document.getElementById('background-color').addEventListener('input', updateStyle);
-  document.getElementById('font-bold').addEventListener('change', updateStyle);
-
-  // Function to update the style of the textarea
-  function updateStyle() {
-    const onCanTb = document.getElementById('on-canvas-TB');
-    onCanTb.style.color = document.getElementById('font-color').value;
-    onCanTb.style.fontSize = document.getElementById('font-size').value + 'px';
-    onCanTb.style.fontFamily = document.getElementById('font-family').value;
-    onCanTb.style.backgroundColor = document.getElementById('background-color').value;
-    onCanTb.style.fontWeight = document.getElementById('font-bold').checked ? 'bold' : 'normal';
-  }
-
-function init() {
-    // Get references to elements
-    topTextInput = document.getElementById('top-text');
-    canvas = document.getElementById('meme-canvas');
-    downloadBtn = document.getElementById('download-btn');
-    /* bottomTextInput = document.getElementById('bottom-text'); */
-    /* topTextSizeInput = document.getElementById('top-text-size-input'); */
-    /* bottomTextSizeInput = document.getElementById('bottom-text-size-input'); */
-    imageInput = document.getElementById('image-input');
+  /* Meme Creator */ 
   
-    // Get 2D context from canvas
-    ctx = canvas.getContext('2d');
+  let topTextInput, topTextSizeInput, imageInput, canvas, ctx;
   
-    fontSize = null; // Optional: Allow setting a custom font size
-
-
-    const templateImages = document.querySelectorAll('.meme-template-box img');
-    templateImages.forEach(img => {
-        img.addEventListener('click', function() {
-            // Perform the same actions as the generate button click
-            const selectedTemplate = this; // Use the clicked image as the selected template
-            const imgSrc = selectedTemplate.src;
-            const img = new Image();
-            img.src = imgSrc;
-            generateMeme(img, topTextInput.value);
-
-      // Remove selected class from all templates
-      templateImages.forEach(templateImg => templateImg.classList.remove('selected'));
+  function generateMeme(img, topText, topTextSize) {
+    let fontSize;
+  
+    img.onload = function () {
+    canvas.width = img.width;
+    canvas.height = img.height;
+  
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.drawImage(img, 0, 0);
+  
+    ctx.fillStyle = "white";
+    ctx.strokeStyle = "#000";
+    ctx.textAlign = "center";
+  
+    // Top text font size
+    fontSize = canvas.width * topTextSize;
+    ctx.font = fontSize + 'px Impact';
+    ctx.lineWidth = canvas.width * 0.004;
+  
+    // Draw top text
+    ctx.textBaseline = 'top';
+    topText.split('\n').forEach(function (t, i) {
+        ctx.fillText(t, canvas.width / 2, i * fontSize, canvas.width);
+        ctx.strokeText(t, canvas.width / 2, i * fontSize, canvas.width);
     });
+  
+    /* // Bottom text font size
+    fontSize = canvas.width * bottomTextSize;
+    ctx.font = fontSize + 'px Impact';
+    ctx.lineWidth = canvas.width*0.004;
+  
+    // Draw bottom text
+    ctx.textBaseline = 'bottom';
+    bottomText.split('\n').reverse().forEach(function (t, i) {
+        ctx.fillText(t, canvas.width / 2, canvas.height - i * fontSize, canvas.width);
+        ctx.strokeText(t, canvas.width / 2, canvas.height - i * fontSize, canvas.width);
+     }); */
+  
+  
+    // Show the download button
+    downloadBtn.style.display = 'flex';
+  
+    // Remove existing event listener before adding a new one
+    downloadBtn.removeEventListener('click', downloadMeme);
+    downloadBtn.addEventListener('click', downloadMeme);
+  };
+  }
+  
+    // download function
+    function downloadMeme() {
+    // Create a new canvas to combine meme canvas and resizable box content
+    const combinedCanvas = document.createElement('canvas');
+    const combinedCtx = combinedCanvas.getContext('2d');
+  
+    // Set canvas dimensions
+    combinedCanvas.width = canvas.width;
+    combinedCanvas.height = canvas.height + onCanvasTB.offsetHeight;
+  
+    // Draw meme canvas onto combined canvas
+    combinedCtx.drawImage(canvas, 0, 0);
+  
+    // Draw resizable box content onto combined canvas
+    combinedCtx.fillStyle = getComputedStyle(onCanvasTB).backgroundColor;
+    combinedCtx.fillRect(onCanvasTB.offsetLeft, canvas.height, onCanvasTB.offsetWidth, resizableBox.offsetHeight);
+  
+    // Trigger the download
+    const dataURL = combinedCanvas.toDataURL('image/png');
+    const a = document.createElement('a');
+    a.href = dataURL;
+    a.download = 'meme.png';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+  }
+  
+  // Custom Font for text on image
+    const onCanvasTB = document.getElementById('on-canvas-TB');
+    const fontColorPicker = document.getElementById('font-color');
+    const fontSizeInput = document.getElementById('font-size');
+    const fontFamilySelect = document.getElementById('font-family');
+    const backgroundColorPicker = document.getElementById('background-color');
+    const fontBoldCheckbox = document.getElementById('font-bold');
+    const fontBorderInput = document.getElementById('font-border-input');
+    const borderColorInput = document.getElementById('border-color-input');
+  
+    fontColorPicker.addEventListener('input', updateStyle);
+    fontSizeInput.addEventListener('input', updateStyle);
+    fontFamilySelect.addEventListener('change', updateStyle);
+    backgroundColorPicker.addEventListener('input', updateStyle);
+    fontBoldCheckbox.addEventListener('change', updateStyle);
+    fontBorderInput.addEventListener('input', updateStyle);
+    borderColorInput.addEventListener('input', updateStyle);
+  
+    // Function to update the style of the textarea
+    function updateStyle() {
+      onCanvasTB.style.color = fontColorPicker.value;
+      onCanvasTB.style.fontSize = fontSizeInput.value + 'px';
+      onCanvasTB.style.fontFamily = fontFamilySelect.value;
+      onCanvasTB.style.backgroundColor = backgroundColorPicker.value;
+      onCanvasTB.style.fontWeight = fontBoldCheckbox.checked ? 'bold' : 'normal';
+      onCanvasTB.style.border = fontBorderInput.value + 'px';
+      onCanvasTB.style.borderColor = borderColorInput.value;
+    };
+  
+    // Function to open the popup
+    function openPopup() {
+      document.getElementById('text-custom-box').style.display = 'flex';
+    }
+  
+    // Function to close the popup
+    function closePopup() {
+      document.getElementById('text-custom-box').style.display = 'none';
+    }
+  
+    // Add event listeners to input elements for live updates
+    document.getElementById('font-color').addEventListener('input', updateStyle);
+    document.getElementById('font-size').addEventListener('input', updateStyle);
+    document.getElementById('font-family').addEventListener('change', updateStyle);
+    document.getElementById('background-color').addEventListener('input', updateStyle);
+    document.getElementById('font-bold').addEventListener('change', updateStyle);
+    document.getElementById('font-border-input').addEventListener('input', updateStyle);
+    document.getElementById('border-color-input').addEventListener('input', updateStyle);
+  
+    // Function to update the style of the textarea
+    function updateStyle() {
+      const onCanTb = document.getElementById('on-canvas-TB');
+      onCanTb.style.color = document.getElementById('font-color').value;
+      onCanTb.style.fontSize = document.getElementById('font-size').value + 'px';
+      onCanTb.style.fontFamily = document.getElementById('font-family').value;
+      onCanTb.style.backgroundColor = document.getElementById('background-color').value;
+      onCanTb.style.fontWeight = document.getElementById('font-bold').checked ? 'bold' : 'normal';
+      onCanTb.style.borderWidth = document.getElementById('font-border-input').value + 'px';
+      onCanTb.style.borderColorInput = document.getElementById('border-color-input').value;
+    }
+  
+  function init() {
+      // Get references to elements
+      topTextInput = document.getElementById('text-1');
+      canvas = document.getElementById('meme-canvas');
+      downloadBtn = document.getElementById('download-btn');
+      /* bottomTextInput = document.getElementById('bottom-text'); */
+      /* topTextSizeInput = document.getElementById('top-text-size-input'); */
+      /* bottomTextSizeInput = document.getElementById('bottom-text-size-input'); */
+      imageInput = document.getElementById('image-input');
+    
+      // Get 2D context from canvas
+      ctx = canvas.getContext('2d');
+    
+      fontSize = null; // Optional: Allow setting a custom font size
+  
+  
+      const templateImages = document.querySelectorAll('.meme-template-box img');
+      templateImages.forEach(img => {
+          img.addEventListener('click', function() {
+              // Perform the same actions as the generate button click
+              const selectedTemplate = this; // Use the clicked image as the selected template
+              const imgSrc = selectedTemplate.src;
+              const img = new Image();
+              img.src = imgSrc;
+              generateMeme(img, topTextInput.value);
+  
+        // Remove selected class from all templates
+        templateImages.forEach(templateImg => templateImg.classList.remove('selected'));
+      });
+      if (templateImages.length > 0) {
+        // Get a random template index
+       const randomIndex = Math.floor(Math.random() * templateImages.length);
+  
+       // Simulate a click on the randomly selected template
+       templateImages[randomIndex].click();
+     }
+    });
+  }
+  
+  document.addEventListener('DOMContentLoaded', function() {
+    const templateImages = document.querySelectorAll('.meme-template-box img');
+    const imageInput = document.getElementById('image-input');
+  
+    imageInput.addEventListener('change', function() {
+      const reader = new FileReader();
+      reader.onload = function () {
+        const img = new Image();
+        img.src = reader.result;
+        generateMeme(img, topTextInput.value);
+      };
+      reader.readAsDataURL(this.files[0]);
+    });
+  
+    templateImages.forEach(img => {
+      img.addEventListener('click', function() {
+        const selectedTemplate = this; // Use the clicked image as the selected template
+        const imgSrc = selectedTemplate.src;
+        const img = new Image();
+        img.src = imgSrc;
+        generateMeme(img, topTextInput.value);
+  
+        // Remove selected class from all templates
+        templateImages.forEach(templateImg => templateImg.classList.remove('selected'));
+  
+        // Add selected class to clicked image
+        this.classList.add('selected');
+      });
+    });
+  
     if (templateImages.length > 0) {
       // Get a random template index
-     const randomIndex = Math.floor(Math.random() * templateImages.length);
-
-     // Simulate a click on the randomly selected template
-     templateImages[randomIndex].click();
-   }
+      const randomIndex = Math.floor(Math.random() * templateImages.length);
+  
+      // Simulate a click on the randomly selected template
+      templateImages[randomIndex].click();
+    }
   });
-}
-
-document.addEventListener('DOMContentLoaded', function() {
-  const templateImages = document.querySelectorAll('.meme-template-box img');
-  const imageInput = document.getElementById('image-input');
-
-  imageInput.addEventListener('change', function() {
-    const reader = new FileReader();
-    reader.onload = function () {
-      const img = new Image();
-      img.src = reader.result;
-      generateMeme(img, topTextInput.value);
-    };
-    reader.readAsDataURL(this.files[0]);
-  });
-
-  templateImages.forEach(img => {
-    img.addEventListener('click', function() {
-      const selectedTemplate = this; // Use the clicked image as the selected template
-      const imgSrc = selectedTemplate.src;
-      const img = new Image();
-      img.src = imgSrc;
-      generateMeme(img, topTextInput.value);
-
-      // Remove selected class from all templates
-      templateImages.forEach(templateImg => templateImg.classList.remove('selected'));
-
-      // Add selected class to clicked image
-      this.classList.add('selected');
+  
+  
+  // Initialize the script after the DOM content is loaded
+  document.addEventListener('DOMContentLoaded', function() {
+    init();
+  })
+  
+  function makeResizable(resizableElement) {
+      const resizeHandles = resizableElement.querySelectorAll('.resize-handle-top, .resize-handle-left, .resize-handle-right, .resize-handle-bottom, .resize-handle-topleft, .resize-handle-topright, .resize-handle-bottomleft, .resize-handle-bottomright');
+  
+      let isDragging = false;
+      let startX, startY, initialX, initialY;
+      let startResizeX, startResizeY, initialWidth, initialHeight;
+  
+      // Event listeners for mouse dragging
+      resizableElement.addEventListener('mousedown', startDrag);
+      document.addEventListener('mousemove', move);
+      document.addEventListener('mouseup', endDrag);
+  
+      // Event listeners for touch dragging
+      resizableElement.addEventListener('touchstart', startDrag);
+      document.addEventListener('touchmove', move);
+      document.addEventListener('touchend', endDrag);
+  
+      // Event listeners for resizing
+      resizeHandles.forEach(handle => {
+          handle.addEventListener('mousedown', startResize);
+          handle.addEventListener('touchstart', startResize);
+      });
+  
+      function startDrag(evt) {
+          isDragging = true;
+          const { clientX, clientY } = getCoordinates(evt);
+          startX = clientX;
+          startY = clientY;
+          initialX = resizableElement.offsetLeft;
+          initialY = resizableElement.offsetTop;
+      }
+  
+      function move(evt) {
+          if (!isDragging) return;
+          const { clientX, clientY } = getCoordinates(evt);
+          const deltaX = clientX - startX;
+          const deltaY = clientY - startY;
+  
+          const newLeft = initialX + deltaX;
+          const newTop = initialY + deltaY;
+  
+          resizableElement.style.left = newLeft + 'px';
+          resizableElement.style.top = newTop + 'px';
+      }
+  
+      function endDrag() {
+          isDragging = false;
+      }
+  
+      function startResize(evt) {
+          startResizeX = evt.clientX || evt.touches[0].clientX;
+          startResizeY = evt.clientY || evt.touches[0].clientY;
+          initialWidth = resizableElement.offsetWidth;
+          initialHeight = resizableElement.offsetHeight;
+  
+          evt.preventDefault();
+          evt.stopPropagation();
+  
+          document.addEventListener('mousemove', resize);
+          document.addEventListener('touchmove', resize);
+          document.addEventListener('mouseup', endResize);
+      }
+  
+      function resize(evt) {
+          if (startResizeX === null || startResizeY === null) return;
+          const { clientX, clientY } = getCoordinates(evt);
+          const deltaX = clientX - startResizeX;
+          const deltaY = clientY - startResizeY;
+  
+          let newWidth, newHeight;
+  
+          switch (evt.target.className.split(' ').pop()) {
+              case 'resize-handle-top':
+                  newHeight = initialHeight - deltaY;
+                  resizableElement.style.height = newHeight + 'px';
+                  resizableElement.style.top = initialY + deltaY + 'px';
+                  break;
+              case 'resize-handle-right':
+                  newWidth = initialWidth + deltaX;
+                  resizableElement.style.width = newWidth + 'px';
+                  break;
+              case 'resize-handle-bottom':
+                  newHeight = initialHeight + deltaY;
+                  resizableElement.style.height = newHeight + 'px';
+                  break;
+              case 'resize-handle-left':
+                  newWidth = initialWidth - deltaX;
+                  resizableElement.style.width = newWidth + 'px';
+                  resizableElement.style.left = initialX + deltaX + 'px';
+                  break;
+              case 'resize-handle-topleft':
+                  newWidth = initialWidth - deltaX;
+                  newHeight = initialHeight - deltaY;
+                  resizableElement.style.width = newWidth + 'px';
+                  resizableElement.style.height = newHeight + 'px';
+                  resizableElement.style.top = initialY + deltaY + 'px';
+                  resizableElement.style.left = initialX + deltaX + 'px';
+                  break;
+              case 'resize-handle-topright':
+                  newWidth = initialWidth + deltaX;
+                  newHeight = initialHeight - deltaY;
+                  resizableElement.style.width = newWidth + 'px';
+                  resizableElement.style.height = newHeight + 'px';
+                  resizableElement.style.top = initialY + deltaY + 'px';
+                  break;
+              case 'resize-handle-bottomleft':
+                  newWidth = initialWidth - deltaX;
+                  newHeight = initialHeight + deltaY;
+                  resizableElement.style.width = newWidth + 'px';
+                  resizableElement.style.height = newHeight + 'px';
+                  resizableElement.style.left = initialX + deltaX + 'px';
+                  break;
+              case 'resize-handle-bottomright':
+                  newWidth = initialWidth + deltaX;
+                  newHeight = initialHeight + deltaY;
+                  resizableElement.style.width = newWidth + 'px';
+                  resizableElement.style.height = newHeight + 'px';
+                  break;
+          }
+      }
+  
+      function endResize() {
+          document.removeEventListener('mousemove', resize);
+          document.removeEventListener('touchmove', resize);
+          startResizeX = initialWidth = null;
+          startResizeY = initialHeight = null;
+      }
+  
+      function getCoordinates(evt) {
+          let clientX, clientY;
+  
+          if (evt.touches && evt.touches.length) {
+              clientX = evt.touches[0].clientX;
+              clientY = evt.touches[0].clientY;
+          } else if (evt.changedTouches && evt.changedTouches.length) {
+              clientX = evt.changedTouches[0].clientX;
+              clientY = evt.changedTouches[0].clientY;
+          } else if (evt.clientX !== undefined && evt.clientY !== undefined) {
+              clientX = evt.clientX;
+              clientY = evt.clientY;
+          } else if (evt.pageX !== undefined && evt.pageY !== undefined) {
+              clientX = evt.pageX - window.pageXOffset;
+              clientY = evt.pageY - window.pageYOffset;
+          } else if (evt.screenX !== undefined && evt.screenY !== undefined) {
+              clientX = evt.screenX - window.screenX;
+              clientY = evt.screenY - window.screenY;
+          }
+  
+          return { clientX, clientY };
+      }
+  }
+  
+  // Call the function to make resizable-box resizable
+  makeResizable(document.querySelector('.resizable-box'));
+  
+  // Call the function to make resizable-box-2 resizable
+  makeResizable(document.querySelector('.resizable-box-2'));
+  
+  
+  // Initialize Spectrum color picker
+  document.addEventListener('DOMContentLoaded', function() {
+    var colorPicker = document.querySelector('.color-picker');
+    Spectrum.load({
+      container: colorPicker
     });
   });
-
-  if (templateImages.length > 0) {
-    // Get a random template index
-    const randomIndex = Math.floor(Math.random() * templateImages.length);
-
-    // Simulate a click on the randomly selected template
-    templateImages[randomIndex].click();
+  
+  // Function to update the value of textarea with the text from text-1 input
+  function updateCanvasTextArea() {
+    const topText = document.getElementById("text-1").value;
+    document.getElementById("on-canvas-TB").value = topText;
   }
-});
-
-
-// Initialize the script after the DOM content is loaded
-document.addEventListener('DOMContentLoaded', function() {
-  init();
-})
-
-const resizableBox = document.querySelector('.resizable-box');
-const textArea = document.getElementById('text-area');
-const resizeHandles = document.querySelectorAll('.resize-handle-top, .resize-handle-left, .resize-handle-right, .resize-handle-bottom');
-const canvasRect = document.getElementById('meme-canvas');
-
-let isDragging = false; // Flag to track dragging state
-let startX, startY, initialX, initialY;
-
-let startResizeX, startResizeY, initialWidth, initialHeight;
-
-// Add event listeners for mouse dragging
-resizableBox.addEventListener('mousedown', startDrag);
-document.addEventListener('mousemove', move);
-document.addEventListener('mouseup', endDrag);
-
-// Add event listeners for touch dragging
-resizableBox.addEventListener('touchstart', startDrag);
-document.addEventListener('touchmove', move);
-document.addEventListener('touchend', endDrag);
-
-// Add event listeners for resizing
-resizeHandles.forEach(handle => {
-  handle.addEventListener('mousedown', startResize);
-  handle.addEventListener('touchstart', startResize);
-});
-
-function startDrag(evt) {
-  isDragging = true;
-  const { clientX, clientY } = getCoordinates(evt);
-  startX = clientX;
-  startY = clientY;
-  initialX = resizableBox.offsetLeft;
-  initialY = resizableBox.offsetTop;
-}
-
-function move(evt) {
-  if (!isDragging) return;
-  const { clientX, clientY } = getCoordinates(evt);
-  const deltaX = clientX - startX;
-  const deltaY = clientY - startY;
-
-  // Calculate the new position of the text box while ensuring it stays within the canvas boundaries
-  const newLeft = Math.max(canvasRect.offsetLeft, Math.min(canvasRect.offsetLeft + canvasRect.offsetWidth - resizableBox.offsetWidth, initialX + deltaX));
-  const newTop = Math.max(canvasRect.offsetTop, Math.min(canvasRect.offsetTop + canvasRect.offsetHeight - resizableBox.offsetHeight, initialY + deltaY));
-
-  // Update the position of the text box
-  resizableBox.style.left = newLeft + 'px';
-  resizableBox.style.top = newTop + 'px';
-}
-
-function endDrag() {
-  isDragging = false;
-}
-
-function startResize(evt) {
-  startResizeX = evt.clientX || evt.touches[0].clientX;
-  startResizeY = evt.clientY || evt.touches[0].clientY;
-  initialWidth = resizableBox.offsetWidth;
-  initialHeight = resizableBox.offsetHeight;
-
-  // Prevent default touch behavior
-  evt.preventDefault();
-  evt.stopPropagation();
-  // Add event listeners for resizing
-  document.addEventListener('mousemove', resize);
-  document.addEventListener('touchmove', resize);
-  document.addEventListener('mouseup', () => {
-    document.removeEventListener('mousemove', resize);
-    document.removeEventListener('touchmove', resize);
-    startResizeX = initialWidth = null;
-    startResizeY = initialHeight = null;
+  
+  // Add event listener to text-1 input to call the updateCanvasTextArea function on input change
+  document.getElementById("text-1").addEventListener("input", updateCanvasTextArea);
+  
+  document.addEventListener('DOMContentLoaded', function() {
+      const addTextBoxBtn = document.getElementById('add-textbox-btn');
+      const leftTextBoxes = document.querySelector('.left-text-boxes');
+  
+      addTextBoxBtn.addEventListener('click', function() {
+          // Check if the limit of 4 text boxes has been reached
+          if (leftTextBoxes.querySelectorAll('.add-textbox').length >= 4) {
+              alert('You can only add up to 4 text boxes.');
+              return; // Exit the function if the limit is reached
+          }
+  
+          // Create a new div element
+          const newDiv = document.createElement('div');
+          newDiv.className = 'add-textbox';
+  
+          // Create a new textarea element
+          const textarea = document.createElement('textarea');
+          textarea.placeholder = 'Add Your Text';
+  
+          // Create a new button element
+          const button = document.createElement('custom-set-btn');
+          button.innerHTML = '<img src="imgs/settings.svg" width="25px">';
+          button.onclick = openPopup;
+          // inline style for button
+          button.style.cursor = 'pointer';
+  
+          // Append textarea and button to the new div
+          newDiv.appendChild(textarea);
+          newDiv.appendChild(button);
+  
+          // Append the new div to the parent element
+          leftTextBoxes.appendChild(newDiv);
+      });
   });
-}
-
-function resize(evt) {
-  if (startResizeX === null || startResizeY === null) return; // Prevent resizing when not dragging
-  const { clientX, clientY } = getCoordinates(evt);
-  const deltaX = clientX - startResizeX;
-  const deltaY = clientY - startResizeY;
-
-  let newWidth, newHeight;
-
-  // Adjust newWidth and newHeight based on the handle being dragged
-  switch (evt.target.className.split(' ').pop()) {
-    case 'resize-handle-top':
-      newHeight = initialHeight - deltaY;
-      resizableBox.style.height = newHeight + 'px';
-      resizableBox.style.top = initialY + deltaY + 'px';
-      break;
-    case 'resize-handle-right':
-      newWidth = initialWidth + deltaX;
-      resizableBox.style.width = newWidth + 'px';
-      break;
-    case 'resize-handle-bottom':
-      newHeight = initialHeight + deltaY;
-      resizableBox.style.height = newHeight + 'px';
-      break;
-    case 'resize-handle-left':
-      newWidth = initialWidth - deltaX;
-      resizableBox.style.width = newWidth + 'px';
-      resizableBox.style.left = initialX + deltaX + 'px';
-      break;
-  }
-}
-
-function getCoordinates(evt) {
-  if (evt.touches && evt.touches.length) {
-    return {
-      clientX: evt.touches[0].clientX,
-      clientY: evt.touches[0].clientY
-    };
-  } else {
-    return {
-      clientX: evt.clientX,
-      clientY: evt.clientY
-    };
-  }
-}
-
-document.addEventListener('DOMContentLoaded', function() {
-  var colorPicker = document.querySelector('.color-picker');
-  Spectrum.load({
-    container: colorPicker
-  });
-});
-
-document.addEventListener('DOMContentLoaded', function() {
-    const addTextBoxBtn = document.getElementById('add-textbox-btn');
-    const leftTextBoxes = document.querySelector('.left-text-boxes');
-
-    addTextBoxBtn.addEventListener('click', function() {
-        // Check if the limit of 4 text boxes has been reached
-        if (leftTextBoxes.querySelectorAll('.add-textbox').length >= 4) {
-            alert('You can only add up to 4 text boxes.');
-            return; // Exit the function if the limit is reached
-        }
-
-        // Create a new div element
-        const newDiv = document.createElement('div');
-        newDiv.className = 'add-textbox';
-
-        // Create a new textarea element
-        const textarea = document.createElement('textarea');
-        textarea.placeholder = 'Add Your Text';
-
-        // Create a new button element
-        const button = document.createElement('custom-set-btn');
-        button.innerHTML = '<img src="imgs/settings.svg" width="25px">';
-        button.onclick = openPopup;
-        // inline style for button
-        button.style.cursor = 'pointer';
-
-        // Append textarea and button to the new div
-        newDiv.appendChild(textarea);
-        newDiv.appendChild(button);
-
-        // Append the new div to the parent element
-        leftTextBoxes.appendChild(newDiv);
-    });
-});
-
-</script>
+  
+  </script>
 </html>
